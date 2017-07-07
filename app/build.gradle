@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.sky.lazycat"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -18,14 +18,44 @@ android {
         }
     }
 }
+ext {
+    supportLibVersion = '26.0.0-alpha1'
+    constraintVersion = '1.0.2'
+    gsonVersion = '2.8.0'
+    datetimePickerVersion = '3.1.3'
+    glideVersion = '3.7.0'
+    archRoomVersion = '1.0.0-alpha3'
+    retrofitVersion = '2.2.0'
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:design:26.+'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    // 基础支持包
+    compile "com.android.support:appcompat-v7:${supportLibVersion}"
+    compile "com.android.support:design:${supportLibVersion}"
+    compile "com.android.support.constraint:constraint-layout:${constraintVersion}"
+    compile "com.android.support:preference-v14:${supportLibVersion}"
+    compile "com.android.support:customtabs:${supportLibVersion}"
+
+    // Google Room
+    compile "android.arch.persistence.room:runtime:${archRoomVersion}"
+    annotationProcessor "android.arch.persistence.room:compiler:${archRoomVersion}"
+
+    // Retrofit series
+    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
+    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+
+    // Glide
+    compile "com.github.bumptech.glide:glide:${glideVersion}"
+
+    // Material date time picker
+    compile ("com.wdullaer:materialdatetimepicker:${datetimePickerVersion}") {
+        exclude group: 'com.android.support'
+    }
+
+
     testCompile 'junit:junit:4.12'
 }
