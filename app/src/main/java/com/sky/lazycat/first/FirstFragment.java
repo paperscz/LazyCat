@@ -13,6 +13,9 @@ import android.view.ViewGroup;
 
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.remote.NeiHanRemoteDataSource;
+import com.sky.lazycat.firstneihan.NeiHanDataPresenter;
+import com.sky.lazycat.firstneihan.NeiHanDataRepository;
+import com.sky.lazycat.firstneihan.NeiHanFragment;
 
 /**
  * Created by yuetu-develop on 2017/7/6.
@@ -42,7 +45,7 @@ public class FirstFragment extends Fragment {
             mNeiHanFragment = NeiHanFragment.newInstance();
         }
 
-        new NeiHanDataPresenter(mNeiHanFragment,NeiHanDataRepository.getInstance(NeiHanRemoteDataSource.geInstance()));
+        new NeiHanDataPresenter(mNeiHanFragment, NeiHanDataRepository.getInstance(NeiHanRemoteDataSource.geInstance()));
     }
 
     @Nullable

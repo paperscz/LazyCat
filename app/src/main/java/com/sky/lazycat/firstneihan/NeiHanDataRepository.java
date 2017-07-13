@@ -1,9 +1,10 @@
-package com.sky.lazycat.first;
+package com.sky.lazycat.firstneihan;
 
-import com.sky.lazycat.data.NeiHanGroup;
+import android.util.Log;
+
+import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 import com.sky.lazycat.data.datasource.NeiHanDataSource;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,14 +33,16 @@ public class NeiHanDataRepository implements NeiHanDataSource{
 
         mRemoteDataSource.getNeiHanDailyData(false, new LoadNeiHanDataCallback() {
             @Override
-            public void onNewsLoaded(List<NeiHanGroup> list) {
-                callback.onNewsLoaded(new ArrayList<NeiHanGroup>());
-
+            public void onNewsLoaded(List<NeiHanAll.DataBean> list) {
+                // 从remote实现类里面回调了数据
+                Log.i("getData","DataSuccess长度:"+list.size());
+                callback.onNewsLoaded(list);
             }
 
             @Override
             public void onDataNotAvailable() {
                 callback.onDataNotAvailable();
+                Log.i("getData","DataFail");
             }
         });
     }
@@ -50,7 +53,7 @@ public class NeiHanDataRepository implements NeiHanDataSource{
     }
 
     @Override
-    public void saveAll(List<NeiHanGroup> list) {
+    public void saveAll(List<NeiHanAll.DataBean> list) {
 
     }
 }

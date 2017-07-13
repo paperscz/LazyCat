@@ -1,9 +1,8 @@
-package com.sky.lazycat.first;
+package com.sky.lazycat.firstneihan;
 
 import com.sky.lazycat.base.BasePresenter;
 import com.sky.lazycat.base.BaseView;
-import com.sky.lazycat.data.NeiHanData;
-import com.sky.lazycat.data.NeiHanGroup;
+import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 
 import java.util.List;
 
@@ -16,7 +15,7 @@ public interface NeiHanDataContract {
     interface View extends BaseView<Presenter>{
         boolean isActive();
         void setLoadingIndicator(boolean active);
-        void showResult(List<NeiHanGroup> list);
+        void showResult(List<NeiHanAll.DataBean> list);
     }
 
     interface Presenter extends BasePresenter{

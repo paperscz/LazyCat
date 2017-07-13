@@ -1,6 +1,6 @@
 package com.sky.lazycat.data.datasource;
 
-import com.sky.lazycat.data.NeiHanGroup;
+import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import java.util.List;
 public interface NeiHanDataSource {
 
     interface LoadNeiHanDataCallback{
-        void onNewsLoaded(List<NeiHanGroup> list);
+        void onNewsLoaded(List<NeiHanAll.DataBean> list);
         void onDataNotAvailable();
     }
     interface GetDataItemCallback {
-        void onItemLoaded(NeiHanGroup item);
+        void onItemLoaded(NeiHanAll.DataBean item);
         void onDataNotAvailable();
     }
 
@@ -23,5 +23,5 @@ public interface NeiHanDataSource {
 
     void getItem(int itemId,GetDataItemCallback callback);
 
-    void saveAll(List<NeiHanGroup> list);
+    void saveAll(List<NeiHanAll.DataBean> list);
 }

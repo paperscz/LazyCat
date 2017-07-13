@@ -2,7 +2,7 @@
 
 <resources>
 
-    <string name="app_name">纸飞机</string>
+    <string name="app_name">LazyCat</string>
 
     <string name="neihan_data">内涵精选</string>
     <string name="zhihu_daily">知乎日报</string>

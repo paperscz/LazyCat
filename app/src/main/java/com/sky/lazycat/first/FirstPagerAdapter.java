@@ -4,10 +4,9 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.PagerAdapter;
-import android.view.View;
 
 import com.sky.lazycat.R;
+import com.sky.lazycat.firstneihan.NeiHanFragment;
 
 /**
  * Created by yuetu-develop on 2017/7/7.

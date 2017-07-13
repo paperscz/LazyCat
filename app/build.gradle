@@ -55,7 +55,8 @@ dependencies {
     compile ("com.wdullaer:materialdatetimepicker:${datetimePickerVersion}") {
         exclude group: 'com.android.support'
     }
-
+    // BRVAH
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
 
     testCompile 'junit:junit:4.12'
 }

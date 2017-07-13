@@ -1,6 +1,6 @@
-package com.sky.lazycat.first;
+package com.sky.lazycat.firstneihan;
 
-import com.sky.lazycat.data.NeiHanGroup;
+import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 import com.sky.lazycat.data.datasource.NeiHanDataSource;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class NeiHanDataPresenter implements NeiHanDataContract.Presenter{
     public void loadNeiHan(boolean forceUpdate) {
         mRepository.getNeiHanDailyData(forceUpdate, new NeiHanDataSource.LoadNeiHanDataCallback() {
             @Override
-            public void onNewsLoaded(List<NeiHanGroup> list) {
+            public void onNewsLoaded(List<NeiHanAll.DataBean> list) {
                 if(mView.isActive()){
                     mView.showResult(list);
                     mView.setLoadingIndicator(false);

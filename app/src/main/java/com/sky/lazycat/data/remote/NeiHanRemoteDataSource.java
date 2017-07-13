@@ -1,10 +1,11 @@
 package com.sky.lazycat.data.remote;
 
-import com.sky.lazycat.data.NeiHanData;
-import com.sky.lazycat.data.NeiHanGroup;
-import com.sky.lazycat.data.datasource.NeiHanDataSource;
-import com.sky.lazycat.retrofit.RetrofitService;
+import android.util.Log;
 
+import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
+import com.sky.lazycat.data.datasource.NeiHanDataSource;
+import com.sky.lazycat.data.neihanduanzi.NeiHanFirst;
+import com.sky.lazycat.retrofit.RetrofitService;
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,15 +40,18 @@ public class NeiHanRemoteDataSource implements NeiHanDataSource{
                 .build();
 
         RetrofitService.NeiHanService service = retrofit.create(RetrofitService.NeiHanService.class);
-        service.getNeiHanList().enqueue(new Callback<NeiHanData>() {
+        service.getNeiHanList().enqueue(new Callback<NeiHanFirst>() {
             @Override
-            public void onResponse(Call<NeiHanData> call, Response<NeiHanData> response) {
-                callback.onNewsLoaded(response.body().getDatas());
+            public void onResponse(Call<NeiHanFirst> call, Response<NeiHanFirst> response) {
+
+                callback.onNewsLoaded(response.body().getData().getData());
             }
 
             @Override
-            public void onFailure(Call<NeiHanData> call, Throwable t) {
+            public void onFailure(Call<NeiHanFirst> call, Throwable t) {
                 callback.onDataNotAvailable();
+                Log.i("getData","DataFail:"+t.toString());
+                t.toString();
             }
         });
     }
@@ -61,7 +65,7 @@ public class NeiHanRemoteDataSource implements NeiHanDataSource{
     }
 
     @Override
-    public void saveAll(List<NeiHanGroup> list) {
+    public void saveAll(List<NeiHanAll.DataBean> list) {
 
     }
 }

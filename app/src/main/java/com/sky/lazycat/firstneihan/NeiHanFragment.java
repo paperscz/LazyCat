@@ -1,4 +1,4 @@
-package com.sky.lazycat.first;
+package com.sky.lazycat.firstneihan;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.sky.lazycat.R;
-import com.sky.lazycat.data.NeiHanGroup;
+import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 
 import java.util.List;
 
@@ -31,6 +31,8 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     private FloatingActionButton fab;
     private int mListSize = 0;
     private boolean mIsFirstLoad = true;
+    private NeiHanDataContract.Presenter mPresenter;
+    private NeiHanDataQuickAdapter mAdapter;
 
 
     public NeiHanFragment() {
@@ -51,13 +53,47 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
         View view = inflater.inflate(R.layout.fragment_first_neihan,container,false);
 
         initViews(view);
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.loadNeiHan(true);
+            }
+        });
 
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    fab.hide();
+                    if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mListSize - 1) {
+                        loadMore();
+                    }
+                } else {
+                    fab.show();
+                }
+            }
+        });
         return view;
     }
 
     @Override
-    public void setPresenter(NeiHanDataContract.Presenter presenter) {
+    public void onResume() {
+        super.onResume();
+        mPresenter.start();
+        if(mIsFirstLoad){
+            mPresenter.loadNeiHan(true);
+            mIsFirstLoad = false;
+        }else {
+            mPresenter.loadNeiHan(false);
+        }
+    }
 
+    @Override
+    public void setPresenter(NeiHanDataContract.Presenter presenter) {
+        if(presenter != null){
+            mPresenter = presenter;
+        }
     }
 
     @Override
@@ -71,18 +107,34 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
         fab = getActivity().findViewById(R.id.fab);
     }
 
+    private void loadMore(){
+        mPresenter.loadNeiHan(true);
+    }
+
     @Override
     public boolean isActive() {
-        return false;
+        return isAdded()&&isResumed();
     }
 
     @Override
-    public void setLoadingIndicator(boolean active) {
-
+    public void setLoadingIndicator(final boolean active) {
+        mRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.setRefreshing(active);
+            }
+        });
     }
 
     @Override
-    public void showResult(List<NeiHanGroup> list) {
+    public void showResult(List<NeiHanAll.DataBean> list) {
+        if(mAdapter == null){
+            mAdapter = new NeiHanDataQuickAdapter(getContext(),list);
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
 
+        }
+
+        mEmptyView.setVisibility(list.isEmpty()?View.VISIBLE:View.INVISIBLE);
     }
 }
