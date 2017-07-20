@@ -35,7 +35,7 @@ public class NeiHanDataRepository implements NeiHanDataSource{
             @Override
             public void onNewsLoaded(List<NeiHanAll.DataBean> list) {
                 // 从remote实现类里面回调了数据
-                Log.i("getData","DataSuccess长度:"+list.size());
+               // Log.i("getData","DataSuccess长度:"+list.size());
                 callback.onNewsLoaded(list);
             }
 

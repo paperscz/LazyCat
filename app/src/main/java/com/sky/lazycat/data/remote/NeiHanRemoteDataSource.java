@@ -43,14 +43,13 @@ public class NeiHanRemoteDataSource implements NeiHanDataSource{
         service.getNeiHanList().enqueue(new Callback<NeiHanFirst>() {
             @Override
             public void onResponse(Call<NeiHanFirst> call, Response<NeiHanFirst> response) {
-
                 callback.onNewsLoaded(response.body().getData().getData());
             }
 
             @Override
             public void onFailure(Call<NeiHanFirst> call, Throwable t) {
                 callback.onDataNotAvailable();
-                Log.i("getData","DataFail:"+t.toString());
+               // Log.i("getData","DataFail:"+t.toString());
                 t.toString();
             }
         });

@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/neihan_head_height"
-    android:layout_margin="@dimen/title_margin"
+    android:layout_marginTop="@dimen/bottom_margin"
+    android:layout_marginLeft="@dimen/title_margin"
+    android:layout_marginRight="@dimen/title_margin"
     android:gravity="center_vertical">
 
     <LinearLayout
@@ -13,7 +15,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_activity_black_24dp"/>
+            android:src="@drawable/ic_item_smile"/>
 
         <TextView
             android:id="@+id/tv_likecount"
@@ -28,7 +30,7 @@
             android:id="@+id/iv_dislike"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_activity_black_24dp"/>
+            android:src="@drawable/ic_item_cry"/>
 
         <TextView
             android:id="@+id/tv_dislikecount"
@@ -43,7 +45,7 @@
             android:id="@+id/iv_comment"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_activity_black_24dp"/>
+            android:src="@drawable/ic_item_comments"/>
 
         <TextView
             android:id="@+id/tv_comment_count"
@@ -59,7 +61,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:background="@color/mdtp_dark_gray"
+        android:background="@color/colordivider"
         android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

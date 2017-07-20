@@ -14,9 +14,7 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/content_text_size"
         android:maxLines="10"
-        android:ellipsize="end"
-        android:text="这里是内容"/>
-
+        android:ellipsize="end" />
     <include layout="@layout/item_neihan_bottom"/>
 
 </LinearLayout>

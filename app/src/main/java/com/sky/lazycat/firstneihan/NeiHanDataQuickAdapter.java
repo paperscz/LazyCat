@@ -1,6 +1,8 @@
 package com.sky.lazycat.firstneihan;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -23,7 +25,6 @@ public class NeiHanDataQuickAdapter extends BaseQuickAdapter<NeiHanAll.DataBean,
 
     public NeiHanDataQuickAdapter(Context context, List<NeiHanAll.DataBean> data){
         super(data);
-
         setMultiTypeDelegate(new MultiTypeDelegate<NeiHanAll.DataBean>() {
             @Override
             protected int getItemType(NeiHanAll.DataBean dataBean) {
@@ -75,23 +76,21 @@ public class NeiHanDataQuickAdapter extends BaseQuickAdapter<NeiHanAll.DataBean,
                         .placeholder(R.drawable.placeholder)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .error(R.drawable.placeholder)
-                        .centerCrop()
                         .into((ImageView)viewHolder.getView(R.id.iv_neihan_img));
             case NeiHanAll.DataBean.GIF:
                 String url = "http://pb3.pstatp.com/large/22e3000241b3c8b78fbf";
                 if(TextUtils.isEmpty(dataBean.getGroup().getLarge_image().getUrl_list().get(0).getUrl())){
-                    url = dataBean.getGroup().getLarge_image().getUrl_list().get(1).getUrl();
+                    url = dataBean.getGroup().getMiddle_image().getUrl_list().get(1).getUrl();
                 }else {
-                    url = dataBean.getGroup().getLarge_image().getUrl_list().get(2).getUrl();
+                    url = dataBean.getGroup().getMiddle_image().getUrl_list().get(2).getUrl();
                 }
 
                 Glide.with(mContext)
                         .load(url)
-                        .asGif()
+                        .asBitmap()
                         .placeholder(R.drawable.placeholder)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .error(R.drawable.placeholder)
-                        .centerCrop()
                         .into((ImageView)viewHolder.getView(R.id.iv_neihan_img));
                 break;
             case NeiHanAll.DataBean.VIDEO:

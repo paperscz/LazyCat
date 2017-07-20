@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/tv_img_text"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="@dimen/content_text_size"
@@ -18,8 +18,10 @@
         android:text="这里是内容"/>
 
     <ImageView
-        android:id="@+id/iv_neihan_img"
+        android:layout_marginTop="@dimen/title_margin"
         android:scaleType="centerCrop"
+
+        android:id="@+id/iv_neihan_img"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

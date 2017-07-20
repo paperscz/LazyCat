@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 
@@ -33,7 +34,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     private boolean mIsFirstLoad = true;
     private NeiHanDataContract.Presenter mPresenter;
     private NeiHanDataQuickAdapter mAdapter;
-
+    private boolean mLoadMore = false;
 
     public NeiHanFragment() {
         // An empty constructor is needed as a fragment.
@@ -57,6 +58,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
             @Override
             public void onRefresh() {
                 mPresenter.loadNeiHan(true);
+                mLoadMore = false;
             }
         });
 
@@ -68,6 +70,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
                     fab.hide();
                     if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mListSize - 1) {
                         loadMore();
+                        mLoadMore = true;
                     }
                 } else {
                     fab.show();
@@ -81,6 +84,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     public void onResume() {
         super.onResume();
         mPresenter.start();
+        setLoadingIndicator(mIsFirstLoad);
         if(mIsFirstLoad){
             mPresenter.loadNeiHan(true);
             mIsFirstLoad = false;
@@ -130,11 +134,18 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     public void showResult(List<NeiHanAll.DataBean> list) {
         if(mAdapter == null){
             mAdapter = new NeiHanDataQuickAdapter(getContext(),list);
+            mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
             mRecyclerView.setAdapter(mAdapter);
+            mListSize = list.size();
         } else {
-
+            if(mLoadMore){
+                mAdapter.addData(list);
+                mListSize += list.size();
+            }else {
+                mAdapter.setNewData(list);
+                mListSize = list.size();
+            }
         }
-
         mEmptyView.setVisibility(list.isEmpty()?View.VISIBLE:View.INVISIBLE);
     }
 }
