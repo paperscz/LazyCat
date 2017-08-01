@@ -42,7 +42,6 @@ public class NeiHanDataRepository implements NeiHanDataSource{
             @Override
             public void onDataNotAvailable() {
                 callback.onDataNotAvailable();
-                Log.i("getData","DataFail");
             }
         });
     }
