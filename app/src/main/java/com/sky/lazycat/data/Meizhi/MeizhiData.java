@@ -42,7 +42,7 @@ public class MeizhiData {
 
         private String _id;
         private String createdAt;
-        private String desc;
+        public String desc;
         private String publishedAt;
         private String source;
         private String type;

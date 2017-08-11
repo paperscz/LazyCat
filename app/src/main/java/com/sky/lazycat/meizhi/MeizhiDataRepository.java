@@ -1,8 +1,6 @@
 package com.sky.lazycat.meizhi;
 
 
-import android.util.Log;
-
 import com.sky.lazycat.data.Meizhi.MeizhiData;
 import com.sky.lazycat.data.datasource.MeizhiDataSource;
 

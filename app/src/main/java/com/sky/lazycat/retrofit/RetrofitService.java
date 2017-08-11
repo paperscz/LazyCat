@@ -1,9 +1,6 @@
 package com.sky.lazycat.retrofit;
 
-import android.database.Observable;
-
 import com.sky.lazycat.data.Meizhi.MeizhiData;
-import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 import com.sky.lazycat.data.neihanduanzi.NeiHanFirst;
 
 import retrofit2.Call;

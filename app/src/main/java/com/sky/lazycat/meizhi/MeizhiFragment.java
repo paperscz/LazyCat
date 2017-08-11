@@ -6,10 +6,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.Meizhi.MeizhiData;
 import com.sky.lazycat.widget.MultiSwipeRefreshLayout;
@@ -25,7 +27,7 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
     private RecyclerView mRecyclerView;
     private MultiSwipeRefreshLayout mMultiSwipeRefreshLayout;
     private MeizhiDataContract.Presenter mPresenter;
-
+    private MeizhiListAdapter mMeiZhiAdapter;
     private int mPage = 1;
 
     public MeizhiFragment() {
@@ -88,6 +90,16 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
 
     @Override
     public void showResult(@NonNull List<MeizhiData.MeizhiBean> list) {
+        if(mMeiZhiAdapter == null){
+            final StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2,
+                    StaggeredGridLayoutManager.VERTICAL);
+            mRecyclerView.setLayoutManager(layoutManager);
+            mMeiZhiAdapter = new MeizhiListAdapter(getActivity(),list);
+            mRecyclerView.setAdapter(mMeiZhiAdapter);
 
+        }else {
+
+
+        }
     }
 }
