@@ -1,6 +1,7 @@
 package com.sky.lazycat.meizhi;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.sky.lazycat.R;
-import com.sky.lazycat.data.Meizhi.MeizhiData;
+import com.sky.lazycat.data.meizhi.MeizhiData;
 import com.sky.lazycat.interfaces.OnMeizhiTouchListener;
 import com.sky.lazycat.widget.RatioImageView;
 
@@ -65,6 +66,21 @@ public class MeizhiListAdapter  extends RecyclerView.Adapter<MeizhiListAdapter.V
         return mList.size();
     }
 
+    public void updateData(@NonNull List<MeizhiData.MeizhiBean> list) {
+        mList.clear();
+        mList.addAll(list);
+        notifyDataSetChanged();
+     //   notifyItemRemoved(list.size());
+    }
+
+    public void addData(@NonNull List<MeizhiData.MeizhiBean> list) {
+        mList.addAll(list);
+        notifyDataSetChanged();
+    }
+
+    public void setOnMeizhiTouchListener(OnMeizhiTouchListener onMeizhiTouchListener) {
+        this.mOnMeizhiTouchListener = onMeizhiTouchListener;
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -85,7 +101,7 @@ public class MeizhiListAdapter  extends RecyclerView.Adapter<MeizhiListAdapter.V
 
 
         @Override public void onClick(View v) {
-            mOnMeizhiTouchListener.onTouch(v, iv_meizhi, card, meizhiBean);
+            mOnMeizhiTouchListener.onTouch(v, iv_meizhi, card,mList, meizhiBean);
         }
     }
 

@@ -1,6 +1,7 @@
 package com.sky.lazycat.ui;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -10,14 +11,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.sky.lazycat.R;
+import com.sky.lazycat.data.remote.GankVideoRemoteDataSource;
 import com.sky.lazycat.data.remote.MeizhiRemoteDataSource;
 import com.sky.lazycat.first.FirstFragment;
 import com.sky.lazycat.meizhi.MeizhiDataRepository;
 import com.sky.lazycat.meizhi.MeizhiFragment;
 import com.sky.lazycat.meizhi.MeizhiPresenter;
+import com.sky.lazycat.meizhi.gankvideo.GankVideoDataRepository;
 
 public class MainActivity extends AppCompatActivity {
-
+    // 标记当前所在的Fragment，再次打开直接定位
+    private static final String KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID = "KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID";
     private BottomNavigationView mBottomNavigationView;
     private FirstFragment mFirstFragment;
     private MeizhiFragment mMeiZiFragment;
@@ -28,7 +32,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
         initFragments(savedInstanceState);
-        new MeizhiPresenter(mMeiZiFragment, MeizhiDataRepository.getInstance(MeizhiRemoteDataSource.geInstance()));
+        // 创建妹纸Fragment界面的Presenter
+        new MeizhiPresenter(mMeiZiFragment, MeizhiDataRepository.getInstance(MeizhiRemoteDataSource.geInstance()), GankVideoDataRepository.getInstance(GankVideoRemoteDataSource.geInstance()));
+
+        // 根据储存的fragment状态来展示相应fragment
+        if(savedInstanceState != null){
+            int id = savedInstanceState.getInt(KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID,R.id.nav_timeline);
+            switch (id) {
+                case R.id.nav_timeline:
+                    showFragment(mFirstFragment);
+                    break;
+                case R.id.nav_meizi:
+                    showFragment(mMeiZiFragment);
+                    break;
+                case R.id.nav_info:
+                   // showFragment(mInfoFragment);
+                    break;
+            }
+        }else {
+            showFragment(mFirstFragment);
+        }
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -51,6 +74,21 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // 储存当前fragment
+        outState.putInt(KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID, mBottomNavigationView.getSelectedItemId());
+        FragmentManager fm = getSupportFragmentManager();
+        if (mFirstFragment.isAdded()) {
+            fm.putFragment(outState, FirstFragment.class.getSimpleName(), mFirstFragment);
+        }
+        if (mMeiZiFragment.isAdded()) {
+            fm.putFragment(outState, MeizhiFragment.class.getSimpleName(), mMeiZiFragment);
+        }
+
     }
 
     private void initFragments(Bundle savedInstanceState) {

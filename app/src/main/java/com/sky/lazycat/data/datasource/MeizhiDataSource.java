@@ -1,6 +1,6 @@
 package com.sky.lazycat.data.datasource;
 
-import com.sky.lazycat.data.Meizhi.MeizhiData;
+import com.sky.lazycat.data.meizhi.MeizhiData;
 
 import java.util.List;
 

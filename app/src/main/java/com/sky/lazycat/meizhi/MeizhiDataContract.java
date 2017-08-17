@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.sky.lazycat.base.BasePresenter;
 import com.sky.lazycat.base.BaseView;
-import com.sky.lazycat.data.Meizhi.MeizhiData;
+import com.sky.lazycat.data.meizhi.MeizhiData;
 
 import java.util.List;
 

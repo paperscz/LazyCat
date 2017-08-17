@@ -72,17 +72,19 @@ public class NeiHanDataQuickAdapter extends BaseQuickAdapter<NeiHanAll.DataBean,
 
                 Glide.with(mContext)
                         .load(dataBean.getGroup().getLarge_image().getUrl_list().get(0).getUrl())
-                        .asBitmap()
+                        .centerCrop()
+                       //.override(dataBean.getGroup().getLarge_image().getWidth(),dataBean.getGroup().getLarge_image().getHeight())
                         .placeholder(R.drawable.placeholder)
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                         .error(R.drawable.placeholder)
                         .into((ImageView)viewHolder.getView(R.id.iv_neihan_img));
+
             case NeiHanAll.DataBean.GIF:
                 String url = "http://pb3.pstatp.com/large/22e3000241b3c8b78fbf";
                 if(TextUtils.isEmpty(dataBean.getGroup().getLarge_image().getUrl_list().get(0).getUrl())){
-                    url = dataBean.getGroup().getMiddle_image().getUrl_list().get(1).getUrl();
+                    url = dataBean.getGroup().getLarge_image().getUrl_list().get(1).getUrl();
                 }else {
-                    url = dataBean.getGroup().getMiddle_image().getUrl_list().get(2).getUrl();
+                    url = dataBean.getGroup().getLarge_image().getUrl_list().get(2).getUrl();
                 }
 
                 Glide.with(mContext)

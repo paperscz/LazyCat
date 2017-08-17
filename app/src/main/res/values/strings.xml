@@ -97,6 +97,8 @@
     <string name="no_browser_found">没有安装浏览器</string>
     <string name="image_view_cover_desc">封面</string>
     <string name="action_settings">设置</string>
+    <string
+        name="tip_empty_gank">今日は肥皂家がない、干物の供給がない...\n今天编辑们休息哦，没有干货提供！\n如果想在此处展示您的优秀作品，请联系 drakeet.\n\n如果你喜欢我开发的应用，\n你还可以试试同样用心的 App：\n\n纯纯打码 http://fir.im/puremosaic\n验证码助手 http://fir.im/codehelper\n贝壳单词 http://fir.im/seashell</string>
     <!-- others end -->
 
 </resources>

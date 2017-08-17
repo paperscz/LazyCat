@@ -31,6 +31,9 @@ ext {
     glideVersion = '3.7.0'
     archRoomVersion = '1.0.0-alpha3'
     retrofitVersion = '2.2.0'
+    PhotoViewVersion = '2.1.3'
+    BrvanVersion = '2.9.22'
+    ButterknifeVersion = '8.8.1'
 }
 
 dependencies {
@@ -61,7 +64,11 @@ dependencies {
         exclude group: 'com.android.support'
     }
     // BRVAH
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
-
+    compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:${BrvanVersion}"
+    // PhotoView
+    compile "com.github.chrisbanes:PhotoView:${PhotoViewVersion}"
+    // Butterknife
+    compile "com.jakewharton:butterknife:${ButterknifeVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${ButterknifeVersion}"
     testCompile 'junit:junit:4.12'
 }

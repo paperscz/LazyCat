@@ -1,4 +1,4 @@
-package com.sky.lazycat.data.Meizhi;
+package com.sky.lazycat.data.meizhi;
 
 import java.util.List;
 

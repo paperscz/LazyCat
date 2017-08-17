@@ -1,6 +1,7 @@
 package com.sky.lazycat.retrofit;
 
-import com.sky.lazycat.data.Meizhi.MeizhiData;
+import com.sky.lazycat.data.gankvideo.GankVideoData;
+import com.sky.lazycat.data.meizhi.MeizhiData;
 import com.sky.lazycat.data.neihanduanzi.NeiHanFirst;
 
 import retrofit2.Call;
@@ -25,6 +26,11 @@ public interface RetrofitService {
     interface MeizhiService{
         @GET("data/福利/" + meizhiSize + "/{page}")
         Call<MeizhiData> getMeizhiData(@Path("page") int page);
+    }
+
+    interface GankVideoService{
+        @GET("data/休息视频/" + meizhiSize + "/{page}")
+        Call<GankVideoData> getGankVideoData(@Path("page") int page);
     }
 
 }

@@ -18,6 +18,7 @@ package com.sky.lazycat.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -78,6 +79,27 @@ public final class DateFormatUtil {
             e.printStackTrace();
         }
         return d == null ? 0 : d.getTime();
+    }
+
+    public static boolean isTheSameDay(String dataOne,String dateOther){
+        Date one = null;
+        Date anOther = null;
+
+        try {
+            one = new SimpleDateFormat("yyyy-MM-dd").parse(dataOne.substring(0,10));
+            anOther = new SimpleDateFormat("yyyy-MM-dd").parse(dateOther.substring(0,10));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        Calendar _one = Calendar.getInstance();
+        _one.setTime(one);
+        Calendar _anOther = Calendar.getInstance();
+        _anOther.setTime(anOther);
+        int oneDay = _one.get(Calendar.DAY_OF_YEAR);
+        int anotherDay = _anOther.get(Calendar.DAY_OF_YEAR);
+
+        return oneDay == anotherDay;
     }
 
 }

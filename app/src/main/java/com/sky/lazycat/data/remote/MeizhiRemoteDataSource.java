@@ -1,6 +1,6 @@
 package com.sky.lazycat.data.remote;
 
-import com.sky.lazycat.data.Meizhi.MeizhiData;
+import com.sky.lazycat.data.meizhi.MeizhiData;
 import com.sky.lazycat.data.datasource.MeizhiDataSource;
 import com.sky.lazycat.retrofit.RetrofitService;
 
