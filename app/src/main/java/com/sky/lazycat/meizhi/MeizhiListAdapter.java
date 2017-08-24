@@ -92,8 +92,8 @@ public class MeizhiListAdapter  extends RecyclerView.Adapter<MeizhiListAdapter.V
         public ViewHolder(View itemView) {
             super(itemView);
             card = itemView;
-            iv_meizhi = itemView.findViewById(R.id.iv_meizhi);
-            tv_title = itemView.findViewById(R.id.tv_meizhitext);
+            iv_meizhi = (RatioImageView) itemView.findViewById(R.id.iv_meizhi);
+            tv_title = (TextView) itemView.findViewById(R.id.tv_meizhitext);
             iv_meizhi.setOnClickListener(this);
             card.setOnClickListener(this);
             iv_meizhi.setOriginalSize(50, 50);

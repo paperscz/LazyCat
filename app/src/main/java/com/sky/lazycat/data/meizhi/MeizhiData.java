@@ -49,6 +49,7 @@ public class MeizhiData {
         private String url;
         private boolean used;
         private String who;
+        public String videoUrl;
 
         public String get_id() {
             return _id;

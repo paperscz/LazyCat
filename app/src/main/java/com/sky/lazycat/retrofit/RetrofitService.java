@@ -1,6 +1,9 @@
 package com.sky.lazycat.retrofit;
 
+import android.database.Observable;
+
 import com.sky.lazycat.data.gankvideo.GankVideoData;
+import com.sky.lazycat.data.meizhi.GankData;
 import com.sky.lazycat.data.meizhi.MeizhiData;
 import com.sky.lazycat.data.neihanduanzi.NeiHanFirst;
 
@@ -31,6 +34,11 @@ public interface RetrofitService {
     interface GankVideoService{
         @GET("data/休息视频/" + meizhiSize + "/{page}")
         Call<GankVideoData> getGankVideoData(@Path("page") int page);
+    }
+
+    interface GankDaliyService{
+        @GET("day/{date}")
+        Call<GankData> getGankData(@Path("date") String date);
     }
 
 }

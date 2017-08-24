@@ -71,8 +71,11 @@ public class MeizhiPresenter implements MeizhiDataContract.Presenter{
     private List<MeizhiData.MeizhiBean> createMeizhiDataWithVideoDesc(List<MeizhiData.MeizhiBean> mMeizhiList, List<GankVideoData.GankVideoBean> mVideoList) {
         List<MeizhiData.MeizhiBean> mNewMeizhiList = new ArrayList<>();
         for (MeizhiData.MeizhiBean meizhi : mMeizhiList) {
-            meizhi.desc = meizhi.desc + " " +
-                    getFirstVideoDesc(meizhi.getPublishedAt(), mVideoList);
+            String[] videoData = getFirstVideoDesc(meizhi.getPublishedAt(), mVideoList);
+            if(!TextUtils.isEmpty(videoData[0])){
+                meizhi.desc = meizhi.desc + " " +videoData[0];
+            }
+            meizhi.videoUrl = videoData[1];
             mNewMeizhiList.add(meizhi);
         }
         mMeizhiList.clear();
@@ -81,22 +84,23 @@ public class MeizhiPresenter implements MeizhiDataContract.Presenter{
     }
 
     private int mLastVideoIndex = 0;
-
-    private String getFirstVideoDesc(String publishedAt, List<GankVideoData.GankVideoBean> mVideoList) {
-        String videoDesc = "";
+    // 二维数组存放video的url和desc
+    private String[] getFirstVideoDesc(String publishedAt, List<GankVideoData.GankVideoBean> mVideoList) {
+        String[] videoDatas = new String[2];
         for (int i = mLastVideoIndex; i < mVideoList.size(); i++) {
             GankVideoData.GankVideoBean video = mVideoList.get(i);
             if (TextUtils.isEmpty(video.getPublishedAt())) {
                 video.setPublishedAt(video.getCreatedAt());
             }
             if (DateFormatUtil.isTheSameDay(publishedAt, video.getPublishedAt())) {
-                videoDesc = video.getDesc();
+                videoDatas[0] = video.getDesc();
+                videoDatas[1] = video.getUrl();
                 mLastVideoIndex = i;
                 break;
             }
         }
-
-        return videoDesc;
+        return videoDatas;
     }
+
 
 }

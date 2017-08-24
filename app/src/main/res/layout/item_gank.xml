@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_gank_title"
             android:textColor="@color/md_grey_900"
-            tools:text="叔叔、叔叔，西湖怎么走？"/>
+            tools:text="..."/>
     </LinearLayout>
 
 </LinearLayout>

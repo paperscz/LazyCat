@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.GankActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_ganklist"
+    <me.henrytao.smoothappbarlayout.SmoothAppBarLayout
+        android:id="@+id/header_appbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingTop="@dimen/gank_header_height"
-        android:paddingBottom="@dimen/gank_footer_padding"
-        android:clipToPadding="false"/>
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="@dimen/gank_header_height">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -26,17 +18,6 @@
             android:fitsSystemWindows="true"
             app:contentScrim="@color/colorPrimary"
             app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/iv_gankhead"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                android:contentDescription="@string/image_view_cover_desc"
-                android:scrollbarStyle="insideInset"
-                android:src="@drawable/placeholder"
-                android:scrollbarAlwaysDrawVerticalTrack="true" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -47,10 +28,43 @@
                 android:background="@android:color/transparent"
                 app:titleTextColor="@drawable/nav_item_color" />
 
+            <ImageView
+                android:id="@+id/iv_gankhead"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/image_view_cover_desc"
+                android:scrollbarStyle="insideInset"
+                android:background="@color/md_black_1000"
+                android:scrollbarAlwaysDrawVerticalTrack="true" />
+
+            <ImageView
+                android:layout_width="@dimen/dp_30"
+                android:layout_height="@dimen/dp_30"
+                android:src="@drawable/ic_play"
+                android:layout_gravity="center"/>
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
-    </android.support.design.widget.AppBarLayout>
+    </me.henrytao.smoothappbarlayout.SmoothAppBarLayout>
+    <!--
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/app_bar_height"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
+    </android.support.design.widget.AppBarLayout>
+      -->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_ganklist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/gank_header_height"
+        android:paddingBottom="@dimen/gank_footer_padding"
+        android:clipToPadding="false"/>
 
     <ViewStub
         android:id="@+id/stub_empty_view"

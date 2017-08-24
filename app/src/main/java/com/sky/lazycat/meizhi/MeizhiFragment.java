@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.meizhi.MeizhiData;
 import com.sky.lazycat.interfaces.OnMeizhiTouchListener;
+import com.sky.lazycat.ui.GankActivity;
 import com.sky.lazycat.ui.PhotoViewActivity;
 import com.sky.lazycat.util.ToastUtils;
 import com.sky.lazycat.widget.MultiSwipeRefreshLayout;
@@ -95,8 +96,8 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
 
     @Override
     public void initViews(View view) {
-        mRecyclerView = view.findViewById(R.id.recycler_view);
-        mMultiSwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        mMultiSwipeRefreshLayout = (MultiSwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
     }
 
     @Override
@@ -130,7 +131,7 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
         }else {
             if(mLoadMore){
                 mMeiZhiAdapter.addData(list);
-            }else {
+            } else {
                 mMeiZhiAdapter.updateData(list);
             }
 
@@ -161,8 +162,6 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
         };
     }
 
-
-
     private OnMeizhiTouchListener getOnMeizhiTouchListener() {
         return new OnMeizhiTouchListener() {
             @Override
@@ -172,12 +171,9 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
                     // && !mMeizhiBeTouched
                     //mMeizhiBeTouched = true;
                     startPictureActivity(meizhi, meizhiView,meizhi.indexOf(meizhiBean));
-
-
                 } else if (v == card) {
-                    // startGankActivity(meizhi.publishedAt);
+                    startGankActivity(meizhiBean.getPublishedAt(),meizhiBean.videoUrl);
                 }
-
             }
 
         };
@@ -212,5 +208,12 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
             e.printStackTrace();
             startActivity(intent);
         }
+    }
+
+    private void startGankActivity(String createAt,String videoUrl){
+        Intent intent = new Intent(getActivity(), GankActivity.class);
+        intent.putExtra(GankActivity.EXTRA_GANK_DATE,createAt);
+        intent.putExtra(GankActivity.EXTRA_VIDEO_URL,videoUrl);
+        startActivity(intent);
     }
 }

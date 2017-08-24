@@ -1,8 +1,11 @@
 package com.sky.lazycat.data.remote;
 
+import android.app.Application;
+
 import com.sky.lazycat.data.meizhi.MeizhiData;
 import com.sky.lazycat.data.datasource.MeizhiDataSource;
 import com.sky.lazycat.retrofit.RetrofitService;
+import com.sky.lazycat.util.ToastUtils;
 
 import retrofit2.Call;
 import retrofit2.Callback;

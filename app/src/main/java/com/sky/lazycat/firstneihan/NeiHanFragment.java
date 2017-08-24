@@ -102,13 +102,13 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
 
     @Override
     public void initViews(View view) {
-        mRefreshLayout = view.findViewById(R.id.refresh_layout);
+        mRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout);
         mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(),R.color.colorAccent));
-        mRecyclerView = view.findViewById(R.id.recycler_view);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         mEmptyView = view.findViewById(R.id.empty_view);
-        fab = getActivity().findViewById(R.id.fab);
+        fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
     }
 
     private void loadMore(){

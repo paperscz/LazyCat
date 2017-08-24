@@ -16,6 +16,8 @@
 
 package com.sky.lazycat.util;
 
+import android.text.TextUtils;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -100,6 +102,10 @@ public final class DateFormatUtil {
         int anotherDay = _anOther.get(Calendar.DAY_OF_YEAR);
 
         return oneDay == anotherDay;
+    }
+
+    public static String formatDateStringToString(String date){
+        return date.substring(0,10).replace('-','/');
     }
 
 }

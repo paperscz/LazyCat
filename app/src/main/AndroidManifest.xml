@@ -26,6 +26,8 @@
         <activity android:name=".ui.PhotoViewActivity"
             android:launchMode="singleTask"/>
 
+        <activity android:name=".ui.GankActivity"/>
+        <activity android:name=".ui.WebActivity"/>
     </application>
 
 </manifest>

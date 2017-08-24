@@ -41,7 +41,7 @@ public class FirstFragment extends Fragment {
         if(savedInstanceState != null){
             FragmentManager fm = getChildFragmentManager();
             mNeiHanFragment = (NeiHanFragment) fm.getFragment(savedInstanceState,NeiHanFragment.class.getSimpleName());
-        }else {
+        } else {
             mNeiHanFragment = NeiHanFragment.newInstance();
         }
 
@@ -68,15 +68,15 @@ public class FirstFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        ViewPager mViewPager = view.findViewById(R.id.view_pager);
+        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.view_pager);
         mViewPager.setAdapter(new FirstPagerAdapter(getChildFragmentManager(),
                 getContext(),mNeiHanFragment));
 
         mViewPager.setOffscreenPageLimit(3);
 
-        mTabLayout = view.findViewById(R.id.tab_layout);
+        mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
-        mFab = view.findViewById(R.id.fab);
+        mFab = (FloatingActionButton) view.findViewById(R.id.fab);
 
     }
 }
