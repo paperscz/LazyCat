@@ -63,25 +63,6 @@ public final class DateFormatUtil {
         return sDate;
     }
 
-    public static long formatDoubanMomentDateStringToLong(String date) {
-        Date d = null;
-        try {
-            d = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return d == null ? 0 : d.getTime();
-    }
-
-    public static long formatGuokrHandpickTimeStringToLong(String date) {
-        Date d = null;
-        try {
-            d = new SimpleDateFormat("yyyy-MM-dd").parse(date.substring(0,10));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return d == null ? 0 : d.getTime();
-    }
 
     public static boolean isTheSameDay(String dataOne,String dateOther){
         Date one = null;
@@ -106,6 +87,12 @@ public final class DateFormatUtil {
 
     public static String formatDateStringToString(String date){
         return date.substring(0,10).replace('-','/');
+    }
+
+    public static String formatZhihuDailyDateToString(long date) {
+        Date d = new Date(date);
+        SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+        return format.format(d);
     }
 
 }

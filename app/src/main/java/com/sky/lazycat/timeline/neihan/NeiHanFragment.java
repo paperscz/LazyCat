@@ -1,4 +1,4 @@
-package com.sky.lazycat.firstneihan;
+package com.sky.lazycat.timeline.neihan;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

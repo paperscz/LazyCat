@@ -1,4 +1,4 @@
-package com.sky.lazycat.firstneihan;
+package com.sky.lazycat.timeline.neihan;
 
 import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 import com.sky.lazycat.data.datasource.NeiHanDataSource;

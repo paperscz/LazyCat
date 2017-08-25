@@ -1,7 +1,6 @@
 package com.sky.lazycat.ui;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -13,7 +12,7 @@ import android.view.MenuItem;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.remote.GankVideoRemoteDataSource;
 import com.sky.lazycat.data.remote.MeizhiRemoteDataSource;
-import com.sky.lazycat.first.FirstFragment;
+import com.sky.lazycat.timeline.TimelineFragment;
 import com.sky.lazycat.meizhi.MeizhiDataRepository;
 import com.sky.lazycat.meizhi.MeizhiFragment;
 import com.sky.lazycat.meizhi.MeizhiPresenter;
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     // 标记当前所在的Fragment，再次打开直接定位
     private static final String KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID = "KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID";
     private BottomNavigationView mBottomNavigationView;
-    private FirstFragment mFirstFragment;
+    private TimelineFragment mTimelineFragment;
     private MeizhiFragment mMeiZiFragment;
 
     @Override
@@ -40,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             int id = savedInstanceState.getInt(KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID,R.id.nav_timeline);
             switch (id) {
                 case R.id.nav_timeline:
-                    showFragment(mFirstFragment);
+                    showFragment(mTimelineFragment);
                     break;
                 case R.id.nav_meizi:
                     showFragment(mMeiZiFragment);
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         }else {
-            showFragment(mFirstFragment);
+            showFragment(mTimelineFragment);
         }
 
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 switch (item.getItemId()) {
                     case R.id.nav_timeline:
-                        showFragment(mFirstFragment);
+                        showFragment(mTimelineFragment);
                         break;
                     case R.id.nav_meizi:
                         showFragment(mMeiZiFragment);
@@ -82,8 +81,8 @@ public class MainActivity extends AppCompatActivity {
         // 储存当前fragment
         outState.putInt(KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID, mBottomNavigationView.getSelectedItemId());
         FragmentManager fm = getSupportFragmentManager();
-        if (mFirstFragment.isAdded()) {
-            fm.putFragment(outState, FirstFragment.class.getSimpleName(), mFirstFragment);
+        if (mTimelineFragment.isAdded()) {
+            fm.putFragment(outState, TimelineFragment.class.getSimpleName(), mTimelineFragment);
         }
         if (mMeiZiFragment.isAdded()) {
             fm.putFragment(outState, MeizhiFragment.class.getSimpleName(), mMeiZiFragment);
@@ -94,16 +93,16 @@ public class MainActivity extends AppCompatActivity {
     private void initFragments(Bundle savedInstanceState) {
         FragmentManager fm = getSupportFragmentManager();
         if(savedInstanceState == null){
-            mFirstFragment = FirstFragment.newInstance();
+            mTimelineFragment = TimelineFragment.newInstance();
             mMeiZiFragment = MeizhiFragment.newInstance();
         }else {
-            mFirstFragment = (FirstFragment) fm.getFragment(savedInstanceState,FirstFragment.class.getSimpleName());
+            mTimelineFragment = (TimelineFragment) fm.getFragment(savedInstanceState,TimelineFragment.class.getSimpleName());
             mMeiZiFragment = (MeizhiFragment) fm.getFragment(savedInstanceState,MeizhiFragment.class.getSimpleName());
 
         }
-        if(!mFirstFragment.isAdded()){
+        if(!mTimelineFragment.isAdded()){
             fm.beginTransaction()
-                    .add(R.id.container,mFirstFragment,FirstFragment.class.getSimpleName())
+                    .add(R.id.container,mTimelineFragment,TimelineFragment.class.getSimpleName())
                     .commit();
         }
         if(!mMeiZiFragment.isAdded()){
@@ -119,9 +118,9 @@ public class MainActivity extends AppCompatActivity {
     }
     private void showFragment(Fragment fragment) {
         FragmentManager fm = getSupportFragmentManager();
-        if (fragment instanceof FirstFragment) {
+        if (fragment instanceof TimelineFragment) {
             fm.beginTransaction()
-                    .show(mFirstFragment)
+                    .show(mTimelineFragment)
                     .hide(mMeiZiFragment)
             //       .hide(mFavoritesFragment)
                     .commit();
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (fragment instanceof MeizhiFragment) {
             fm.beginTransaction()
                     .show(mMeiZiFragment)
-                    .hide(mFirstFragment)
+                    .hide(mTimelineFragment)
             //        .hide(mFavoritesFragment)
                     .commit();
         }

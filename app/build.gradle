@@ -37,6 +37,7 @@ ext {
     numberprogressbarVersion = '1.4@aar'
     bannerVersion = '1.4.9'
     smoothVersion = '25.3.1.0'
+    cardBannerVersion = 'v2.0.0'
 }
 
 dependencies {
@@ -79,6 +80,8 @@ dependencies {
     compile "com.daimajia.numberprogressbar:library:${numberprogressbarVersion}"
     // banner
     compile "com.youth.banner:banner:${bannerVersion}"
+    // cardBanner
+    compile "com.github.pinguo-zhouwei:MZBannerView:${cardBannerVersion}"
 
     testCompile 'junit:junit:4.12'
 

@@ -9,17 +9,38 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DrakeetRetrofit {
 
-    final RetrofitService.GankDaliyService gankService;
+    final RetrofitService.ZhihuDaliyService zhihuDaliyService;
+    final RetrofitService.GankVideoService gankService;
+    final RetrofitService.NeiHanService neihanService;
 
     DrakeetRetrofit(){
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitService.MEIZHI_DATA_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        gankService = retrofit.create(RetrofitService.GankDaliyService.class);
+        //创建Builder，可添加更多设置
+        Retrofit.Builder builder = new Retrofit.Builder();
+        builder.addConverterFactory(GsonConverterFactory.create());
+
+        //配置Builder，然后创建请求
+        builder.baseUrl(RetrofitService.NEIHAN_DATA_BASE);
+        Retrofit neihanRest = builder.build();
+        builder.baseUrl(RetrofitService.MEIZHI_DATA_BASE);
+        Retrofit gankRest = builder.build();
+        builder.baseUrl(RetrofitService.ZHIHU_DATA_BASE);
+        Retrofit zhihuRest = builder.build();
+
+        neihanService = neihanRest.create(RetrofitService.NeiHanService.class);
+        gankService = gankRest.create(RetrofitService.GankVideoService.class);
+        zhihuDaliyService = zhihuRest.create(RetrofitService.ZhihuDaliyService.class);
     }
 
-    public RetrofitService.GankDaliyService getGankService() {
+    public RetrofitService.ZhihuDaliyService getZhihuDaliyService(){
+        return zhihuDaliyService;
+    }
+
+    public RetrofitService.GankVideoService getGankService() {
         return gankService;
     }
+
+    public RetrofitService.NeiHanService getNeihanService(){
+        return neihanService;
+    }
+
 }

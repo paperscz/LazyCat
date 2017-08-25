@@ -5,6 +5,7 @@ import android.util.Log;
 import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 import com.sky.lazycat.data.datasource.NeiHanDataSource;
 import com.sky.lazycat.data.neihanduanzi.NeiHanFirst;
+import com.sky.lazycat.retrofit.DrakeetFactory;
 import com.sky.lazycat.retrofit.RetrofitService;
 import java.util.List;
 
@@ -34,13 +35,8 @@ public class NeiHanRemoteDataSource implements NeiHanDataSource{
 
     @Override
     public void getNeiHanDailyData(boolean forceUpdate,final LoadNeiHanDataCallback callback) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitService.NEIHAN_DATA_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        RetrofitService.NeiHanService service = retrofit.create(RetrofitService.NeiHanService.class);
-        service.getNeiHanList().enqueue(new Callback<NeiHanFirst>() {
+        DrakeetFactory.getNeihanSingleton().getNeiHanList().enqueue(new Callback<NeiHanFirst>() {
             @Override
             public void onResponse(Call<NeiHanFirst> call, Response<NeiHanFirst> response) {
                 callback.onNewsLoaded(response.body().getData().getData());
@@ -49,17 +45,12 @@ public class NeiHanRemoteDataSource implements NeiHanDataSource{
             @Override
             public void onFailure(Call<NeiHanFirst> call, Throwable t) {
                 callback.onDataNotAvailable();
-               // Log.i("getData","DataFail:"+t.toString());
-                t.toString();
             }
         });
     }
 
     @Override
     public void getItem(int itemId, final GetDataItemCallback callback) {
-
-
-
 
     }
 
