@@ -15,7 +15,7 @@ import com.sky.lazycat.timeline.zhihu.ZhihuFragment;
 
 public class TimelinePagerAdapter extends FragmentPagerAdapter {
 
-    private final int pageCount = 1;
+    private final int pageCount = 2;
     private String[] titles;
 
     private NeiHanFragment mNeiHanFragment;

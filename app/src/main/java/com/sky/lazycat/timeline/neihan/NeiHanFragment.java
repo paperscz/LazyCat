@@ -133,7 +133,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     @Override
     public void showResult(List<NeiHanAll.DataBean> list) {
         if(mAdapter == null){
-            mAdapter = new NeiHanDataQuickAdapter(getContext(),list);
+            mAdapter = new NeiHanDataQuickAdapter(list);
             mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
             mRecyclerView.setAdapter(mAdapter);
             mListSize = list.size();

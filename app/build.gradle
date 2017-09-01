@@ -51,7 +51,8 @@ dependencies {
     compile "com.android.support.constraint:constraint-layout:${constraintVersion}"
     compile "com.android.support:preference-v14:${supportLibVersion}"
     compile "com.android.support:customtabs:${supportLibVersion}"
-
+    // CardView
+    compile "com.android.support:cardview-v7:${supportLibVersion}"
     // Google Room
     compile "android.arch.persistence.room:runtime:${archRoomVersion}"
     annotationProcessor "android.arch.persistence.room:compiler:${archRoomVersion}"

@@ -100,7 +100,10 @@
 
     <string name="tip_for_no_gank">今天编辑们休息哦，没有干货提供！\n如果想在此处展示您的作品，请联系 drakeet.</string>
     <string
-        name="tip_empty_gank">今日は肥皂家がない、干物の供給がない...\n今天编辑们休息哦，没有干货提供！\n如果想在此处展示您的优秀作品，请联系 drakeet.\n\n如果你喜欢我开发的应用，\n你还可以试试同样用心的 App：\n\n纯纯打码 http://fir.im/puremosaic\n验证码助手 http://fir.im/codehelper\n贝壳单词 http://fir.im/seashell</string>
+        name="tip_empty_gank">今日は肥皂家がない、干物の供給がない...\n今天编辑们休息哦，没有干货提供！</string>
     <!-- others end -->
+
+    <string name="news_preview_image">图片预览</string>
+    <string name="share_this_news">分享这个新闻</string>
 
 </resources>

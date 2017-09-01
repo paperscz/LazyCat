@@ -21,6 +21,7 @@ public interface ZhihuDataContract {
     }
 
     interface Presenter extends BasePresenter {
+        // isLatest 是否加载带topstories数据
         void loadZhihu(boolean isLatest,boolean forceUpdate,String date);
     }
 }

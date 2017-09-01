@@ -20,7 +20,7 @@ import java.util.List;
 
 public class NeiHanDataQuickAdapter extends BaseQuickAdapter<NeiHanAll.DataBean,BaseViewHolder> {
 
-    public NeiHanDataQuickAdapter(Context context, List<NeiHanAll.DataBean> data){
+    public NeiHanDataQuickAdapter(List<NeiHanAll.DataBean> data){
         super(data);
         setMultiTypeDelegate(new MultiTypeDelegate<NeiHanAll.DataBean>() {
             @Override
