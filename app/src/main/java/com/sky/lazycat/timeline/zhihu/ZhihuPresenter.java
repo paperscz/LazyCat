@@ -31,7 +31,7 @@ public class ZhihuPresenter implements ZhihuDataContract.Presenter {
             @Override
             public void onZhihuLoaded(Zhihu zhihu) {
                 if(mView.isActive()){
-                    mView.showResult(zhihu.getStories(),zhihu.getTop_stories());
+                    mView.showResult(zhihu.getStories(),zhihu.getTop_stories(),getTopImgs(zhihu.getTop_stories(),0),getTopImgs(zhihu.getTop_stories(),1));
                     mView.setLoadingIndicator(false);
                 }
             }
@@ -45,12 +45,20 @@ public class ZhihuPresenter implements ZhihuDataContract.Presenter {
         });
     }
 
-//    private List<String> getTopTitles(List<Zhihu.TopStoriesBean> listTop){
-//        List<String> listTitle = new ArrayList<>();
-//        for(Zhihu.TopStoriesBean topStoriesBean : listTop){
-//            listTitle.add(topStoriesBean.getTitle());
-//        }
-//        return listTitle;
-//    }
+    private List<String> getTopImgs(List<Zhihu.TopStoriesBean> listTop,int type){
+        List<String> listTitle = new ArrayList<>();
+        // 0是获取banner Images
+        if(type == 0){
+            for(Zhihu.TopStoriesBean topStoriesBean : listTop){
+                listTitle.add(topStoriesBean.getImage());
+            }
+        }else {
+            for(Zhihu.TopStoriesBean topStoriesBean : listTop){
+                listTitle.add(topStoriesBean.getTitle());
+            }
+        }
+        return listTitle;
+    }
+
 
 }

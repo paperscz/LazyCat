@@ -17,7 +17,7 @@ public interface ZhihuDataContract {
     interface View extends BaseView<ZhihuDataContract.Presenter> {
         boolean isActive();
         void setLoadingIndicator(boolean active);
-        void showResult(List<Zhihu.StoriesBean> listStories,List<Zhihu.TopStoriesBean> listTopStories);
+        void showResult(List<Zhihu.StoriesBean> listStories,List<Zhihu.TopStoriesBean> listTopStories,List<String> listTopImg,List<String> listTopTitle);
     }
 
     interface Presenter extends BasePresenter {

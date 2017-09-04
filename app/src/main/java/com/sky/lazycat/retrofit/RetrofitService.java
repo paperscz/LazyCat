@@ -8,6 +8,7 @@ import com.sky.lazycat.data.meizhi.MeizhiData;
 import com.sky.lazycat.data.neihanduanzi.NeiHanFirst;
 import com.sky.lazycat.data.zhihu.Zhihu;
 import com.sky.lazycat.data.zhihu.ZhihuNew;
+import com.sky.lazycat.data.zhihucontent.ZhihuDailyContent;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -64,6 +65,9 @@ public interface RetrofitService {
         //获取新闻,根据id获取新闻
         @GET("news/{newsId}")
         Call<ZhihuNew> getNews(@Path("newsId") long newsId);
+
+        @GET("{id}")
+        Call<ZhihuDailyContent> getZhihuContent(@Path("id") int id);
     }
 
 }

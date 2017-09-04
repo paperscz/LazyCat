@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include layout="@layout/item_neihan_header"/>
+
+    <TextView
+        android:id="@+id/tv_img_text"
+        android:layout_marginLeft="@dimen/title_margin"
+        android:layout_marginRight="@dimen/title_margin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/content_text_size"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:text="这里是内容"/>
+
+    <ImageView
+        android:layout_marginTop="@dimen/title_margin"
+        android:scaleType="centerCrop"
+        android:id="@+id/iv_neihan_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <include layout="@layout/item_neihan_bottom"/>
+
+</LinearLayout>

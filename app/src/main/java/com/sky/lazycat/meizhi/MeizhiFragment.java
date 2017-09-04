@@ -77,6 +77,7 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
     public void onResume() {
         super.onResume();
         mPresenter.start();
+        setLoadingIndicator(mIsFirstLoad);
         // 第一次加载判定，到大图activity再回来不要加载
             if(mIsFirstLoad){
                 mPresenter.loadMeizhi(mPage,true);
