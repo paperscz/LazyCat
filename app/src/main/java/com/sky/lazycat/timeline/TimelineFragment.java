@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TableLayout;
 
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.remote.NeiHanRemoteDataSource;
@@ -21,6 +22,10 @@ import com.sky.lazycat.timeline.zhihu.ZhihuDataRepository;
 import com.sky.lazycat.timeline.zhihu.ZhihuFragment;
 import com.sky.lazycat.timeline.zhihu.ZhihuPresenter;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by yuetu-develop on 2017/7/6.
  */
@@ -29,8 +34,10 @@ public class TimelineFragment extends Fragment {
 
     private NeiHanFragment mNeiHanFragment;
     private ZhihuFragment mZhihuFragment;
-    private FloatingActionButton mFab;
-    private TabLayout mTabLayout;
+    @BindView(R.id.fab) FloatingActionButton mFab;
+    @BindView(R.id.view_pager) ViewPager mViewPager;
+    @BindView(R.id.tab_layout) TabLayout mTabLayout;
+    private Unbinder mUnbinder;
 
     public TimelineFragment() {
         // Requires the empty constructor
@@ -60,8 +67,39 @@ public class TimelineFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first,container,false);
+        mUnbinder = ButterKnife.bind(this,view);
         initViews(view);
 
+        mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1) {
+                    mFab.hide();
+                } else {
+                    mFab.show();
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mTabLayout.getSelectedTabPosition() == 0) {
+                    mZhihuFragment.showDatePickerDialog();
+                } else {
+                    //mDoubanFragment.showDatePickerDialog();
+                }
+            }
+        });
         return view;
     }
 
@@ -78,15 +116,17 @@ public class TimelineFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        ViewPager mViewPager = (ViewPager) view.findViewById(R.id.view_pager);
         mViewPager.setAdapter(new TimelinePagerAdapter(getChildFragmentManager(),
                 getContext(),mZhihuFragment,mNeiHanFragment));
 
         mViewPager.setOffscreenPageLimit(3);
 
-        mTabLayout = (TabLayout) view.findViewById(R.id.tab_layout);
         mTabLayout.setupWithViewPager(mViewPager);
-        mFab = (FloatingActionButton) view.findViewById(R.id.fab);
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mUnbinder.unbind();
     }
 }

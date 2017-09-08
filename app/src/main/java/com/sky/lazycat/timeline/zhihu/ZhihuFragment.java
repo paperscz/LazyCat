@@ -1,8 +1,9 @@
 package com.sky.lazycat.timeline.zhihu;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,21 +11,22 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.zhihu.Zhihu;
+import com.sky.lazycat.details.DetailsActivity;
 import com.sky.lazycat.timeline.GlideImageLoader;
 import com.sky.lazycat.util.DateFormatUtil;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-import com.zhouwei.mzbanner.MZBannerView;
-import com.zhouwei.mzbanner.holder.MZHolderCreator;
-import com.zhouwei.mzbanner.holder.MZViewHolder;
+import com.youth.banner.listener.OnBannerListener;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,31 +46,50 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
 //    private List<String> bannerImages;
 //    private List<String> bannerTitles;
 //    private List<Zhihu.TopStoriesBean> listTopStrories;
+    private FloatingActionButton mFab;
     private ZhihuDataContract.Presenter mPresenter;
     private boolean mIsFirstLoad = true;
     private Unbinder mUnbinder;
     private ZhihuQuickAdapter mZhihuQuickAdapter;
-
+    private String date;
+    private List<Zhihu.StoriesBean> listStories;
     public ZhihuFragment(){}
 
     public static ZhihuFragment newInstance() {
         return new ZhihuFragment();
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        date = DateFormatUtil.formatZhihuDailyDateToString(System.currentTimeMillis());
+        listStories = new ArrayList<>();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_zhihu,container,false);
         mUnbinder = ButterKnife.bind(this,view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        // 另一个banner 简单使用banner
+        mFab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
+        // 正常滚动banner 简单使用banner
         // mBanner.setImages(images).setImageLoader(new GlideImageLoader()).start();
         //setBanner();
-
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                //mPresenter.loadZhihu(false,false,"");
+                mPresenter.loadZhihu(true,true,date);
+            }
+        });
+        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0) {
+                    mFab.hide();
+                } else {
+                    mFab.show();
+                }
             }
         });
 
@@ -79,15 +100,12 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
     public void onResume() {
         super.onResume();
         mPresenter.start();
-
-        String date = DateFormatUtil.formatZhihuDailyDateToString(System.currentTimeMillis());
-        setLoadingIndicator(mIsFirstLoad);
         if(mIsFirstLoad){
             // 首次访问加载带topstories数据
             mPresenter.loadZhihu(true,true,date);
             mIsFirstLoad = false;
-        }else {
-            mPresenter.loadZhihu(false,true,date);
+        } else {
+            //mPresenter.loadZhihu(false,true,date);
         }
 
     }
@@ -118,25 +136,49 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
     }
 
     @Override
-    public void showResult(List<Zhihu.StoriesBean> listStories, List<Zhihu.TopStoriesBean> listTopStories,List<String> listTopImg,List<String> listTopTitle) {
+    public void showResult(List<Zhihu.StoriesBean> listStoriesNew, List<Zhihu.TopStoriesBean> listTopStories,List<String> listTopImg,List<String> listTopTitle) {
+        listStories.clear();
+        listStories = listStoriesNew;
         if(mZhihuQuickAdapter == null){
             mZhihuQuickAdapter = new ZhihuQuickAdapter(listStories);
             mZhihuQuickAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
             mRecyclerView.setAdapter(mZhihuQuickAdapter);
 
             mZhihuQuickAdapter.addHeaderView(getHeaderView(listTopImg,listTopTitle));
+            setAdapterClick(listTopStories);
+        } else {
+            mZhihuQuickAdapter.setNewData(listStories);
         }
 
         //setMzBanner(listTopStories);
     }
 
+    private void setAdapterClick(final List<Zhihu.TopStoriesBean> listTopStories) {
+
+        mBanner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                DetailsActivity.newIntent(getActivity(),listTopStories.get(position).getId(),listTopStories.get(position).getTitle());
+            }
+        });
+
+        mZhihuQuickAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                DetailsActivity.newIntent(getActivity(),listStories.get(position).getId(),listStories.get(position).getTitle());
+            }
+        });
+
+    }
+
     private View getHeaderView(List<String> listTopImg,List<String> listTopTitle) {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.view_zhihuheader, (ViewGroup) mRecyclerView.getParent(), false);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.banner_zhihuheader, (ViewGroup) mRecyclerView.getParent(), false);
         mBanner = (Banner) view.findViewById(R.id.banner);
         setBanner(listTopImg,listTopTitle);
         return view;
     }
 
+    // 弹跳式Banner
     private void setMzBanner(List<Zhihu.TopStoriesBean> listTopStories) {
 
 //        mBanner.setPages(listTopStories, new MZHolderCreator<BannerViewHolder>() {
@@ -163,14 +205,36 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
         //设置自动轮播，默认为true
         mBanner.isAutoPlay(true);
         //设置轮播时间
-        mBanner.setDelayTime(2500);
+        mBanner.setDelayTime(4000);
         //设置指示器位置（当banner模式中有指示器时）
-        mBanner.setIndicatorGravity(BannerConfig.CENTER);
+        mBanner.setIndicatorGravity(BannerConfig.LEFT);
         //banner设置方法全部调用完毕时最后调用
         mBanner.start();
+
     }
 
 
+    public void showDatePickerDialog(){
+        final Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(System.currentTimeMillis());
+        DatePickerDialog dialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                date = year + String.format("%02d",monthOfYear) + String.format("%02d",dayOfMonth);
+                mPresenter.loadZhihu(false,true,date);
+            }
+        },c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+
+        // 设置最大时间
+        dialog.setMaxDate(Calendar.getInstance());
+        // 设置最小时间
+        Calendar minDate = Calendar.getInstance();
+        minDate.set(2013, 5, 20);
+        dialog.setMinDate(minDate);
+        dialog.vibrate(false);
+
+        dialog.show(getActivity().getFragmentManager(), ZhihuFragment.class.getSimpleName());
+    }
 
 //    public static class BannerViewHolder implements MZViewHolder<Zhihu.TopStoriesBean> {
 //        private ImageView mImageView;
@@ -198,8 +262,5 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
         //mBanner.pause();
         mBanner.stopAutoPlay();
     }
-
-
-
 
 }

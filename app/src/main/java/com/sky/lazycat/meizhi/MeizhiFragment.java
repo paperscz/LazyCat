@@ -173,7 +173,7 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
                     //mMeizhiBeTouched = true;
                     startPictureActivity(meizhi, meizhiView,meizhi.indexOf(meizhiBean));
                 } else if (v == card) {
-                    startGankActivity(meizhiBean.getPublishedAt(),meizhiBean.videoUrl);
+                    GankActivity.newIntent(getActivity(),meizhiBean.getPublishedAt(),meizhiBean.videoUrl);
                 }
             }
 
@@ -211,10 +211,4 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
         }
     }
 
-    private void startGankActivity(String createAt,String videoUrl){
-        Intent intent = new Intent(getActivity(), GankActivity.class);
-        intent.putExtra(GankActivity.EXTRA_GANK_DATE,createAt);
-        intent.putExtra(GankActivity.EXTRA_VIDEO_URL,videoUrl);
-        startActivity(intent);
-    }
 }

@@ -25,20 +25,29 @@
                 android:id="@+id/image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:contentDescription="@string/image_view_cover_desc"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
-                android:contentDescription="@string/image_view_cover_desc"
+                android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:scrollbarStyle="insideInset"
-                android:src="@drawable/placeholder"
-                android:scrollbarAlwaysDrawVerticalTrack="true" />
+                android:src="@drawable/placeholder" />
+
+            <TextView
+                android:id="@+id/tv_source"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:padding="8dp"
+                android:textColor="@color/white"
+                android:textSize="@dimen/source_font_size"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay"
-                android:background="@android:color/transparent"
                 app:titleTextColor="@drawable/nav_item_color" />
 
         </android.support.design.widget.CollapsingToolbarLayout>

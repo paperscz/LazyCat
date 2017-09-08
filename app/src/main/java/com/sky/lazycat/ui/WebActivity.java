@@ -58,8 +58,6 @@ public class WebActivity extends AppCompatActivity{
         mWebView.setWebViewClient(new LoveClient());
 
         mWebView.loadUrl(mUrl);
-
-
     }
 
     @Override

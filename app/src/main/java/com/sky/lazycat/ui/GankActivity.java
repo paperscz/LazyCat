@@ -1,13 +1,17 @@
 package com.sky.lazycat.ui;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -40,6 +44,9 @@ public class GankActivity extends AppCompatActivity {
 
     @BindView(R.id.rv_ganklist) RecyclerView rv_ganklist;
     @BindView(R.id.iv_gankhead) ImageView iv_gankhead;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbar_layout) CollapsingToolbarLayout mToolbarLayout;
+
     private String mVideoUrl;
     private String mGankDate;
     private List<GankData.Gank> mGankList;
@@ -51,13 +58,36 @@ public class GankActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gank);
         unbinder = ButterKnife.bind(this);
+        setToolBar();
         setRecyclerView();
         parseIntent();
         loadData();
     }
 
+    private void setToolBar() {
+
+//        mToolbarLayout.setTitle("暂无标题");
+//        mToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+//        mToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+//        mToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBarPlus1);
+//        mToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBarPlus1);
+
+        this.setSupportActionBar(toolbar);
+        this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_white_24dp);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
+        return true;
+    }
+
     private void setRecyclerView() {
-        rv_ganklist.setHasFixedSize(true);
+     //   rv_ganklist.setHasFixedSize(true);
         rv_ganklist.setLayoutManager(new LinearLayoutManager(this));
         mGankList = new ArrayList<>();
         mAdapter = new GankListQuickAdapter(mGankList);
@@ -82,13 +112,13 @@ public class GankActivity extends AppCompatActivity {
 //        });
     }
 
-    @OnClick(R.id.iv_gankhead) void playVideo(){
-        if(!TextUtils.isEmpty(mVideoUrl)){
-            ToastUtils.showShort(GankActivity.this,"播放视频"+mVideoUrl);
-        } else {
-            ToastUtils.showShort(GankActivity.this,getString(R.string.tip_for_no_gank));
-        }
-    }
+//    @OnClick(R.id.iv_gankhead) void playVideo(){
+//        if(!TextUtils.isEmpty(mVideoUrl)){
+//            ToastUtils.showShort(GankActivity.this,"播放视频"+mVideoUrl);
+//        } else {
+//            ToastUtils.showShort(GankActivity.this,getString(R.string.tip_for_no_gank));
+//        }
+//    }
 
     private void parseIntent() {
         mGankDate = getIntent().getStringExtra(EXTRA_GANK_DATE);
@@ -122,6 +152,15 @@ public class GankActivity extends AppCompatActivity {
         if (results.休息视频List != null) mGankList.addAll(0, results.休息视频List);
         return mGankList;
     }
+
+    public static void newIntent(Context context,String createAt,String videoUrl){
+        Intent intent = new Intent(context,GankActivity.class);
+        intent.putExtra(GankActivity.EXTRA_GANK_DATE,createAt);
+        intent.putExtra(GankActivity.EXTRA_VIDEO_URL,videoUrl);
+        context.startActivity(intent);
+    }
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

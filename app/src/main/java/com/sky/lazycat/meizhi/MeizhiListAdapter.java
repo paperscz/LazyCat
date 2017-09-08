@@ -21,7 +21,7 @@ import java.util.List;
  * Created by yuetu-develop on 2017/8/11.
  */
 
-public class MeizhiListAdapter  extends RecyclerView.Adapter<MeizhiListAdapter.ViewHolder>{
+public class MeizhiListAdapter extends RecyclerView.Adapter<MeizhiListAdapter.ViewHolder>{
 
     private OnMeizhiTouchListener mOnMeizhiTouchListener;
     private List<MeizhiData.MeizhiBean> mList;

@@ -26,12 +26,16 @@ public class ZhihuPresenter implements ZhihuDataContract.Presenter {
     public void start() {   }
 
     @Override
-    public void loadZhihu(boolean isLatest,boolean forceUpdate,String date) {
+    public void loadZhihu(final boolean isLatest, boolean forceUpdate, String date) {
         mZhihuRepository.getZhihuData(isLatest,forceUpdate,date,new ZhihuDataSource.LoadZhihuDataCallback() {
             @Override
             public void onZhihuLoaded(Zhihu zhihu) {
                 if(mView.isActive()){
-                    mView.showResult(zhihu.getStories(),zhihu.getTop_stories(),getTopImgs(zhihu.getTop_stories(),0),getTopImgs(zhihu.getTop_stories(),1));
+                    if(isLatest){
+                        mView.showResult(zhihu.getStories(),zhihu.getTop_stories(),getTopImgs(zhihu.getTop_stories(),0),getTopImgs(zhihu.getTop_stories(),1));
+                    } else {
+                        mView.showResult(zhihu.getStories(),null,null,null);
+                    }
                     mView.setLoadingIndicator(false);
                 }
             }

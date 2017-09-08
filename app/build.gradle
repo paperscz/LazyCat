@@ -5,7 +5,7 @@ android {
     buildToolsVersion "26.0.0"
     defaultConfig {
         applicationId "com.sky.lazycat"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -36,7 +36,6 @@ ext {
     ButterknifeVersion = '8.8.1'
     numberprogressbarVersion = '1.4@aar'
     bannerVersion = '1.4.9'
-    smoothVersion = '25.3.1.0'
     cardBannerVersion = 'v2.0.0'
 }
 
@@ -75,8 +74,6 @@ dependencies {
     // Butterknife
     compile "com.jakewharton:butterknife:${ButterknifeVersion}"
     annotationProcessor "com.jakewharton:butterknife-compiler:${ButterknifeVersion}"
-    // 暂时不支持26.0以上版本
-    compile "me.henrytao:smooth-app-bar-layout:${smoothVersion}"
     // 代码家的numberprogressbar
     compile "com.daimajia.numberprogressbar:library:${numberprogressbarVersion}"
     // banner

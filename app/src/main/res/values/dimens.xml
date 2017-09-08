@@ -52,4 +52,6 @@
 
     <dimen name="dp_30">30dp</dimen>
 
+    <dimen name="source_font_size">13sp</dimen>
+
 </resources>

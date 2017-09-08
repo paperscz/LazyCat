@@ -51,7 +51,7 @@ public class Zhihu {
          */
 
         private int type;
-        private long id;
+        private int id;
         private String ga_prefix;
         private String title;
         private List<String> images;
@@ -64,7 +64,7 @@ public class Zhihu {
             this.type = type;
         }
 
-        public long getId() {
+        public int getId() {
             return id;
         }
 
@@ -108,7 +108,7 @@ public class Zhihu {
 
         private String image;
         private int type;
-        private long id;
+        private int id;
         private String ga_prefix;
         private String title;
 
@@ -128,7 +128,7 @@ public class Zhihu {
             this.type = type;
         }
 
-        public long getId() {
+        public int getId() {
             return id;
         }
 

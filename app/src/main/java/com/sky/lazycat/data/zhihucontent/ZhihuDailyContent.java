@@ -2,6 +2,7 @@ package com.sky.lazycat.data.zhihucontent;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -20,9 +21,12 @@ public class ZhihuDailyContent {
     private String ga_prefix;
     private int type;
     private int id;
-    private List<?> js;
+    private List<String> js;
     private List<String> images;
     private List<String> css;
+    //这篇文章的推荐者
+    @SerializedName("recommenders")
+    private List<Recommender> mRecommenderList;
 
     public String getBody() {
         return body;
@@ -88,11 +92,11 @@ public class ZhihuDailyContent {
         this.id = id;
     }
 
-    public List<?> getJs() {
+    public List<String> getJs() {
         return js;
     }
 
-    public void setJs(List<?> js) {
+    public void setJs(List<String> js) {
         this.js = js;
     }
 
@@ -112,7 +116,15 @@ public class ZhihuDailyContent {
         this.css = css;
     }
 
+    public static class Recommender implements Serializable {
+        //这篇文章的推荐者头像
+        @SerializedName("avatar")
+        private String mAvatarUrl;
 
+        public String getAvatarUrl() {
+            return mAvatarUrl;
+        }
+    }
     /**
      * body : <div class="main-wrap content-wrap">
      <div class="headline">
