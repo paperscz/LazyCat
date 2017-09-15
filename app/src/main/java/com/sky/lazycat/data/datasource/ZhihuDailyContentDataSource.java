@@ -2,9 +2,7 @@ package com.sky.lazycat.data.datasource;
 
 import android.support.annotation.NonNull;
 
-import com.sky.lazycat.data.zhihucontent.ZhihuDailyContent;
-
-import java.util.List;
+import com.sky.lazycat.data.zhihu.ZhihuDailyContent;
 
 /**
  * Created by yuetu-develop on 2017/9/4.

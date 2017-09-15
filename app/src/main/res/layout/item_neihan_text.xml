@@ -1,20 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/primary_margin"
+    android:paddingTop="@dimen/primary_margin"
+    android:background="@drawable/item_selector"
+    android:clickable="true"
+    android:focusable="true">
 
-    <include layout="@layout/item_neihan_header"/>
-
-    <TextView
-        android:id="@+id/tv_neihan_content"
-        android:layout_marginLeft="@dimen/title_margin"
-        android:layout_marginRight="@dimen/title_margin"
+    <ImageView
+        android:layout_marginTop="3dp"
+        android:id="@+id/iv_head"
+        android:layout_width="@dimen/neihan_head_height"
+        android:layout_height="@dimen/neihan_head_height"
+        android:src="@drawable/placeholder"/>
+    
+    <RelativeLayout
+        android:layout_toRightOf="@id/iv_head"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/content_text_size"
-        android:maxLines="10"
-        android:ellipsize="end" />
-    <include layout="@layout/item_neihan_bottom"/>
+        android:paddingLeft="@dimen/primary_margin"
+        android:paddingRight="@dimen/primary_margin">
+
+        <TextView
+            android:layout_alignParentTop="true"
+            android:id="@+id/tv_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:text="测试文字"
+            android:maxLines="1"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/body_text_size" />
+
+        <TextView
+            android:id="@+id/tv_neihan_content"
+            android:layout_below="@id/tv_username"
+            android:layout_marginTop="@dimen/title_margin"
+            android:lineSpacingMultiplier = "1.5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="哈哈哈哈哈你好啊这事测试就哦当军嫂就到家撒大了多久啦啊这事测试就哦当军嫂就到家撒大了多当军嫂就到家撒大了多久啦啊这事测当军嫂就到家撒大了多久啦啊这事测当军嫂就到家撒大了多久啦啊这事测当军嫂就到家撒大了多久啦啊这事测当军嫂就到家撒大了多久啦啊这事测"
+            android:maxLines="10"
+            android:ellipsize="end" />
+        
+        <View
+            android:layout_marginTop="@dimen/primary_margin"
+            android:layout_below="@id/tv_neihan_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:background="@color/colordivider"/>
+    </RelativeLayout>
 
 </LinearLayout>

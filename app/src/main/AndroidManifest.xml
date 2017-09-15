@@ -29,6 +29,11 @@
         <activity android:name=".ui.WebActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".details.DetailsActivity"/>
+
+        <service
+            android:name=".service.TestService">
+        </service>
+
     </application>
 
 </manifest>

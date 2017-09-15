@@ -1,6 +1,6 @@
 package com.sky.lazycat.util;
 
-import com.sky.lazycat.data.zhihucontent.ZhihuDailyContent;
+import com.sky.lazycat.data.zhihu.ZhihuDailyContent;
 
 import java.util.List;
 

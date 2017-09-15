@@ -1,14 +1,13 @@
 package com.sky.lazycat.retrofit;
 
-import android.database.Observable;
-
 import com.sky.lazycat.data.gankvideo.GankVideoData;
 import com.sky.lazycat.data.meizhi.GankData;
 import com.sky.lazycat.data.meizhi.MeizhiData;
-import com.sky.lazycat.data.neihanduanzi.NeiHanFirst;
+import com.sky.lazycat.data.neihanduanzi.NeiHanDuanZi;
+import com.sky.lazycat.data.neihanduanzi.NeiHanVideo;
 import com.sky.lazycat.data.zhihu.Zhihu;
 import com.sky.lazycat.data.zhihu.ZhihuNew;
-import com.sky.lazycat.data.zhihucontent.ZhihuDailyContent;
+import com.sky.lazycat.data.zhihu.ZhihuDailyContent;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -21,8 +20,9 @@ import retrofit2.http.Path;
 public interface RetrofitService {
     // 妹纸获取数量
     public static final int meizhiSize = 10;
-    // 内涵段子数量
-    String NEIHAN_DATA_BASE = "http://iu.snssdk.com/neihan/stream/mix/v1/?count=20";
+    public static final int duanziSize = 20;
+    // 内涵段子
+    String NEIHAN_DATA_BASE = "http://iu.snssdk.com/neihan/stream/mix/v1/";
     // gankAPI
     String MEIZHI_DATA_BASE = "http://gank.io/api/";
     // 知乎日报url
@@ -34,8 +34,13 @@ public interface RetrofitService {
 
     interface NeiHanService{
         // 没有数据填 . 或者 /
-        @GET(".")
-        Call<NeiHanFirst> getNeiHanList();
+        // 获取内涵段子文字 content_type=-102
+        @GET("?content_type=-102&count="+duanziSize)
+        Call<NeiHanDuanZi> getNeiHanList();
+
+        @GET("?content_type=-104&count="+duanziSize)
+        Call<NeiHanVideo> getNeiHanVideoList();
+
     }
 
     interface MeizhiService{

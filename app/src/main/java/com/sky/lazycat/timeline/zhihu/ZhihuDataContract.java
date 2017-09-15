@@ -2,9 +2,7 @@ package com.sky.lazycat.timeline.zhihu;
 
 import com.sky.lazycat.base.BasePresenter;
 import com.sky.lazycat.base.BaseView;
-import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 import com.sky.lazycat.data.zhihu.Zhihu;
-import com.sky.lazycat.timeline.neihan.NeiHanDataContract;
 
 import java.util.List;
 

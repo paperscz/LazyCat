@@ -3,7 +3,7 @@ package com.sky.lazycat.data.remote;
 import android.support.annotation.NonNull;
 
 import com.sky.lazycat.data.datasource.ZhihuDailyContentDataSource;
-import com.sky.lazycat.data.zhihucontent.ZhihuDailyContent;
+import com.sky.lazycat.data.zhihu.ZhihuDailyContent;
 import com.sky.lazycat.retrofit.DrakeetFactory;
 
 import retrofit2.Call;

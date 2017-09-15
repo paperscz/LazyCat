@@ -2,7 +2,7 @@ package com.sky.lazycat.timeline.neihan;
 
 import com.sky.lazycat.base.BasePresenter;
 import com.sky.lazycat.base.BaseView;
-import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
+import com.sky.lazycat.data.neihanduanzi.NeiHanDuanZi;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public interface NeiHanDataContract {
     interface View extends BaseView<Presenter>{
         boolean isActive();
         void setLoadingIndicator(boolean active);
-        void showResult(List<NeiHanAll.DataBean> list);
+        void showResult(List<NeiHanDuanZi.DuanziX.Duanzi> list);
     }
 
     interface Presenter extends BasePresenter{

@@ -79,6 +79,7 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
             @Override
             public void onRefresh() {
                 mPresenter.loadZhihu(true,true,date);
+                setLoadingIndicator(true);
             }
         });
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -100,6 +101,7 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
     public void onResume() {
         super.onResume();
         mPresenter.start();
+        setLoadingIndicator(mIsFirstLoad);
         if(mIsFirstLoad){
             // 首次访问加载带topstories数据
             mPresenter.loadZhihu(true,true,date);
@@ -174,7 +176,10 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
     private View getHeaderView(List<String> listTopImg,List<String> listTopTitle) {
         View view = getActivity().getLayoutInflater().inflate(R.layout.banner_zhihuheader, (ViewGroup) mRecyclerView.getParent(), false);
         mBanner = (Banner) view.findViewById(R.id.banner);
-        setBanner(listTopImg,listTopTitle);
+
+        if(null != listTopImg && listTopImg.size() > 0){
+            setBanner(listTopImg,listTopTitle);
+        }
         return view;
     }
 

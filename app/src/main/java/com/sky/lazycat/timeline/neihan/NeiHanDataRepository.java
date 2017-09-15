@@ -1,7 +1,7 @@
 package com.sky.lazycat.timeline.neihan;
 
-import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 import com.sky.lazycat.data.datasource.NeiHanDataSource;
+import com.sky.lazycat.data.neihanduanzi.NeiHanDuanZi;
 
 import java.util.List;
 
@@ -29,9 +29,9 @@ public class NeiHanDataRepository implements NeiHanDataSource{
     @Override
     public void getNeiHanDailyData(boolean forceUpdate, final LoadNeiHanDataCallback callback) {
 
-        mRemoteDataSource.getNeiHanDailyData(false, new LoadNeiHanDataCallback() {
+        mRemoteDataSource.getNeiHanDailyData(forceUpdate, new LoadNeiHanDataCallback() {
             @Override
-            public void onNewsLoaded(List<NeiHanAll.DataBean> list) {
+            public void onNewsLoaded(List<NeiHanDuanZi.DuanziX.Duanzi> list) {
                 // 从remote实现类里面回调了数据
                // Log.i("getData","DataSuccess长度:"+list.size());
                 callback.onNewsLoaded(list);
@@ -50,7 +50,7 @@ public class NeiHanDataRepository implements NeiHanDataSource{
     }
 
     @Override
-    public void saveAll(List<NeiHanAll.DataBean> list) {
+    public void saveAll(List<NeiHanDuanZi.DuanziX.Duanzi> list) {
 
     }
 }

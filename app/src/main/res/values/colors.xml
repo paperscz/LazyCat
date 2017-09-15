@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
+
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#ffe0e0e0</color>
     <color name="colorAccent">#03A9F4</color>
@@ -15,7 +16,5 @@
 
     <color name="colordivider">#BDBDBD</color>
     <color name="white">#FFFFFF</color>
-
-
 
 </resources>

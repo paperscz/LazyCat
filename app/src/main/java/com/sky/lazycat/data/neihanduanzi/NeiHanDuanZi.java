@@ -1,23 +1,52 @@
 package com.sky.lazycat.data.neihanduanzi;
 
-import android.view.View;
-
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-
 import java.util.List;
 
 /**
- * Created by yuetu-develop on 2017/7/13.
+ * Created by yuetu-develop on 2017/9/14.
  */
 
-public class NeiHanAll {
+public class NeiHanDuanZi {
+    /**
+     * message : success
+     * data : {"has_more":true,"tip":"1条新内容","has_new_message":false,"max_time":1505375183,"min_time":1505375183,"data":[{"group":{"text":"一次在阶梯教室上课，一哥们儿偶遇隔壁班美女，于是就坐下聊天了。为了掩饰自己紧张且激动的心情，他不停地用手拉椅子，想把椅子拉得更靠近美女一些。　　结果美女终于忍不住了，说：\u201c别拉了，这椅子是固定的。","dislike_reason":[{"type":2,"id":80,"title":"吧:来自世界的恶意"},{"type":4,"id":0,"title":"内容重复"},{"type":3,"id":54846700795,"title":"作者:丿旅途旧人"}],"create_time":1505090168,"id":68689039067,"favorite_count":0,"go_detail_count":114,"user_favorite":0,"share_type":0,"user":{"user_id":54846700795,"name":"丿旅途旧人","followings":0,"user_verified":false,"ugc_count":13,"avatar_url":"http://p3.pstatp.com/medium/289c0012171c689b8aaf","followers":28,"is_following":false,"is_pro_user":false},"is_can_share":1,"category_type":1,"share_url":"http://m.neihanshequ.com/share/group/68689039067/?iid=0&app=joke_essay","label":1,"content":"一次在阶梯教室上课，一哥们儿偶遇隔壁班美女，于是就坐下聊天了。为了掩饰自己紧张且激动的心情，他不停地用手拉椅子，想把椅子拉得更靠近美女一些。　　结果美女终于忍不住了，说：\u201c别拉了，这椅子是固定的。","comment_count":2,"id_str":"68689039067","media_type":0,"share_count":0,"type":3,"status":112,"has_comments":0,"user_bury":0,"status_desc":"热门投稿","display_type":0,"user_digg":0,"online_time":1505090168,"category_name":"来自世界的恶意","category_visible":true,"bury_count":22,"is_anonymous":false,"repin_count":0,"digg_count":157,"has_hot_comments":0,"allow_dislike":true,"user_repin":0,"activity":{},"group_id":68689039067,"category_id":80},"comments":[],"type":1,"display_time":1505375183,"online_time":1505375183}]}
+     */
+
+    private String message;
+    private DuanziX data;
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public DuanziX getData() {
+        return data;
+    }
+
+    public void setData(DuanziX data) {
+        this.data = data;
+    }
+
+    public static class DuanziX {
+        /**
+         * has_more : true
+         * tip : 1条新内容
+         * has_new_message : false
+         * max_time : 1505375183
+         * min_time : 1505375183
+         * data : [{"group":{"text":"一次在阶梯教室上课，一哥们儿偶遇隔壁班美女，于是就坐下聊天了。为了掩饰自己紧张且激动的心情，他不停地用手拉椅子，想把椅子拉得更靠近美女一些。　　结果美女终于忍不住了，说：\u201c别拉了，这椅子是固定的。","dislike_reason":[{"type":2,"id":80,"title":"吧:来自世界的恶意"},{"type":4,"id":0,"title":"内容重复"},{"type":3,"id":54846700795,"title":"作者:丿旅途旧人"}],"create_time":1505090168,"id":68689039067,"favorite_count":0,"go_detail_count":114,"user_favorite":0,"share_type":0,"user":{"user_id":54846700795,"name":"丿旅途旧人","followings":0,"user_verified":false,"ugc_count":13,"avatar_url":"http://p3.pstatp.com/medium/289c0012171c689b8aaf","followers":28,"is_following":false,"is_pro_user":false},"is_can_share":1,"category_type":1,"share_url":"http://m.neihanshequ.com/share/group/68689039067/?iid=0&app=joke_essay","label":1,"content":"一次在阶梯教室上课，一哥们儿偶遇隔壁班美女，于是就坐下聊天了。为了掩饰自己紧张且激动的心情，他不停地用手拉椅子，想把椅子拉得更靠近美女一些。　　结果美女终于忍不住了，说：\u201c别拉了，这椅子是固定的。","comment_count":2,"id_str":"68689039067","media_type":0,"share_count":0,"type":3,"status":112,"has_comments":0,"user_bury":0,"status_desc":"热门投稿","display_type":0,"user_digg":0,"online_time":1505090168,"category_name":"来自世界的恶意","category_visible":true,"bury_count":22,"is_anonymous":false,"repin_count":0,"digg_count":157,"has_hot_comments":0,"allow_dislike":true,"user_repin":0,"activity":{},"group_id":68689039067,"category_id":80},"comments":[],"type":1,"display_time":1505375183,"online_time":1505375183}]
+         */
 
         private boolean has_more;
         private String tip;
         private boolean has_new_message;
         private double max_time;
-        private int min_time;
-        private List<DataBean> data;
+        private double min_time;
+        private List<Duanzi> data;
 
         public boolean isHas_more() {
             return has_more;
@@ -51,40 +80,30 @@ public class NeiHanAll {
             this.max_time = max_time;
         }
 
-        public int getMin_time() {
+        public double getMin_time() {
             return min_time;
         }
 
-        public void setMin_time(int min_time) {
+        public void setMin_time(double min_time) {
             this.min_time = min_time;
         }
 
-        public List<DataBean> getData() {
+        public List<Duanzi> getData() {
             return data;
         }
 
-        public void setData(List<DataBean> data) {
+        public void setData(List<Duanzi> data) {
             this.data = data;
         }
 
-        public static class DataBean {
+        public static class Duanzi {
             /**
-             * group : {"user":{"user_id":5984290216,"name":"3-8创史人","followings":0,"user_verified":false,"ugc_count":3,"avatar_url":"http://p3.pstatp.com/medium/249a0012cf6a97f02be8","followers":1,"is_following":false,"is_pro_user":false},"text":"爸爸为你感到自豪","dislike_reason":[{"type":1,"id":319,"title":"恶搞"},{"type":2,"id":2,"title":"吧:搞笑囧图"},{"type":4,"id":0,"title":"内容重复"},{"type":3,"id":5984290216,"title":"作者:3-8创史人"}],"create_time":1498961390,"id":62814370386,"favorite_count":12,"go_detail_count":1498,"user_favorite":0,"share_type":1,"max_screen_width_percent":0.6,"is_can_share":1,"category_type":1,"share_url":"http://m.neihanshequ.com/share/group/62814370386/?iid=0&app=joke_essay","label":1,"content":"爸爸为你感到自豪","comment_count":16,"id_str":"62814370386","media_type":1,"share_count":79,"type":3,"status":112,"has_comments":0,"large_image":{"width":570,"r_height":800,"r_width":570,"url_list":[{"url":"http://p3.pstatp.com/large/29d00000c985590b33a3"},{"url":"http://pb9.pstatp.com/large/29d00000c985590b33a3"},{"url":"http://pb1.pstatp.com/large/29d00000c985590b33a3"}],"uri":"large/29d00000c985590b33a3","height":800},"user_bury":0,"status_desc":"热门投稿","display_type":0,"user_digg":0,"online_time":1498961390,"category_name":"搞笑囧图","category_visible":true,"bury_count":23,"is_anonymous":false,"repin_count":12,"min_screen_width_percent":0.167,"digg_count":359,"has_hot_comments":0,"allow_dislike":true,"image_status":1,"user_repin":0,"activity":{},"group_id":62814370386,"middle_image":{"width":202,"r_height":283,"r_width":202,"url_list":[{"url":"http://p3.pstatp.com/w202/29d00000c985590b33a3"},{"url":"http://pb9.pstatp.com/w202/29d00000c985590b33a3"},{"url":"http://pb1.pstatp.com/w202/29d00000c985590b33a3"}],"uri":"w202/29d00000c985590b33a3","height":283},"category_id":2}
+             * group : {"text":"一次在阶梯教室上课，一哥们儿偶遇隔壁班美女，于是就坐下聊天了。为了掩饰自己紧张且激动的心情，他不停地用手拉椅子，想把椅子拉得更靠近美女一些。　　结果美女终于忍不住了，说：\u201c别拉了，这椅子是固定的。","dislike_reason":[{"type":2,"id":80,"title":"吧:来自世界的恶意"},{"type":4,"id":0,"title":"内容重复"},{"type":3,"id":54846700795,"title":"作者:丿旅途旧人"}],"create_time":1505090168,"id":68689039067,"favorite_count":0,"go_detail_count":114,"user_favorite":0,"share_type":0,"user":{"user_id":54846700795,"name":"丿旅途旧人","followings":0,"user_verified":false,"ugc_count":13,"avatar_url":"http://p3.pstatp.com/medium/289c0012171c689b8aaf","followers":28,"is_following":false,"is_pro_user":false},"is_can_share":1,"category_type":1,"share_url":"http://m.neihanshequ.com/share/group/68689039067/?iid=0&app=joke_essay","label":1,"content":"一次在阶梯教室上课，一哥们儿偶遇隔壁班美女，于是就坐下聊天了。为了掩饰自己紧张且激动的心情，他不停地用手拉椅子，想把椅子拉得更靠近美女一些。　　结果美女终于忍不住了，说：\u201c别拉了，这椅子是固定的。","comment_count":2,"id_str":"68689039067","media_type":0,"share_count":0,"type":3,"status":112,"has_comments":0,"user_bury":0,"status_desc":"热门投稿","display_type":0,"user_digg":0,"online_time":1505090168,"category_name":"来自世界的恶意","category_visible":true,"bury_count":22,"is_anonymous":false,"repin_count":0,"digg_count":157,"has_hot_comments":0,"allow_dislike":true,"user_repin":0,"activity":{},"group_id":68689039067,"category_id":80}
              * comments : []
              * type : 1
-             * display_time : 1499915688
-             * online_time : 1499915688
+             * display_time : 1505375183
+             * online_time : 1505375183
              */
-
-            public static final String DUANZI = "内涵段子";
-            public static final String GAOXIAO_PIC = "搞笑囧图";
-            public static final String BAOXIAO_GIF = "爆笑GIF";
-            public static final String GAOXIAO_VIDEO = "搞笑视频";
-
-            public static final int TEXT = 1;
-            public static final int IMG = 2;
-            public static final int GIF = 3;
-            public static final int VIDEO = 4;
 
             private GroupBean group;
             private int type;
@@ -132,65 +151,56 @@ public class NeiHanAll {
                 this.comments = comments;
             }
 
-
             public static class GroupBean {
-
-
                 /**
-                 * user : {"user_id":5984290216,"name":"3-8创史人","followings":0,"user_verified":false,"ugc_count":3,"avatar_url":"http://p3.pstatp.com/medium/249a0012cf6a97f02be8","followers":1,"is_following":false,"is_pro_user":false}
-                 * text : 爸爸为你感到自豪
-                 * dislike_reason : [{"type":1,"id":319,"title":"恶搞"},{"type":2,"id":2,"title":"吧:搞笑囧图"},{"type":4,"id":0,"title":"内容重复"},{"type":3,"id":5984290216,"title":"作者:3-8创史人"}]
-                 * create_time : 1498961390
-                 * id : 62814370386
-                 * favorite_count : 12
-                 * go_detail_count : 1498
+                 * text : 一次在阶梯教室上课，一哥们儿偶遇隔壁班美女，于是就坐下聊天了。为了掩饰自己紧张且激动的心情，他不停地用手拉椅子，想把椅子拉得更靠近美女一些。　　结果美女终于忍不住了，说：“别拉了，这椅子是固定的。
+                 * dislike_reason : [{"type":2,"id":80,"title":"吧:来自世界的恶意"},{"type":4,"id":0,"title":"内容重复"},{"type":3,"id":54846700795,"title":"作者:丿旅途旧人"}]
+                 * create_time : 1505090168
+                 * id : 68689039067
+                 * favorite_count : 0
+                 * go_detail_count : 114
                  * user_favorite : 0
-                 * share_type : 1
-                 * max_screen_width_percent : 0.6
+                 * share_type : 0
+                 * user : {"user_id":54846700795,"name":"丿旅途旧人","followings":0,"user_verified":false,"ugc_count":13,"avatar_url":"http://p3.pstatp.com/medium/289c0012171c689b8aaf","followers":28,"is_following":false,"is_pro_user":false}
                  * is_can_share : 1
                  * category_type : 1
-                 * share_url : http://m.neihanshequ.com/share/group/62814370386/?iid=0&app=joke_essay
+                 * share_url : http://m.neihanshequ.com/share/group/68689039067/?iid=0&app=joke_essay
                  * label : 1
-                 * content : 爸爸为你感到自豪
-                 * comment_count : 16
-                 * id_str : 62814370386
-                 * media_type : 1
-                 * share_count : 79
+                 * content : 一次在阶梯教室上课，一哥们儿偶遇隔壁班美女，于是就坐下聊天了。为了掩饰自己紧张且激动的心情，他不停地用手拉椅子，想把椅子拉得更靠近美女一些。　　结果美女终于忍不住了，说：“别拉了，这椅子是固定的。
+                 * comment_count : 2
+                 * id_str : 68689039067
+                 * media_type : 0
+                 * share_count : 0
                  * type : 3
                  * status : 112
                  * has_comments : 0
-                 * large_image : {"width":570,"r_height":800,"r_width":570,"url_list":[{"url":"http://p3.pstatp.com/large/29d00000c985590b33a3"},{"url":"http://pb9.pstatp.com/large/29d00000c985590b33a3"},{"url":"http://pb1.pstatp.com/large/29d00000c985590b33a3"}],"uri":"large/29d00000c985590b33a3","height":800}
                  * user_bury : 0
                  * status_desc : 热门投稿
                  * display_type : 0
                  * user_digg : 0
-                 * online_time : 1498961390
-                 * category_name : 搞笑囧图
+                 * online_time : 1505090168
+                 * category_name : 来自世界的恶意
                  * category_visible : true
-                 * bury_count : 23
+                 * bury_count : 22
                  * is_anonymous : false
-                 * repin_count : 12
-                 * min_screen_width_percent : 0.167
-                 * digg_count : 359
+                 * repin_count : 0
+                 * digg_count : 157
                  * has_hot_comments : 0
                  * allow_dislike : true
-                 * image_status : 1
                  * user_repin : 0
                  * activity : {}
-                 * group_id : 62814370386
-                 * middle_image : {"width":202,"r_height":283,"r_width":202,"url_list":[{"url":"http://p3.pstatp.com/w202/29d00000c985590b33a3"},{"url":"http://pb9.pstatp.com/w202/29d00000c985590b33a3"},{"url":"http://pb1.pstatp.com/w202/29d00000c985590b33a3"}],"uri":"w202/29d00000c985590b33a3","height":283}
-                 * category_id : 2
+                 * group_id : 68689039067
+                 * category_id : 80
                  */
 
-                private UserBean user;
                 private String text;
-                private int create_time;
+                private double create_time;
                 private long id;
                 private int favorite_count;
                 private int go_detail_count;
                 private int user_favorite;
                 private int share_type;
-                private double max_screen_width_percent;
+                private UserBean user;
                 private int is_can_share;
                 private int category_type;
                 private String share_url;
@@ -203,7 +213,6 @@ public class NeiHanAll {
                 private int type;
                 private int status;
                 private int has_comments;
-                private LargeImageBean large_image;
                 private int user_bury;
                 private String status_desc;
                 private int display_type;
@@ -214,25 +223,14 @@ public class NeiHanAll {
                 private int bury_count;
                 private boolean is_anonymous;
                 private int repin_count;
-                private double min_screen_width_percent;
                 private int digg_count;
                 private int has_hot_comments;
                 private boolean allow_dislike;
-                private int image_status;
                 private int user_repin;
                 private ActivityBean activity;
                 private long group_id;
-                private MiddleImageBean middle_image;
                 private int category_id;
                 private List<DislikeReasonBean> dislike_reason;
-
-                public UserBean getUser() {
-                    return user;
-                }
-
-                public void setUser(UserBean user) {
-                    this.user = user;
-                }
 
                 public String getText() {
                     return text;
@@ -242,11 +240,11 @@ public class NeiHanAll {
                     this.text = text;
                 }
 
-                public int getCreate_time() {
+                public double getCreate_time() {
                     return create_time;
                 }
 
-                public void setCreate_time(int create_time) {
+                public void setCreate_time(double create_time) {
                     this.create_time = create_time;
                 }
 
@@ -290,12 +288,12 @@ public class NeiHanAll {
                     this.share_type = share_type;
                 }
 
-                public double getMax_screen_width_percent() {
-                    return max_screen_width_percent;
+                public UserBean getUser() {
+                    return user;
                 }
 
-                public void setMax_screen_width_percent(double max_screen_width_percent) {
-                    this.max_screen_width_percent = max_screen_width_percent;
+                public void setUser(UserBean user) {
+                    this.user = user;
                 }
 
                 public int getIs_can_share() {
@@ -394,14 +392,6 @@ public class NeiHanAll {
                     this.has_comments = has_comments;
                 }
 
-                public LargeImageBean getLarge_image() {
-                    return large_image;
-                }
-
-                public void setLarge_image(LargeImageBean large_image) {
-                    this.large_image = large_image;
-                }
-
                 public int getUser_bury() {
                     return user_bury;
                 }
@@ -482,14 +472,6 @@ public class NeiHanAll {
                     this.repin_count = repin_count;
                 }
 
-                public double getMin_screen_width_percent() {
-                    return min_screen_width_percent;
-                }
-
-                public void setMin_screen_width_percent(double min_screen_width_percent) {
-                    this.min_screen_width_percent = min_screen_width_percent;
-                }
-
                 public int getDigg_count() {
                     return digg_count;
                 }
@@ -512,14 +494,6 @@ public class NeiHanAll {
 
                 public void setAllow_dislike(boolean allow_dislike) {
                     this.allow_dislike = allow_dislike;
-                }
-
-                public int getImage_status() {
-                    return image_status;
-                }
-
-                public void setImage_status(int image_status) {
-                    this.image_status = image_status;
                 }
 
                 public int getUser_repin() {
@@ -546,14 +520,6 @@ public class NeiHanAll {
                     this.group_id = group_id;
                 }
 
-                public MiddleImageBean getMiddle_image() {
-                    return middle_image;
-                }
-
-                public void setMiddle_image(MiddleImageBean middle_image) {
-                    this.middle_image = middle_image;
-                }
-
                 public int getCategory_id() {
                     return category_id;
                 }
@@ -572,13 +538,13 @@ public class NeiHanAll {
 
                 public static class UserBean {
                     /**
-                     * user_id : 5984290216
-                     * name : 3-8创史人
+                     * user_id : 54846700795
+                     * name : 丿旅途旧人
                      * followings : 0
                      * user_verified : false
-                     * ugc_count : 3
-                     * avatar_url : http://p3.pstatp.com/medium/249a0012cf6a97f02be8
-                     * followers : 1
+                     * ugc_count : 13
+                     * avatar_url : http://p3.pstatp.com/medium/289c0012171c689b8aaf
+                     * followers : 28
                      * is_following : false
                      * is_pro_user : false
                      */
@@ -666,141 +632,18 @@ public class NeiHanAll {
                     }
                 }
 
-                public static class LargeImageBean {
-                    private int width;
-                    private int height;
-                    private List<LargeImageBean.UrlListBeanX> url_list;
-
-                    public int getWidth() {
-                        return width;
-                    }
-
-                    public void setWidth(int width) {
-                        this.width = width;
-                    }
-
-                    public int getHeight() {
-                        return height;
-                    }
-
-                    public void setHeight(int height) {
-                        this.height = height;
-                    }
-
-                    public List<UrlListBeanX> getUrl_list() {
-                        return url_list;
-                    }
-
-                    public void setUrl_list(List<UrlListBeanX> url_list) {
-                        this.url_list = url_list;
-                    }
-
-                    public static class UrlListBeanX{
-                        private String url;
-                        public String getUrl() {
-                            return url;
-                        }
-                        public void setUrl(String url) {
-                            this.url = url;
-                        }
-                    }
-
-                }
-
                 public static class ActivityBean {
-                }
-
-                public static class MiddleImageBean {
-                    /**
-                     * width : 202
-                     * r_height : 283
-                     * r_width : 202
-                     * url_list : [{"url":"http://p3.pstatp.com/w202/29d00000c985590b33a3"},{"url":"http://pb9.pstatp.com/w202/29d00000c985590b33a3"},{"url":"http://pb1.pstatp.com/w202/29d00000c985590b33a3"}]
-                     * uri : w202/29d00000c985590b33a3
-                     * height : 283
-                     */
-
-                    private int width;
-                    private int r_height;
-                    private int r_width;
-                    private String uri;
-                    private int height;
-                    private List<UrlListBeanX> url_list;
-
-                    public int getWidth() {
-                        return width;
-                    }
-
-                    public void setWidth(int width) {
-                        this.width = width;
-                    }
-
-                    public int getR_height() {
-                        return r_height;
-                    }
-
-                    public void setR_height(int r_height) {
-                        this.r_height = r_height;
-                    }
-
-                    public int getR_width() {
-                        return r_width;
-                    }
-
-                    public void setR_width(int r_width) {
-                        this.r_width = r_width;
-                    }
-
-                    public String getUri() {
-                        return uri;
-                    }
-
-                    public void setUri(String uri) {
-                        this.uri = uri;
-                    }
-
-                    public int getHeight() {
-                        return height;
-                    }
-
-                    public void setHeight(int height) {
-                        this.height = height;
-                    }
-
-                    public List<UrlListBeanX> getUrl_list() {
-                        return url_list;
-                    }
-
-                    public void setUrl_list(List<UrlListBeanX> url_list) {
-                        this.url_list = url_list;
-                    }
-
-                    public static class UrlListBeanX {
-                        /**
-                         * url : http://p3.pstatp.com/w202/29d00000c985590b33a3
-                         */
-
-                        private String url;
-
-                        public String getUrl() {
-                            return url;
-                        }
-
-                        public void setUrl(String url) {
-                            this.url = url;
-                        }
-                    }
                 }
 
                 public static class DislikeReasonBean {
                     /**
-                     * type : 1
-                     * id : 319
-                     * title : 恶搞
+                     * type : 2
+                     * id : 80
+                     * title : 吧:来自世界的恶意
                      */
 
                     private int type;
-                   // private int id;
+                    private long id;
                     private String title;
 
                     public int getType() {
@@ -811,13 +654,13 @@ public class NeiHanAll {
                         this.type = type;
                     }
 
-//                    public int getId() {
-//                        return id;
-//                    }
+                    public long getId() {
+                        return id;
+                    }
 
-//                    public void setId(int id) {
-//                        this.id = id;
-//                    }
+                    public void setId(long id) {
+                        this.id = id;
+                    }
 
                     public String getTitle() {
                         return title;
@@ -829,5 +672,5 @@ public class NeiHanAll {
                 }
             }
         }
-
+    }
 }

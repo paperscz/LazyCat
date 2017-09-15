@@ -1,8 +1,6 @@
 package com.sky.lazycat.details;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
@@ -22,10 +20,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.sky.lazycat.R;
-import com.sky.lazycat.data.zhihucontent.ZhihuDailyContent;
+import com.sky.lazycat.data.zhihu.ZhihuDailyContent;
 import com.sky.lazycat.util.CustomTabsHelper;
 import com.sky.lazycat.util.HtmlUtil;
-import com.sky.lazycat.util.InfoConstants;
 import com.sky.lazycat.util.ToastUtils;
 
 import butterknife.BindView;

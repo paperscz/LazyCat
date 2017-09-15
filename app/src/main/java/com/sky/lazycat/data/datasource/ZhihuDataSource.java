@@ -1,10 +1,7 @@
 package com.sky.lazycat.data.datasource;
 
-import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
 import com.sky.lazycat.data.zhihu.Zhihu;
 import com.sky.lazycat.data.zhihu.ZhihuNew;
-
-import java.util.List;
 
 /**
  * Created by yuetu-develop on 2017/8/25.

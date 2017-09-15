@@ -14,7 +14,8 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sky.lazycat.R;
-import com.sky.lazycat.data.neihanduanzi.NeiHanAll;
+import com.sky.lazycat.data.neihanduanzi.NeiHanDuanZi;
+import com.sky.lazycat.util.ToastUtils;
 
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_first_neihan,container,false);
+        View view = inflater.inflate(R.layout.fragment_neihanduanzi,container,false);
 
         initViews(view);
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -61,7 +62,6 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
                 mLoadMore = false;
             }
         });
-
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -73,7 +73,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
                         mLoadMore = true;
                     }
                 } else {
-                    fab.show();
+                    //fab.show();
                 }
             }
         });
@@ -112,6 +112,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     }
 
     private void loadMore(){
+        setLoadingIndicator(true);
         mPresenter.loadNeiHan(true);
     }
 
@@ -131,12 +132,19 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     }
 
     @Override
-    public void showResult(List<NeiHanAll.DataBean> list) {
+    public void showResult(final List<NeiHanDuanZi.DuanziX.Duanzi> list) {
         if(mAdapter == null){
             mAdapter = new NeiHanDataQuickAdapter(list);
             mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
             mRecyclerView.setAdapter(mAdapter);
             mListSize = list.size();
+            mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    ToastUtils.showShort(getContext(),list.get(position).getGroup().getUser().getName()+"");
+                }
+            });
+
         } else {
             if(mLoadMore){
                 mAdapter.addData(list);

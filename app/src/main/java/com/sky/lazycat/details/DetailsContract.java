@@ -5,7 +5,7 @@ import android.support.annotation.StringRes;
 
 import com.sky.lazycat.base.BasePresenter;
 import com.sky.lazycat.base.BaseView;
-import com.sky.lazycat.data.zhihucontent.ZhihuDailyContent;
+import com.sky.lazycat.data.zhihu.ZhihuDailyContent;
 
 /**
  * Created by yuetu-develop on 2017/9/4.

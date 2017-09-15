@@ -1,4 +1,4 @@
-package com.sky.lazycat.data.zhihucontent;
+package com.sky.lazycat.data.zhihu;
 
 import com.google.gson.annotations.SerializedName;
 
