@@ -1,5 +1,5 @@
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -10,12 +10,41 @@
         <item name="android:actionBarStyle">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
         <!--<item name="android:windowTranslucentStatus">false</item>-->
         <!--<item name="android:windowTranslucentNavigation">true</item>-->
         <!--Android 5.x开始需要把颜色设置透明，否则导航栏会呈现系统默认的浅灰色-->
         <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
     </style>
+
+    <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- BottomDialog theme here. -->
+    <style name="BottomDialog" parent="android:style/Theme.Dialog">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+        <!--背景颜色及和透明程度-->
+        <item name="android:windowBackground">@color/transparent</item>
+        <!--是否去除标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--是否去除边框-->
+        <item name="android:windowFrame">@null</item>
+        <!--是否浮现在activity之上-->
+        <item name="android:windowIsFloating">true</item>
+        <!--是否模糊-->
+        <item name="android:backgroundDimEnabled">true</item>
+        <!--动画-->
+        <item name="android:windowAnimationStyle">@style/BottomToTopAnim</item>
+    </style>
+
+    <style name="BottomToTopAnim" parent="android:Animation">
+        <item name="@android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="@android:windowExitAnimation">@anim/dialog_out</item>
+    </style>
+    <!-- BottomDialog theme over. -->
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:windowActionBar">false</item>
@@ -23,7 +52,7 @@
     </style>
 
     <style name="AppTheme.TranslucentStatus">
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Dark" />
@@ -74,7 +103,7 @@
         <item name="android:textColor">@color/md_grey_400</item>
     </style>
 
-    <!--CardView相关设置 end-->
+    <!--CardView相关设置 start-->
 
     <style name="baseLayoutParam">
         <item name="android:layout_width">match_parent</item>
@@ -127,4 +156,5 @@
         <item name="android:layout_alignParentRight">true</item>
     </style>
 
+    <!--CardView相关设置 end-->
 </resources>

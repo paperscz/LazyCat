@@ -1,6 +1,5 @@
 package com.sky.lazycat.timeline.zhihu;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -26,7 +25,6 @@ import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -68,7 +66,7 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_zhihu,container,false);
+        View view = inflater.inflate(R.layout.dialog_fragment_zhihu,container,false);
         mUnbinder = ButterKnife.bind(this,view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mFab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
@@ -109,7 +107,6 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
         } else {
             //mPresenter.loadZhihu(false,true,date);
         }
-
     }
 
     @Override
@@ -264,8 +261,9 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
     public void onDestroy() {
         super.onDestroy();
         mUnbinder.unbind();
-        //mBanner.pause();
-        mBanner.stopAutoPlay();
+        if(null != mBanner){
+            mBanner.stopAutoPlay();
+        }
     }
 
 }

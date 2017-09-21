@@ -1,5 +1,9 @@
 package com.sky.lazycat.ui;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -7,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.sky.lazycat.util.ToastUtils;
+import com.sky.lazycat.widget.BottomDialogFragment;
 
 import java.util.List;
 
@@ -14,7 +20,7 @@ import java.util.List;
  * Created by yuetu-develop on 2017/8/16.
  */
 
-public class PhotoViewAdapter extends PagerAdapter {
+public class PhotoViewAdapter extends PagerAdapter implements BottomDialogFragment.OptionClickLisenter{
 
     public static final String TAG = PhotoViewAdapter.class.getSimpleName();
 
@@ -41,6 +47,17 @@ public class PhotoViewAdapter extends PagerAdapter {
                 activity.finish();
             }
         });
+
+        photoView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putStringArray(BottomDialogFragment.TAG_DIALOG_ITEM,new String[]{"保存","分享","其它"});
+                bundle.putBoolean(BottomDialogFragment.TAG_DIALOG_TITLE,false);
+                BottomDialogFragment.newInstance(bundle).show(activity.getSupportFragmentManager(),"BottomDialogFragment");
+                return true;
+            }
+        });
         return photoView;
     }
 
@@ -62,5 +79,10 @@ public class PhotoViewAdapter extends PagerAdapter {
     @Override
     public int getItemPosition(Object object) {
         return POSITION_NONE;
+    }
+
+    @Override
+    public void onOptionClick(String option) {
+        ToastUtils.showShort(activity,option);
     }
 }

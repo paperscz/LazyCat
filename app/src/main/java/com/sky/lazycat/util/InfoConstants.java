@@ -17,7 +17,6 @@
 package com.sky.lazycat.util;
 
 /**
- * Created by lizhaotailang on 2017/5/21.
  *
  * Includes some constant string.
  */

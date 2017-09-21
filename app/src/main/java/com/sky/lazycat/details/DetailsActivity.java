@@ -47,12 +47,6 @@ public class DetailsActivity extends AppCompatActivity{
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        ZhihuDailyContentRepository.destroyInstance();
-    }
-
     public static void newIntent(Context context, int articleId, String articleTitle) {
         Intent intent = new Intent(context, DetailsActivity.class);
         intent.putExtra(KEY_ARTICLE_ID, articleId);
@@ -60,4 +54,9 @@ public class DetailsActivity extends AppCompatActivity{
         context.startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ZhihuDailyContentRepository.destroyInstance();
+    }
 }

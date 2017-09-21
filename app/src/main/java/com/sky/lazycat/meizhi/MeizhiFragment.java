@@ -79,12 +79,12 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
         mPresenter.start();
         setLoadingIndicator(mIsFirstLoad);
         // 第一次加载判定，到大图activity再回来不要加载
-            if(mIsFirstLoad){
-                mPresenter.loadMeizhi(mPage,true);
-                mIsFirstLoad = false;
-            }else {
-                //mPresenter.loadMeizhi(mPage,false);
-            }
+        if(mIsFirstLoad){
+            mPresenter.loadMeizhi(mPage,true);
+            mIsFirstLoad = false;
+        }else {
+            //mPresenter.loadMeizhi(mPage,false);
+        }
 
     }
 
@@ -135,7 +135,6 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
             } else {
                 mMeiZhiAdapter.updateData(list);
             }
-
         }
     }
 
@@ -158,7 +157,6 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
                         mIsFirstTimeTouchBottom = false;
                     }
                 }
-
             }
         };
     }
@@ -169,18 +167,14 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
             public void onTouch(View v, View meizhiView, View card, List<MeizhiData.MeizhiBean> meizhi,MeizhiData.MeizhiBean meizhiBean) {
                 if (meizhi == null) return;
                 if (v == meizhiView) {
-                    // && !mMeizhiBeTouched
-                    //mMeizhiBeTouched = true;
-                    startPictureActivity(meizhi, meizhiView,meizhi.indexOf(meizhiBean));
+                    PhotoViewActivity.newIntent(getActivity(),meizhiView,(ArrayList<String>) getUrils(meizhi),meizhi.indexOf(meizhiBean));
                 } else if (v == card) {
                     GankActivity.newIntent(getActivity(),meizhiBean.getPublishedAt(),meizhiBean.videoUrl);
                 }
             }
 
         };
-
     }
-
 
     // 遍历拿出url
     private List<String> getUrils(List<MeizhiData.MeizhiBean> meizhi) {
@@ -193,22 +187,6 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
             }
         }
         return mUrls;
-    }
-
-    private void startPictureActivity(List<MeizhiData.MeizhiBean> meizhiList, View transitView,int index) {
-
-        Intent intent = new Intent(getActivity(), PhotoViewActivity.class);
-        intent.putExtra("currentPosition",index);
-        intent.putStringArrayListExtra("mUrls", (ArrayList<String>) getUrils(meizhiList));
-
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                getActivity(), transitView, "picture");
-        try {
-            ActivityCompat.startActivity(getActivity(), intent, optionsCompat.toBundle());
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            startActivity(intent);
-        }
     }
 
 }

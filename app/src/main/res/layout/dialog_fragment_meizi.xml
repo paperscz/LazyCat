@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="10dp">
+
+    <LinearLayout
+        android:id="@+id/ll_bottom_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_selector"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:clickable="false"
+            android:gravity="center"
+            android:background="@null"
+            android:textSize="20dp" />
+
+        <View
+            android:id="@+id/view_dialog_line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/colordivider" />
+
+        <LinearLayout
+            android:id="@+id/options_ll"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_below="@id/ll_bottom_dialog"
+        android:layout_marginTop="8dp"
+        android:id="@+id/tv_dialog_cancle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/item_selector"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textColor="@color/md_red_A700"
+        android:text="@string/negative"
+        android:textSize="18sp" />
+
+</RelativeLayout>
