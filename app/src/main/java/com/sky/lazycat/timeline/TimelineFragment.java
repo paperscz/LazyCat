@@ -26,11 +26,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-/**
- * Created by yuetu-develop on 2017/7/6.
- */
+    /**
+     * Created by yuetu-develop on 2017/7/6.
+     */
 
-public class TimelineFragment extends Fragment {
+    public class TimelineFragment extends Fragment {
 
     private NeiHanFragment mNeiHanFragment;
     private ZhihuFragment mZhihuFragment;
@@ -79,14 +79,11 @@ public class TimelineFragment extends Fragment {
                     mFab.show();
                 }
             }
-
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
@@ -116,8 +113,10 @@ public class TimelineFragment extends Fragment {
     }
 
     private void initViews(View view) {
-        mViewPager.setAdapter(new TimelinePagerAdapter(getChildFragmentManager(),
-                getContext(),mZhihuFragment,mNeiHanFragment));
+        TimelinePagerAdapter timelinePagerAdapter = new TimelinePagerAdapter(getChildFragmentManager(),
+                getContext(),mZhihuFragment,mNeiHanFragment);
+
+        mViewPager.setAdapter(timelinePagerAdapter);
 
         mViewPager.setOffscreenPageLimit(3);
 

@@ -25,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -85,31 +86,38 @@ public class BottomDialogFragment extends DialogFragment {
         dialogLine.setVisibility(noTitle ? View.GONE : View.VISIBLE);
         String[] listOption = bundle.getStringArray(TAG_DIALOG_ITEM);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 1);
-        for (int i = 0; i < listOption.length; i++){
-            final TextView optionText = new TextView(getContext());
-            int padding = UIUtils.dip2px(DIALOG_PADDING);
-            optionText.setPadding(padding, padding, padding, padding);
-            optionText.setText(listOption[i]);
-            optionText.setTextSize(DIALOG_TEXTSIZE);
-            optionText.setGravity(Gravity.CENTER);
-            optionText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    OptionClickLisenter lisenter = (OptionClickLisenter) getActivity();
-                    lisenter.onOptionClick(optionText.getText().toString());
-//                    ToastUtils.showShort(getContext(),optionText.getText());
-//                    INSTANCE_BDF.dismiss();
+        if(null != listOption){
+            for (int i = 0; i < listOption.length; i++){
+                final TextView optionText = new TextView(getContext());
+                int padding = UIUtils.dip2px(DIALOG_PADDING);
+                optionText.setPadding(padding, padding, padding, padding);
+                optionText.setText(listOption[i]);
+                optionText.setTextSize(DIALOG_TEXTSIZE);
+                optionText.setGravity(Gravity.CENTER);
+                optionText.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        OptionClickLisenter lisenter = (OptionClickLisenter) getActivity();
+                        lisenter.onOptionClick(optionText.getText().toString());
+                        INSTANCE_BDF.dismiss();
+                    }
+                });
+                dialogLayout.addView(optionText);
+                if (i != listOption.length - 1) {
+                    View divider = new View(BaseApplication.getContext());
+                    divider.setBackgroundResource(R.color.colordivider);
+                    dialogLayout.addView(divider, params);
                 }
-            });
-            dialogLayout.addView(optionText);
-            if (i != listOption.length - 1) {
-                View divider = new View(BaseApplication.getContext());
-                divider.setBackgroundResource(R.color.colordivider);
-                dialogLayout.addView(divider, params);
+                optionText.setBackgroundResource(R.drawable.item_selector);
             }
-            optionText.setBackgroundResource(R.drawable.item_selector);
         }
 
+
+    }
+
+    @OnClick(R.id.tv_dialog_cancle)
+    public void cancle(){
+        INSTANCE_BDF.dismiss();
     }
 
     public interface OptionClickLisenter{

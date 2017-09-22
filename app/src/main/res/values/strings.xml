@@ -106,5 +106,6 @@
 
     <string name="news_preview_image">图片预览</string>
     <string name="share_this_news">分享这个新闻</string>
+    <string name="cancel">取&#160;&#160;消</string>
 
 </resources>

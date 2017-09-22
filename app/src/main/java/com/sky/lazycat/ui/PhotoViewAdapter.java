@@ -20,7 +20,7 @@ import java.util.List;
  * Created by yuetu-develop on 2017/8/16.
  */
 
-public class PhotoViewAdapter extends PagerAdapter implements BottomDialogFragment.OptionClickLisenter{
+public class PhotoViewAdapter extends PagerAdapter{
 
     public static final String TAG = PhotoViewAdapter.class.getSimpleName();
 
@@ -52,8 +52,8 @@ public class PhotoViewAdapter extends PagerAdapter implements BottomDialogFragme
             @Override
             public boolean onLongClick(View view) {
                 Bundle bundle = new Bundle();
-                bundle.putStringArray(BottomDialogFragment.TAG_DIALOG_ITEM,new String[]{"保存","分享","其它"});
-                bundle.putBoolean(BottomDialogFragment.TAG_DIALOG_TITLE,false);
+                bundle.putStringArray(BottomDialogFragment.TAG_DIALOG_ITEM,new String[]{PhotoViewActivity.TEXT_SAVE,PhotoViewActivity.TEXT_SHARE});
+                bundle.putBoolean(BottomDialogFragment.TAG_DIALOG_TITLE,true);
                 BottomDialogFragment.newInstance(bundle).show(activity.getSupportFragmentManager(),"BottomDialogFragment");
                 return true;
             }
@@ -81,8 +81,4 @@ public class PhotoViewAdapter extends PagerAdapter implements BottomDialogFragme
         return POSITION_NONE;
     }
 
-    @Override
-    public void onOptionClick(String option) {
-        ToastUtils.showShort(activity,option);
-    }
 }

@@ -1,31 +1,48 @@
 package com.sky.lazycat.ui;
 
+import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.sky.lazycat.R;
+import com.sky.lazycat.util.SDFileHelper;
+import com.sky.lazycat.util.ShareUtils;
+import com.sky.lazycat.util.ToastUtils;
+import com.sky.lazycat.widget.BottomDialogFragment;
 import com.sky.lazycat.widget.PhotoViewPager;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnNeverAskAgain;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.OnShowRationale;
+import permissions.dispatcher.PermissionRequest;
+import permissions.dispatcher.RuntimePermissions;
 
 /**
  * Created by yuetu-develop on 2017/8/16.
  */
-
-public class PhotoViewActivity extends AppCompatActivity{
+@RuntimePermissions
+public class PhotoViewActivity extends AppCompatActivity implements BottomDialogFragment.OptionClickLisenter{
 
     @BindView(R.id.pvp_viewpager) PhotoViewPager mPhotoViewPager;
     @BindView(R.id.tv_number) AppCompatTextView tv_number;
@@ -33,6 +50,9 @@ public class PhotoViewActivity extends AppCompatActivity{
     private List<String> mUrls;
     private int currentPosition;
     private Unbinder mUnbinder;
+    public static String TEXT_SAVE = "保  存";
+    public static String TEXT_SHARE = "分  享";
+    private boolean isShare = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,7 +100,6 @@ public class PhotoViewActivity extends AppCompatActivity{
     @Override
     public void finish() {
         super.finish();
-//        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         overridePendingTransition(0, android.R.anim.slide_out_right);
     }
 
@@ -89,4 +108,79 @@ public class PhotoViewActivity extends AppCompatActivity{
         super.onDestroy();
         mUnbinder.unbind();
     }
+
+    @Override
+    public void onOptionClick(String option) {
+//        ToastUtils.showShort(this,option);
+        if(!TextUtils.isEmpty(option) && option.equals(TEXT_SAVE)){
+            isShare = false;
+            PhotoViewActivityPermissionsDispatcher.showSavePermissionWithPermissionCheck(this);
+        }else if(!TextUtils.isEmpty(option) && option.equals(TEXT_SHARE)){
+            isShare = true;
+            PhotoViewActivityPermissionsDispatcher.showSavePermissionWithPermissionCheck(this);
+        }
+    }
+    // 需要权限的方法
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void showSavePermission(){
+        SDFileHelper helper = new SDFileHelper(this);
+        helper.savePicture("Cat_"+System.currentTimeMillis(),mUrls.get(currentPosition),isShare);
+    }
+     // 显示自定义权限申请
+//    @OnShowRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//    void showRationaleForRecord(final PermissionRequest request) {
+//        new AlertDialog.Builder(this)
+//                .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        request.proceed();
+//                    }
+//                })
+//                .setNegativeButton("不给", new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        request.cancel();
+//                    }
+//                })
+//                .setCancelable(false)
+//                .setMessage("保存图片需要申请权限")
+//                .show();
+//    }
+
+    // 用户拒绝权限
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void showRecordDenied(){
+        ToastUtils.showShort(this,"用户拒绝，无法保存图片");
+    }
+    // 用户勾选不再提示后再次申请
+    @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    void onRecordNeverAskAgain() {
+        new AlertDialog.Builder(this)
+                .setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO: 2016/11/10 打开系统设置权限
+
+                        dialog.cancel();
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .setCancelable(false)
+                .setMessage("您已经禁止了保存权限,请到权限管理页面打开权限")
+                .show();
+    }
+
+    // 权限申请结果回调
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PhotoViewActivityPermissionsDispatcher.onRequestPermissionsResult(this,requestCode,grantResults);
+    }
+
+
 }
