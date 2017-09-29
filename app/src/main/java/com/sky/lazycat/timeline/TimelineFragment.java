@@ -73,10 +73,14 @@ import butterknife.Unbinder;
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 1) {
-                    mFab.hide();
-                } else {
+                if (tab.getPosition() == 0) {
+                    mFab.setImageResource(R.drawable.ic_calendar_white_24dp);
                     mFab.show();
+                } else if(tab.getPosition() == 1){
+                    mFab.show();
+                    mFab.setImageResource(R.drawable.ic_arrow_up_24dp);
+                }else {
+                    mFab.hide();
                 }
             }
             @Override
@@ -93,7 +97,7 @@ import butterknife.Unbinder;
                 if (mTabLayout.getSelectedTabPosition() == 0) {
                     mZhihuFragment.showDatePickerDialog();
                 } else {
-                    //mDoubanFragment.showDatePickerDialog();
+                    mNeiHanFragment.scroll2Top();
                 }
             }
         });

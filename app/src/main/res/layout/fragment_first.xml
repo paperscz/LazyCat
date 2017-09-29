@@ -52,6 +52,4 @@
         android:contentDescription="@string/select_date"
         app:srcCompat="@drawable/ic_calendar_white_24dp"/>
 
-
-
 </android.support.design.widget.CoordinatorLayout>

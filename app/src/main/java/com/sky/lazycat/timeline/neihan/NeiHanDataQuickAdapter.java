@@ -33,11 +33,11 @@ public class NeiHanDataQuickAdapter extends BaseQuickAdapter<NeiHanDuanZi.Duanzi
         Glide.with(mContext)
                 .load(dataBean.getGroup().getUser().getAvatar_url())
                 .asBitmap()
-//                .placeholder(R.drawable.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .error(R.drawable.placeholder)
                 .centerCrop()
                 // 圆角处理，必须.asBitmap()
+//                .placeholder(R.drawable.placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(new BitmapImageViewTarget(imageView){
                     @Override
                     protected void setResource(Bitmap resource) {

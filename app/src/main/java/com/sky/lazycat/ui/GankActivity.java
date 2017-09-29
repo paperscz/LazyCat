@@ -15,6 +15,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.meizhi.GankData;
@@ -41,7 +43,7 @@ public class GankActivity extends AppCompatActivity {
 
     public static final String EXTRA_GANK_DATE = "gank_date";
     public static final String EXTRA_VIDEO_URL = "video_url";
-
+    public static final String EXTRA_MEIZHI_URL = "meizhi_url";
     @BindView(R.id.rv_ganklist) RecyclerView rv_ganklist;
     @BindView(R.id.iv_gankhead) ImageView iv_gankhead;
     @BindView(R.id.toolbar) Toolbar toolbar;
@@ -49,6 +51,7 @@ public class GankActivity extends AppCompatActivity {
 
     private String mVideoUrl;
     private String mGankDate;
+    private String mMeiZhiUrl;
     private List<GankData.Gank> mGankList;
     private GankListQuickAdapter mAdapter;
     private Unbinder unbinder;
@@ -65,7 +68,6 @@ public class GankActivity extends AppCompatActivity {
     }
 
     private void setToolBar() {
-
 //        mToolbarLayout.setTitle("暂无标题");
 //        mToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
 //        mToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
@@ -74,8 +76,7 @@ public class GankActivity extends AppCompatActivity {
 
         this.setSupportActionBar(toolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_white_24dp);
-
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
     }
 
     @Override
@@ -94,8 +95,8 @@ public class GankActivity extends AppCompatActivity {
         rv_ganklist.setAdapter(mAdapter);
 
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 String title = mGankList.get(position).desc;
                 String mUrl = mGankList.get(position).url;
                 Intent intent = WebActivity.newIntent(GankActivity.this,mUrl,title);
@@ -112,17 +113,10 @@ public class GankActivity extends AppCompatActivity {
 //        });
     }
 
-//    @OnClick(R.id.iv_gankhead) void playVideo(){
-//        if(!TextUtils.isEmpty(mVideoUrl)){
-//            ToastUtils.showShort(GankActivity.this,"播放视频"+mVideoUrl);
-//        } else {
-//            ToastUtils.showShort(GankActivity.this,getString(R.string.tip_for_no_gank));
-//        }
-//    }
-
     private void parseIntent() {
         mGankDate = getIntent().getStringExtra(EXTRA_GANK_DATE);
         mVideoUrl= getIntent().getStringExtra(EXTRA_VIDEO_URL);
+        mMeiZhiUrl = getIntent().getStringExtra(EXTRA_MEIZHI_URL);
     }
 
     private void loadData() {
@@ -141,6 +135,12 @@ public class GankActivity extends AppCompatActivity {
                     }
                 });
 
+        Glide.with(this)
+                .load(mMeiZhiUrl)
+                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .into(iv_gankhead);
+
     }
 
     private List<GankData.Gank> addAllResults(GankData.ResultsBean results) {
@@ -153,10 +153,11 @@ public class GankActivity extends AppCompatActivity {
         return mGankList;
     }
 
-    public static void newIntent(Context context,String createAt,String videoUrl){
+    public static void newIntent(Context context,String createAt,String videoUrl,String meizhiUrl){
         Intent intent = new Intent(context,GankActivity.class);
         intent.putExtra(GankActivity.EXTRA_GANK_DATE,createAt);
         intent.putExtra(GankActivity.EXTRA_VIDEO_URL,videoUrl);
+        intent.putExtra(GankActivity.EXTRA_MEIZHI_URL,meizhiUrl);
         context.startActivity(intent);
     }
 

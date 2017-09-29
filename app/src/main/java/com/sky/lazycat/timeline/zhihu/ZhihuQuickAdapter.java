@@ -30,6 +30,7 @@ public class ZhihuQuickAdapter extends BaseQuickAdapter<Zhihu.StoriesBean,BaseVi
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into((ImageView) helper.getView(R.id.thumbnail_image));
         helper.setText(R.id.question_title,item.getTitle());
-        helper.setText(R.id.daily_title,"id:"+item.getId());
+        helper.setText(R.id.daily_title,item.getTitle());
+        helper.addOnClickListener(R.id.card_share_overflow);
     }
 }

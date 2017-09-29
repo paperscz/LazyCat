@@ -14,6 +14,7 @@ public interface NeiHanDataSource {
         void onNewsLoaded(List<NeiHanDuanZi.DuanziX.Duanzi> list);
         void onDataNotAvailable();
     }
+
     interface GetDataItemCallback {
         void onItemLoaded(NeiHanDuanZi.DuanziX.Duanzi item);
         void onDataNotAvailable();

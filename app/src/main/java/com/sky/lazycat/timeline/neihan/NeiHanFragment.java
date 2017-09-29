@@ -79,13 +79,13 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if (dy > 0) {
-                    //fab.hide();
+                    fab.hide();
                     if (mLayoutManager.findLastCompletelyVisibleItemPosition() == mListSize - 1) {
                         loadMore();
                         mLoadMore = true;
                     }
                 } else {
-                    //fab.show();
+                    fab.show();
                 }
             }
         });
@@ -189,7 +189,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
 //                ToastUtils.showShort(getContext(),"头像"+position);
-                List<String> urlList = new ArrayList<String>();
+                List<String> urlList = new ArrayList<>();
                 urlList.add(list.get(position).getGroup().getUser().getAvatar_url());
                 PhotoViewActivity.newIntent(getActivity(),view,urlList,0);
             }
@@ -199,6 +199,12 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     private void copyMessage(String msg){
         ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         cm.setText(msg);
+    }
+
+    public void scroll2Top(){
+        if(null != mRecyclerView){
+            mRecyclerView.smoothScrollToPosition(0);
+        }
     }
 
     @Override

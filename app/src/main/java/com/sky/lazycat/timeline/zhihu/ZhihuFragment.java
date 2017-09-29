@@ -6,17 +6,25 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sky.lazycat.R;
+import com.sky.lazycat.app.BaseApplication;
 import com.sky.lazycat.data.zhihu.Zhihu;
 import com.sky.lazycat.details.DetailsActivity;
+import com.sky.lazycat.retrofit.RetrofitService;
 import com.sky.lazycat.timeline.GlideImageLoader;
 import com.sky.lazycat.util.DateFormatUtil;
+import com.sky.lazycat.util.ShareUtils;
+import com.sky.lazycat.util.ToastUtils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -148,7 +156,6 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
         } else {
             mZhihuQuickAdapter.setNewData(listStories);
         }
-
         //setMzBanner(listTopStories);
     }
 
@@ -165,6 +172,27 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 DetailsActivity.newIntent(getActivity(),listStories.get(position).getId(),listStories.get(position).getTitle());
+            }
+        });
+
+        mZhihuQuickAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, final int position) {
+                PopupMenu popup = new PopupMenu(getContext(), view);
+                MenuInflater inflater = popup.getMenuInflater();
+                inflater.inflate(R.menu.list_zhihu_share, popup.getMenu());
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.action_share_url:
+                                ShareUtils.share(getActivity(), RetrofitService.ZHIHU_SHARE_URL+listStories.get(position).getId(),listStories.get(position).getTitle());
+                                break;
+                        }
+                        return true;
+                    }
+                });
+                popup.show();
             }
         });
 
@@ -255,7 +283,6 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
 //            Glide.with(context).load(topStoriesBean.getImage()).into(mImageView);
 //        }
 //    }
-
 
     @Override
     public void onDestroy() {

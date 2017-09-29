@@ -100,7 +100,7 @@ public class PhotoViewActivity extends AppCompatActivity implements BottomDialog
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(0, android.R.anim.slide_out_right);
+        overridePendingTransition(0, android.R.anim.fade_out);
     }
 
     @Override
@@ -159,8 +159,6 @@ public class PhotoViewActivity extends AppCompatActivity implements BottomDialog
                 .setPositiveButton("好的", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // TODO: 2016/11/10 打开系统设置权限
-
                         dialog.cancel();
                     }
                 })

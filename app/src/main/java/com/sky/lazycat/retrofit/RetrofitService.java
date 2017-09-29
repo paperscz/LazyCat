@@ -28,6 +28,7 @@ public interface RetrofitService {
     // 知乎日报url
     public static final String API_VERSION = "4";
     public static final String ZHIHU_DATA_BASE = "http://news-at.zhihu.com/api/4/news/";
+    public static final String ZHIHU_SHARE_URL = "http://daily.zhihu.com/story/";
     public static final String ZHIHULATEST_DATA_BASE = "http://news-at.zhihu.com/api/4/";
     //获取启动页面图片
     String URL_GET_START_IMAGE = "start-image/1080*1776";

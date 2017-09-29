@@ -10,7 +10,6 @@ import java.util.List;
 
 public class NeiHanVideo {
 
-
     /**
      * message : success
      * data : {"has_more":true,"tip":"2条新内容","has_new_message":false,"max_time":1505452562,"min_time":1505452862,

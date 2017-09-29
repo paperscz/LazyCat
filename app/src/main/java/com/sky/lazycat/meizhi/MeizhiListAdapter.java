@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.meizhi.MeizhiData;
@@ -50,6 +51,7 @@ public class MeizhiListAdapter extends RecyclerView.Adapter<MeizhiListAdapter.Vi
         Glide.with(mContext)
                 .load(meizhi.getUrl())
                 .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(viewHolder.iv_meizhi)
                 .getSize(new SizeReadyCallback() {
                     @Override
@@ -70,7 +72,6 @@ public class MeizhiListAdapter extends RecyclerView.Adapter<MeizhiListAdapter.Vi
         mList.clear();
         mList.addAll(list);
         notifyDataSetChanged();
-     //   notifyItemRemoved(list.size());
     }
 
     public void addData(@NonNull List<MeizhiData.MeizhiBean> list) {
@@ -98,7 +99,6 @@ public class MeizhiListAdapter extends RecyclerView.Adapter<MeizhiListAdapter.Vi
             card.setOnClickListener(this);
             iv_meizhi.setOriginalSize(50, 50);
         }
-
 
         @Override public void onClick(View v) {
             mOnMeizhiTouchListener.onTouch(v, iv_meizhi, card,mList, meizhiBean);

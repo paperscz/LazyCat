@@ -103,7 +103,6 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
 
     @Override
     public void setLoadingIndicator(final boolean active) {
-
         mMultiSwipeRefreshLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -169,7 +168,7 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
                 if (v == meizhiView) {
                     PhotoViewActivity.newIntent(getActivity(),meizhiView,(ArrayList<String>) getUrils(meizhi),meizhi.indexOf(meizhiBean));
                 } else if (v == card) {
-                    GankActivity.newIntent(getActivity(),meizhiBean.getPublishedAt(),meizhiBean.videoUrl);
+                    GankActivity.newIntent(getActivity(),meizhiBean.getPublishedAt(),meizhiBean.videoUrl,meizhiBean.getUrl());
                 }
             }
 
