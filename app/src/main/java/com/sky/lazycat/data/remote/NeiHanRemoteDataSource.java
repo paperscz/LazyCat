@@ -3,6 +3,7 @@ package com.sky.lazycat.data.remote;
 import com.sky.lazycat.data.datasource.NeiHanDataSource;
 import com.sky.lazycat.data.neihanduanzi.NeiHanDuanZi;
 import com.sky.lazycat.retrofit.DrakeetFactory;
+import com.sky.lazycat.retrofit.RetrofitService;
 
 import java.util.List;
 
@@ -29,24 +30,40 @@ public class NeiHanRemoteDataSource implements NeiHanDataSource{
     }
 
     @Override
-    public void getNeiHanDailyData(boolean forceUpdate,final LoadNeiHanDataCallback callback) {
+    public void getNeiHanDailyData(boolean forceUpdate,int type,final LoadNeiHanDataCallback callback) {
 
-        DrakeetFactory.getNeihanSingleton().getNeiHanList().enqueue(new Callback<NeiHanDuanZi>() {
-            @Override
-            public void onResponse(Call<NeiHanDuanZi> call, Response<NeiHanDuanZi> response) {
-                callback.onNewsLoaded(response.body().getData().getData());
-            }
+        switch (type){
+            case RetrofitService.TYPE_NEIHAN_TUIJIAN:
+                DrakeetFactory.getNeihanSingleton().getNeiHanTuiJianList().enqueue(new Callback<NeiHanDuanZi>() {
+                    @Override
+                    public void onResponse(Call<NeiHanDuanZi> call, Response<NeiHanDuanZi> response) {
+                        callback.onNewsLoaded(response.body().getData().getData());
+                    }
+                    @Override
+                    public void onFailure(Call<NeiHanDuanZi> call, Throwable t) {
+                        callback.onDataNotAvailable();
+                    }
+                });
+                break;
+            case RetrofitService.TYPE_NEIHAN_DUANZI:
+                DrakeetFactory.getNeihanSingleton().getNeiHanList().enqueue(new Callback<NeiHanDuanZi>() {
+                    @Override
+                    public void onResponse(Call<NeiHanDuanZi> call, Response<NeiHanDuanZi> response) {
+                        callback.onNewsLoaded(response.body().getData().getData());
+                    }
+                    @Override
+                    public void onFailure(Call<NeiHanDuanZi> call, Throwable t) {
+                        callback.onDataNotAvailable();
+                    }
+                });
+                break;
 
-            @Override
-            public void onFailure(Call<NeiHanDuanZi> call, Throwable t) {
-                callback.onDataNotAvailable();
-            }
-        });
+        }
     }
 
     @Override
     public void getItem(int itemId, final GetDataItemCallback callback) {
-
+//        callback.onItemLoaded(list.get(itemId));
     }
 
     @Override

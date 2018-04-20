@@ -27,6 +27,7 @@ import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
 import com.sky.lazycat.R;
+import com.sky.lazycat.info.InfoConstants;
 
 
 /**

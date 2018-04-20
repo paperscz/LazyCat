@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.sky.lazycat.data.meizhi.MeizhiData;
 import com.sky.lazycat.data.datasource.MeizhiDataSource;
+import com.sky.lazycat.retrofit.DrakeetFactory;
 import com.sky.lazycat.retrofit.RetrofitService;
 import com.sky.lazycat.util.ToastUtils;
 
@@ -34,14 +35,7 @@ public class MeizhiRemoteDataSource implements MeizhiDataSource {
     @Override
     public void getMeizhiData(int page, boolean forceUpdate, final LoadMeizhiDataCallback callback) {
 
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitService.MEIZHI_DATA_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        RetrofitService.MeizhiService service = retrofit.create(RetrofitService.MeizhiService.class);
-
-        service.getMeizhiData(page)
+        DrakeetFactory.getMeiZhiSingleton().getMeizhiData(page)
                 .enqueue(new Callback<MeizhiData>() {
                     @Override
                     public void onResponse(Call<MeizhiData> call, Response<MeizhiData> response) {

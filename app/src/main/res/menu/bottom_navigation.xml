@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_timeline"
             android:enabled="true"
-            android:icon="@drawable/ic_activity_black_24dp"
+            android:icon="@drawable/ic_timeline_black_24dp"
             android:title="@string/timeline" />
 
         <item
@@ -18,10 +18,16 @@
             android:icon="@drawable/ic_favorite_24dp"
             android:title="@string/meizi" />
 
+        <!--<item-->
+            <!--android:id="@+id/nav_neihan"-->
+            <!--android:enabled="true"-->
+            <!--android:icon="@drawable/ic_mood_black_24dp"-->
+            <!--android:title="@string/neihan_tuijian" />-->
+
         <item
             android:id="@+id/nav_info"
             android:enabled="true"
-            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:icon="@drawable/ic_person_black_24dp"
             android:title="@string/info" />
 
     </group>

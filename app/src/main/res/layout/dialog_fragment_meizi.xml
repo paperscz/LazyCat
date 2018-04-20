@@ -45,7 +45,7 @@
         android:background="@drawable/item_selector"
         android:gravity="center"
         android:padding="8dp"
-        android:textColor="@color/md_red_A700"
+        android:textColor="@color/md_red_a700"
         android:text="@string/cancel"
         android:textSize="18sp" />
 

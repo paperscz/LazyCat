@@ -18,6 +18,7 @@ import com.sky.lazycat.data.remote.ZhihuRemoteDataSource;
 import com.sky.lazycat.timeline.neihan.NeiHanDataPresenter;
 import com.sky.lazycat.timeline.neihan.NeiHanDataRepository;
 import com.sky.lazycat.timeline.neihan.NeiHanFragment;
+import com.sky.lazycat.timeline.neihan.NeiHanTuiJianFragment;
 import com.sky.lazycat.timeline.zhihu.ZhihuDataRepository;
 import com.sky.lazycat.timeline.zhihu.ZhihuFragment;
 import com.sky.lazycat.timeline.zhihu.ZhihuPresenter;
@@ -26,14 +27,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-    /**
-     * Created by yuetu-develop on 2017/7/6.
-     */
+/**
+ * Created by yuetu-develop on 2017/7/6.
+ */
 
-    public class TimelineFragment extends Fragment {
+public class TimelineFragment extends Fragment {
 
-    private NeiHanFragment mNeiHanFragment;
     private ZhihuFragment mZhihuFragment;
+    private NeiHanFragment mNeiHanFragment;
+    private NeiHanTuiJianFragment mNeiHanTuiJianFragment;
     @BindView(R.id.fab) FloatingActionButton mFab;
     @BindView(R.id.view_pager) ViewPager mViewPager;
     @BindView(R.id.tab_layout) TabLayout mTabLayout;
@@ -52,15 +54,19 @@ import butterknife.Unbinder;
         super.onCreate(savedInstanceState);
         if(savedInstanceState != null){
             FragmentManager fm = getChildFragmentManager();
-            mNeiHanFragment = (NeiHanFragment) fm.getFragment(savedInstanceState,NeiHanFragment.class.getSimpleName());
             mZhihuFragment = (ZhihuFragment) fm.getFragment(savedInstanceState,ZhihuFragment.class.getSimpleName());
+            mNeiHanFragment = (NeiHanFragment) fm.getFragment(savedInstanceState,NeiHanFragment.class.getSimpleName());
+            mNeiHanTuiJianFragment = (NeiHanTuiJianFragment) fm.getFragment(savedInstanceState,NeiHanTuiJianFragment.class.getSimpleName());
         } else {
-            mNeiHanFragment = NeiHanFragment.newInstance();
             mZhihuFragment = ZhihuFragment.newInstance();
+            mNeiHanFragment = NeiHanFragment.newInstance();
+            mNeiHanTuiJianFragment = NeiHanTuiJianFragment.newInstance();
         }
 
-        new NeiHanDataPresenter(mNeiHanFragment, NeiHanDataRepository.getInstance(NeiHanRemoteDataSource.geInstance()));
         new ZhihuPresenter(mZhihuFragment, ZhihuDataRepository.getInstance(ZhihuRemoteDataSource.geInstance()));
+        new NeiHanDataPresenter(mNeiHanFragment, NeiHanDataRepository.getInstance(NeiHanRemoteDataSource.geInstance()));
+        new NeiHanDataPresenter(mNeiHanTuiJianFragment, NeiHanDataRepository.getInstance(NeiHanRemoteDataSource.geInstance()));
+
     }
 
     @Nullable
@@ -114,11 +120,14 @@ import butterknife.Unbinder;
         if(mNeiHanFragment.isAdded()){
             fm.putFragment(outState,NeiHanFragment.class.getSimpleName(),mNeiHanFragment);
         }
+        if(mNeiHanTuiJianFragment.isAdded()){
+            fm.putFragment(outState,NeiHanTuiJianFragment.class.getSimpleName(),mNeiHanTuiJianFragment);
+        }
     }
 
     private void initViews(View view) {
         TimelinePagerAdapter timelinePagerAdapter = new TimelinePagerAdapter(getChildFragmentManager(),
-                getContext(),mZhihuFragment,mNeiHanFragment);
+                getContext(),mZhihuFragment,mNeiHanFragment,mNeiHanTuiJianFragment);
 
         mViewPager.setAdapter(timelinePagerAdapter);
 

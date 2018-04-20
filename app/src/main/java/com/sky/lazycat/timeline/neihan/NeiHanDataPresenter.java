@@ -26,8 +26,8 @@ public class NeiHanDataPresenter implements NeiHanDataContract.Presenter{
     }
 
     @Override
-    public void loadNeiHan(boolean forceUpdate) {
-        mRepository.getNeiHanDailyData(forceUpdate, new NeiHanDataSource.LoadNeiHanDataCallback() {
+    public void loadNeiHan(boolean forceUpdate,int type) {
+        mRepository.getNeiHanDailyData(forceUpdate, type,new NeiHanDataSource.LoadNeiHanDataCallback() {
             @Override
             public void onNewsLoaded(List<NeiHanDuanZi.DuanziX.Duanzi> list) {
                 if(mView.isActive()){

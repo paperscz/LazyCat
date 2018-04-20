@@ -3,6 +3,7 @@ package com.sky.lazycat.data.remote;
 import com.sky.lazycat.data.datasource.GankVideoDataSource;
 import com.sky.lazycat.data.gankvideo.GankVideoData;
 import com.sky.lazycat.data.meizhi.MeizhiData;
+import com.sky.lazycat.retrofit.DrakeetFactory;
 import com.sky.lazycat.retrofit.RetrofitService;
 
 import retrofit2.Call;
@@ -31,14 +32,8 @@ public class GankVideoRemoteDataSource implements GankVideoDataSource{
 
     @Override
     public void getGankVideoData(int page, boolean forceUpdate, final LoadGankVideoDataCallback callback) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(RetrofitService.MEIZHI_DATA_BASE)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
-        RetrofitService.GankVideoService service = retrofit.create(RetrofitService.GankVideoService.class);
-
-        service.getGankVideoData(page)
+        DrakeetFactory.getGankVideoSingleton().getGankVideoData(page)
                 .enqueue(new Callback<GankVideoData>() {
                     @Override
                     public void onResponse(Call<GankVideoData> call, Response<GankVideoData> response) {

@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_marginTop="@dimen/bottom_margin"
-    android:layout_marginBottom="@dimen/bottom_margin"
-    android:layout_marginLeft="@dimen/title_margin"
-    android:layout_marginRight="@dimen/title_margin"
-    android:layout_height="@dimen/neihan_head_height"
-    android:gravity="center_vertical">
+    android:layout_height="50dp"
+    android:padding="@dimen/primary_margin">
 
     <ImageView
+        android:layout_marginTop="3dp"
         android:id="@+id/iv_head"
         android:layout_width="@dimen/neihan_head_height"
         android:layout_height="@dimen/neihan_head_height"
-        android:layout_gravity="center"
-        android:src="@drawable/ic_item_star72"/>
+        android:src="@drawable/placeholder"/>
 
     <TextView
-        android:layout_marginLeft="@dimen/fab_margin"
         android:id="@+id/tv_username"
+        android:textColor="@color/colorPrimaryText"
+        android:layout_marginLeft="@dimen/primary_margin_half"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"

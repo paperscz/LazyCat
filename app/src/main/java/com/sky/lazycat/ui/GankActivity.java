@@ -1,6 +1,8 @@
 package com.sky.lazycat.ui;
 
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -68,11 +70,11 @@ public class GankActivity extends AppCompatActivity {
     }
 
     private void setToolBar() {
-//        mToolbarLayout.setTitle("暂无标题");
-//        mToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
-//        mToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
-//        mToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBarPlus1);
-//        mToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBarPlus1);
+        mToolbarLayout.setTitle("");
+        mToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBar);
+        mToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBar);
+        mToolbarLayout.setExpandedTitleTextAppearance(R.style.ExpandedAppBarPlus1);
+        mToolbarLayout.setCollapsedTitleTextAppearance(R.style.CollapsedAppBarPlus1);
 
         this.setSupportActionBar(toolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -137,7 +139,7 @@ public class GankActivity extends AppCompatActivity {
 
         Glide.with(this)
                 .load(mMeiZhiUrl)
-                .centerCrop()
+                .asBitmap()
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(iv_gankhead);
 
@@ -153,12 +155,12 @@ public class GankActivity extends AppCompatActivity {
         return mGankList;
     }
 
-    public static void newIntent(Context context,String createAt,String videoUrl,String meizhiUrl){
+    public static void newIntent(Context context,View imageView,String createAt,String videoUrl,String meizhiUrl){
         Intent intent = new Intent(context,GankActivity.class);
         intent.putExtra(GankActivity.EXTRA_GANK_DATE,createAt);
         intent.putExtra(GankActivity.EXTRA_VIDEO_URL,videoUrl);
         intent.putExtra(GankActivity.EXTRA_MEIZHI_URL,meizhiUrl);
-        context.startActivity(intent);
+        context.startActivity(intent,ActivityOptions.makeSceneTransitionAnimation((Activity) context,imageView,"meizhi").toBundle());
     }
 
 

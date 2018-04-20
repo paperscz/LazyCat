@@ -1,5 +1,6 @@
 package com.sky.lazycat.meizhi;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.meizhi.MeizhiData;
 import com.sky.lazycat.interfaces.OnMeizhiTouchListener;
+import com.sky.lazycat.interfaces.OnViewScrollListener;
 import com.sky.lazycat.ui.GankActivity;
 import com.sky.lazycat.ui.PhotoViewActivity;
 import com.sky.lazycat.util.ToastUtils;
@@ -46,6 +49,7 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
     private boolean mIsLoading = false;
     private boolean mGoBigImage = false;
     private List<String> mUrls = new ArrayList<>();
+    OnViewScrollListener onViewScrollListener;
 
     public MeizhiFragment() {
         // Requires the empty constructor
@@ -53,6 +57,17 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
 
     public static MeizhiFragment newInstance() {
         return new MeizhiFragment();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            onViewScrollListener = (OnViewScrollListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 
     @Nullable
@@ -82,10 +97,9 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
         if(mIsFirstLoad){
             mPresenter.loadMeizhi(mPage,true);
             mIsFirstLoad = false;
-        }else {
+        } else {
             //mPresenter.loadMeizhi(mPage,false);
         }
-
     }
 
     @Override
@@ -137,11 +151,22 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
         }
     }
 
+    private boolean mHide = false;
+
     RecyclerView.OnScrollListener getOnBottomListener(final StaggeredGridLayoutManager layoutManager){
         return new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+
+                if(dy > 0 && !mHide){
+                    onViewScrollListener.onViewScrolled(false);
+                    mHide = true;
+                } else if(dy < 0 && mHide){
+                    onViewScrollListener.onViewScrolled(true);
+                    mHide = false;
+                }
+
                 boolean isBottom = layoutManager.findLastCompletelyVisibleItemPositions(new int[2])[1] >=
                         mMeiZhiAdapter.getItemCount() - PRELOAD_SIZE;
                 if(!mMultiSwipeRefreshLayout.isRefreshing() && isBottom){
@@ -168,7 +193,7 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
                 if (v == meizhiView) {
                     PhotoViewActivity.newIntent(getActivity(),meizhiView,(ArrayList<String>) getUrils(meizhi),meizhi.indexOf(meizhiBean));
                 } else if (v == card) {
-                    GankActivity.newIntent(getActivity(),meizhiBean.getPublishedAt(),meizhiBean.videoUrl,meizhiBean.getUrl());
+                    GankActivity.newIntent(getActivity(),meizhiView,meizhiBean.getPublishedAt(),meizhiBean.videoUrl,meizhiBean.getUrl());
                 }
             }
 

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><!--最新栏目的新闻-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/settings">
+
+    <PreferenceCategory
+        android:title="@string/action_settings">
+
+        <SwitchPreference
+            android:title="@string/night_mode"
+            android:key="night_mode"
+            android:defaultValue="false" />
+
+        <Preference
+            android:title="@string/clear_image_cache"
+            android:key="clear_glide_cache"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/about">
+        <Preference
+            android:summary="V 1.0"
+            android:title="当前版本" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/author">
+        <Preference
+            android:summary="博客：https://www.jianshu.com/u/d46b4a47db84"
+            android:title="Marker_Sky" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

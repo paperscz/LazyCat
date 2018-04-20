@@ -4,9 +4,7 @@
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/primary_margin"
     android:paddingTop="@dimen/primary_margin"
-    android:background="@drawable/item_selector"
-    android:clickable="true"
-    android:focusable="true">
+    android:background="@drawable/item_selector">
 
     <ImageView
         android:layout_marginTop="3dp"
@@ -28,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="top"
-            android:text="测试文字"
+            android:text="用户名称"
             android:maxLines="1"
             android:textColor="@color/colorPrimaryText"
             android:textSize="@dimen/body_text_size" />
@@ -40,14 +38,23 @@
             android:lineSpacingMultiplier = "1.5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="@dimen/content_text_size"
             android:text="哈哈哈哈哈你好啊这事测试就哦当军嫂就到家撒大了多久啦啊这事测试就哦当军嫂就到家撒大了多当军嫂就到家撒大了多久啦啊这事测当军嫂就到家撒大了多久啦啊这事测当军嫂就到家撒大了多久啦啊这事测当军嫂就到家撒大了多久啦啊这事测当军嫂就到家撒大了多久啦啊这事测"
             android:maxLines="10"
             android:ellipsize="end" />
+
+        <ImageView
+            android:paddingTop="@dimen/primary_margin_half"
+            android:id="@+id/iv_neihan_img"
+            android:layout_below="@id/tv_neihan_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="500dp"
+            android:adjustViewBounds="true"/>
         
         <View
-            android:layout_marginTop="@dimen/primary_margin"
-            android:layout_below="@id/tv_neihan_content"
+            android:layout_marginTop="@dimen/primary_margin_half"
+            android:layout_below="@id/iv_neihan_img"
             android:layout_width="match_parent"
             android:layout_height="@dimen/divider_height"
             android:background="@color/colordivider"/>

@@ -9,9 +9,9 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:fitsSystemWindows="true">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
@@ -19,7 +19,7 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlwaysCollapsed|enterAlways">
+            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
             <ImageView
                 android:id="@+id/image_view"
@@ -27,6 +27,7 @@
                 android:layout_height="match_parent"
                 android:contentDescription="@string/image_view_cover_desc"
                 android:fitsSystemWindows="true"
+                android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 android:scrollbarStyle="insideInset"

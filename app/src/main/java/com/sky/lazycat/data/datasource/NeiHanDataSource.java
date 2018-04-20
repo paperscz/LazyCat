@@ -20,7 +20,7 @@ public interface NeiHanDataSource {
         void onDataNotAvailable();
     }
 
-    void getNeiHanDailyData(boolean forceUpdate,LoadNeiHanDataCallback callback);
+    void getNeiHanDailyData(boolean forceUpdate,int type,LoadNeiHanDataCallback callback);
 
     void getItem(int itemId,GetDataItemCallback callback);
 

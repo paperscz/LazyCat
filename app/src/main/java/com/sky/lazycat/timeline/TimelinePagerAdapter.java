@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.sky.lazycat.R;
 import com.sky.lazycat.timeline.neihan.NeiHanFragment;
+import com.sky.lazycat.timeline.neihan.NeiHanTuiJianFragment;
 import com.sky.lazycat.timeline.zhihu.ZhihuFragment;
 
 /**
@@ -15,20 +16,23 @@ import com.sky.lazycat.timeline.zhihu.ZhihuFragment;
 
 public class TimelinePagerAdapter extends FragmentPagerAdapter {
 
-    private final int pageCount = 2;
+    private final int pageCount = 3;
     private String[] titles;
 
-    private NeiHanFragment mNeiHanFragment;
     private ZhihuFragment mZhihuFragment;
+    private NeiHanFragment mNeiHanFragment;
+    private NeiHanTuiJianFragment mNeiHanTuiJianFragment;
 
     public TimelinePagerAdapter(FragmentManager fm,
                                 Context context,
                                 ZhihuFragment zhihuFragment,
-                                NeiHanFragment neiHanFragment){
+                                NeiHanFragment neiHanFragment,
+                                NeiHanTuiJianFragment neiHanTuiJianFragment){
         super(fm);
-        titles = new String[]{context.getString(R.string.zhihu_daily),context.getString(R.string.neihan_data)};
+        titles = new String[]{context.getString(R.string.zhihu_daily),context.getString(R.string.neihan_duanzi),context.getString(R.string.neihan_tuijian)};
         this.mZhihuFragment = zhihuFragment;
         this.mNeiHanFragment = neiHanFragment;
+        this.mNeiHanTuiJianFragment = neiHanTuiJianFragment;
     }
 
     @Override
@@ -43,7 +47,7 @@ public class TimelinePagerAdapter extends FragmentPagerAdapter {
         } else if(position == 1){
             return mNeiHanFragment;
         }
-        return mNeiHanFragment;
+        return mNeiHanTuiJianFragment;
     }
 
     @Override

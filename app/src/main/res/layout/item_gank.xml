@@ -16,7 +16,7 @@
         android:textSize="@dimen/text_size_gank_category"
         android:textStyle="bold"
         tools:background="@color/md_amber_100"
-        android:textColor="@color/md_black_1000"
+        android:textColor="@color/colorPrimaryText"
         tools:text="Category"/>
 
     <LinearLayout
@@ -45,7 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_gank_title"
-            android:textColor="@color/md_grey_900"
             tools:text="..."/>
     </LinearLayout>
 

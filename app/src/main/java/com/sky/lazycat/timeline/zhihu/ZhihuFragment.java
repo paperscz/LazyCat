@@ -1,5 +1,6 @@
 package com.sky.lazycat.timeline.zhihu;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +21,7 @@ import com.sky.lazycat.R;
 import com.sky.lazycat.app.BaseApplication;
 import com.sky.lazycat.data.zhihu.Zhihu;
 import com.sky.lazycat.details.DetailsActivity;
+import com.sky.lazycat.interfaces.OnViewScrollListener;
 import com.sky.lazycat.retrofit.RetrofitService;
 import com.sky.lazycat.timeline.GlideImageLoader;
 import com.sky.lazycat.util.DateFormatUtil;
@@ -59,10 +61,25 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
     private ZhihuQuickAdapter mZhihuQuickAdapter;
     private String date;
     private List<Zhihu.StoriesBean> listStories;
+    private boolean mHide = false;
+    OnViewScrollListener onViewScrollListener;
+
     public ZhihuFragment(){}
 
     public static ZhihuFragment newInstance() {
         return new ZhihuFragment();
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            onViewScrollListener = (OnViewScrollListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString()
+                    + " must implement OnHeadlineSelectedListener");
+        }
     }
 
     @Override
@@ -88,13 +105,18 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
                 setLoadingIndicator(true);
             }
         });
+
         mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) {
+                if(dy > 0 && !mHide){
+                    onViewScrollListener.onViewScrolled(false);
+                    mHide = true;
                     mFab.hide();
-                } else {
+                } else if(dy < 0 && mHide){
+                    onViewScrollListener.onViewScrolled(true);
+                    mHide = false;
                     mFab.show();
                 }
             }

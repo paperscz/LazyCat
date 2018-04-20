@@ -27,9 +27,9 @@ public class NeiHanDataRepository implements NeiHanDataSource{
     }
 
     @Override
-    public void getNeiHanDailyData(boolean forceUpdate, final LoadNeiHanDataCallback callback) {
+    public void getNeiHanDailyData(boolean forceUpdate,int type, final LoadNeiHanDataCallback callback) {
 
-        mRemoteDataSource.getNeiHanDailyData(forceUpdate, new LoadNeiHanDataCallback() {
+        mRemoteDataSource.getNeiHanDailyData(forceUpdate,type, new LoadNeiHanDataCallback() {
             @Override
             public void onNewsLoaded(List<NeiHanDuanZi.DuanziX.Duanzi> list) {
                 // 从remote实现类里面回调了数据

@@ -18,7 +18,6 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout {
         this(context, null);
     }
 
-
     public MultiSwipeRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         final TypedArray array = context.obtainStyledAttributes(attrs,
@@ -32,7 +31,6 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout {
         array.recycle();
     }
 
-
     @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         if (mForegroundDrawable != null) {
@@ -40,16 +38,13 @@ public class MultiSwipeRefreshLayout extends SwipeRefreshLayout {
         }
     }
 
-
     public void setCanChildScrollUpCallback(CanChildScrollUpCallback canChildScrollUpCallback) {
         mCanChildScrollUpCallback = canChildScrollUpCallback;
     }
 
-
     public interface CanChildScrollUpCallback {
         boolean canSwipeRefreshChildScrollUp();
     }
-
 
     @Override public boolean canChildScrollUp() {
         if (mCanChildScrollUpCallback != null) {

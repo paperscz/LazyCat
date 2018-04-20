@@ -10,6 +10,8 @@ public class DrakeetFactory {
     static RetrofitService.GankVideoService sGankIOSingleton = null;
     static RetrofitService.ZhihuDaliyService sZhihuSingleton = null;
     static RetrofitService.NeiHanService sNeihanSingleton = null;
+    static RetrofitService.MeizhiService sMeiZhiSingleton = null;
+    static RetrofitService.GankVideoService sGankVideoSingleton = null;
 
     public static RetrofitService.ZhihuDaliyService getZhihuSingleton() {
         synchronized (monitor) {
@@ -36,6 +38,21 @@ public class DrakeetFactory {
             return sGankIOSingleton;
         }
     }
-
+    public static RetrofitService.MeizhiService getMeiZhiSingleton() {
+        synchronized (monitor) {
+            if (sMeiZhiSingleton == null) {
+                sMeiZhiSingleton = new DrakeetRetrofit().getMeiZhiService();
+            }
+            return sMeiZhiSingleton;
+        }
+    }
+    public static RetrofitService.GankVideoService getGankVideoSingleton() {
+        synchronized (monitor) {
+            if (sGankVideoSingleton == null) {
+                sGankVideoSingleton = new DrakeetRetrofit().getGankVideoService();
+            }
+            return sGankVideoSingleton;
+        }
+    }
 
 }

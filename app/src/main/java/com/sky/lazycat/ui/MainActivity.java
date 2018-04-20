@@ -1,5 +1,7 @@
 package com.sky.lazycat.ui;
 
+import android.animation.ObjectAnimator;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -12,18 +14,21 @@ import android.view.MenuItem;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.remote.GankVideoRemoteDataSource;
 import com.sky.lazycat.data.remote.MeizhiRemoteDataSource;
+import com.sky.lazycat.info.InfoFragment;
+import com.sky.lazycat.interfaces.OnViewScrollListener;
 import com.sky.lazycat.timeline.TimelineFragment;
 import com.sky.lazycat.meizhi.MeizhiDataRepository;
 import com.sky.lazycat.meizhi.MeizhiFragment;
 import com.sky.lazycat.meizhi.MeizhiPresenter;
 import com.sky.lazycat.meizhi.gankvideo.GankVideoDataRepository;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnViewScrollListener{
     // 标记当前所在的Fragment，再次打开直接定位
     private static final String KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID = "KEY_BOTTOM_NAVIGATION_VIEW_SELECTED_ID";
     private BottomNavigationView mBottomNavigationView;
     private TimelineFragment mTimelineFragment;
     private MeizhiFragment mMeiZiFragment;
+    private InfoFragment mInfoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     showFragment(mMeiZiFragment);
                     break;
                 case R.id.nav_info:
-                   // showFragment(mInfoFragment);
+                    showFragment(mInfoFragment);
                     break;
             }
         }else {
@@ -63,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_meizi:
                         showFragment(mMeiZiFragment);
                         break;
-//                    case R.id.nav_info:
-//                        showFragment(mInfoFragment);
-//                        break;
+                    case R.id.nav_info:
+                        showFragment(mInfoFragment);
+                        break;
                     default:
                         break;
                 }
@@ -87,7 +92,9 @@ public class MainActivity extends AppCompatActivity {
         if (mMeiZiFragment.isAdded()) {
             fm.putFragment(outState, MeizhiFragment.class.getSimpleName(), mMeiZiFragment);
         }
-
+        if (mInfoFragment.isAdded()) {
+            fm.putFragment(outState, InfoFragment.class.getSimpleName(), mInfoFragment);
+        }
     }
 
     private void initFragments(Bundle savedInstanceState) {
@@ -95,11 +102,13 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState == null){
             mTimelineFragment = TimelineFragment.newInstance();
             mMeiZiFragment = MeizhiFragment.newInstance();
+            mInfoFragment = InfoFragment.newInstance();
         }else {
             mTimelineFragment = (TimelineFragment) fm.getFragment(savedInstanceState,TimelineFragment.class.getSimpleName());
             mMeiZiFragment = (MeizhiFragment) fm.getFragment(savedInstanceState,MeizhiFragment.class.getSimpleName());
-
+            mInfoFragment = (InfoFragment) fm.getFragment(savedInstanceState,InfoFragment.class.getSimpleName());
         }
+
         if(!mTimelineFragment.isAdded()){
             fm.beginTransaction()
                     .add(R.id.container,mTimelineFragment,TimelineFragment.class.getSimpleName())
@@ -108,6 +117,11 @@ public class MainActivity extends AppCompatActivity {
         if(!mMeiZiFragment.isAdded()){
             fm.beginTransaction()
                     .add(R.id.container,mMeiZiFragment,MeizhiFragment.class.getSimpleName())
+                    .commit();
+        }
+        if(!mInfoFragment.isAdded()){
+            fm.beginTransaction()
+                    .add(R.id.container,mInfoFragment,IDNA.Info.class.getSimpleName())
                     .commit();
         }
     }
@@ -122,15 +136,41 @@ public class MainActivity extends AppCompatActivity {
             fm.beginTransaction()
                     .show(mTimelineFragment)
                     .hide(mMeiZiFragment)
-            //       .hide(mFavoritesFragment)
+                    .hide(mInfoFragment)
                     .commit();
 
         } else if (fragment instanceof MeizhiFragment) {
             fm.beginTransaction()
                     .show(mMeiZiFragment)
                     .hide(mTimelineFragment)
-            //        .hide(mFavoritesFragment)
+                    .hide(mInfoFragment)
                     .commit();
+        } else if (fragment instanceof InfoFragment)  {
+            fm.beginTransaction()
+                    .show(mInfoFragment)
+                    .hide(mMeiZiFragment)
+                    .hide(mTimelineFragment)
+                    .commit();
+        }
+    }
+
+    @Override
+    public void onViewScrolled(boolean up) {
+        hideBottomNavigationView(up);
+    }
+    private boolean mHide = false;
+
+    public void hideBottomNavigationView(boolean isHide){
+        if(null != mBottomNavigationView){
+            int height;
+            if(isHide){
+                height = 0;
+            } else {
+                height = mBottomNavigationView.getHeight();
+            }
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(mBottomNavigationView,"translationY",height);
+            objectAnimator.setDuration(300);
+            objectAnimator.start();
         }
     }
 

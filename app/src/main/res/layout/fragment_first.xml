@@ -14,6 +14,26 @@
         android:theme="@style/AppTheme.AppBarOverlay"
         android:id="@+id/app_bar">
 
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimary"
+            app:layout_scrollFlags="scroll|enterAlways|snap">
+
+            <android.support.design.widget.TabLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/tab_layout"
+                app:tabBackground="@color/colorPrimary"
+                app:tabIndicatorColor="@color/colorAccent"
+                app:tabSelectedTextColor="@color/colorAccent"
+                app:tabTextColor="@drawable/nav_item_color"
+                app:tabGravity="fill" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
         <!--<android.support.v7.widget.Toolbar-->
             <!--android:id="@+id/toolbar"-->
             <!--android:layout_width="match_parent"-->
@@ -22,16 +42,6 @@
             <!--app:titleTextColor="@color/colorPrimaryText"-->
             <!--app:layout_scrollFlags="scroll|enterAlways"-->
             <!--app:title="@string/timeline" />-->
-
-        <android.support.design.widget.TabLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tab_layout"
-            app:tabBackground="@color/colorPrimary"
-            app:tabIndicatorColor="@color/colorAccent"
-            app:tabSelectedTextColor="@color/colorAccent"
-            app:tabTextColor="@drawable/nav_item_color"
-            app:tabGravity="fill" />
 
     </android.support.design.widget.AppBarLayout>
 
@@ -46,7 +56,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/def_height"
+        android:layout_marginRight="@dimen/dp_40"
         android:tint="@android:color/white"
         app:backgroundTint="@color/colorAccent"
         android:contentDescription="@string/select_date"

@@ -19,7 +19,7 @@ public interface NeiHanDataContract {
     }
 
     interface Presenter extends BasePresenter{
-        void loadNeiHan(boolean forceUpdate);
+        void loadNeiHan(boolean forceUpdate, int type);
     }
 
 }

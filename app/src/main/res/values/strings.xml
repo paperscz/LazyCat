@@ -1,10 +1,9 @@
-
-
 <resources>
 
     <string name="app_name">LazyCat</string>
 
-    <string name="neihan_data">内涵精选</string>
+    <string name="neihan_duanzi">内涵段子</string>
+    <string name="neihan_tuijian">内涵推荐</string>
     <string name="zhihu_daily">知乎日报</string>
     <string name="douban_moment">豆瓣一刻</string>
     <string name="guokr_handpick">果壳精选</string>
@@ -41,9 +40,9 @@
     <string name="clear_image_cache">清除图片缓存</string>
     <string name="clear_image_cache_successfully">缓存已被成功清除</string>
     <string name="about">关于</string>
-    <string name="version">版本: V3.3.0</string>
+    <string name="version">版本: V1.0</string>
     <string name="rate">为应用评分</string>
-    <string name="rate_desc">如果你喜欢纸飞机App,请在商店中给它一个好评吧</string>
+    <string name="rate_desc">如果你喜欢本App,请在商店中给它一个好评吧</string>
     <string name="author">作者</string>
     <string name="contributors">代码贡献者</string>
     <string name="contributors_desc">https://github.com/TonnyL/PaperPlane/graphs/contributors</string>
@@ -67,6 +66,7 @@
     <string name="donate_content">支付宝账号将会复制到粘贴板，进入支付宝可直接粘贴完成捐赠，感谢您的支持！</string>
     <string name="donate_account">marktonymengyi@gmail.com</string>
     <string name="open_source_licenses">开源许可证</string>
+    <string name="save_net_mode">save_net_mode</string>
 
     <string-array name="time_of_saving_articles">
         <item>1 day</item>
@@ -100,12 +100,14 @@
     <string name="action_settings">设置</string>
 
     <string name="tip_for_no_gank">今天编辑们休息哦，没有干货提供！\n如果想在此处展示您的作品，请联系 drakeet.</string>
-    <string
-        name="tip_empty_gank">今日は肥皂家がない、干物の供給がない...\n今天编辑们休息哦，没有干货提供！</string>
+    <string name="tip_empty_gank">今日は肥皂家がない、干物の供給がない...\n今天编辑们休息哦，没有干货提供！</string>
     <!-- others end -->
 
     <string name="news_preview_image">图片预览</string>
     <string name="share_this_news">分享这条新闻</string>
     <string name="cancel">取&#160;&#160;消</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

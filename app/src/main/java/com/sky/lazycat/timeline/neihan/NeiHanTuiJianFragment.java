@@ -14,7 +14,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sky.lazycat.R;
 import com.sky.lazycat.data.neihanduanzi.NeiHanDuanZi;
@@ -31,31 +34,34 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by yuetu-develop on 2017/7/6.
+ * Created by yuetu-develop on 2017/9/30.
  */
 
-public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
+public class NeiHanTuiJianFragment extends Fragment implements NeiHanDataContract.View{
 
     // View references.
-    @BindView(R.id.recycler_view) RecyclerView mRecyclerView;
-    @BindView(R.id.refresh_layout) SwipeRefreshLayout mRefreshLayout;
-    @BindView(R.id.empty_view) View mEmptyView;
+    @BindView(R.id.recycler_view)
+    RecyclerView mRecyclerView;
+    @BindView(R.id.refresh_layout)
+    SwipeRefreshLayout mRefreshLayout;
+    @BindView(R.id.empty_view)
+    View mEmptyView;
 
     private LinearLayoutManager mLayoutManager;
     private FloatingActionButton fab;
     private int mListSize = 0;
     private boolean mIsFirstLoad = true;
     private NeiHanDataContract.Presenter mPresenter;
-    private NeiHanDataQuickAdapter mAdapter;
+    private NeiHanTuiJianQuickAdapter mAdapter;
     private boolean mLoadMore = false;
     private Unbinder mUnbinder;
 
-    public NeiHanFragment() {
+    public NeiHanTuiJianFragment() {
         // An empty constructor is needed as a fragment.
     }
 
-    public static NeiHanFragment newInstance() {
-        return new NeiHanFragment();
+    public static NeiHanTuiJianFragment newInstance() {
+        return new NeiHanTuiJianFragment();
     }
 
     @Override
@@ -99,7 +105,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
         mPresenter.start();
         setLoadingIndicator(mIsFirstLoad);
         if(mIsFirstLoad){
-            mPresenter.loadNeiHan(true, RetrofitService.TYPE_NEIHAN_DUANZI);
+            mPresenter.loadNeiHan(true, RetrofitService.TYPE_NEIHAN_TUIJIAN);
             mIsFirstLoad = false;
         }else {
             //mPresenter.loadNeiHan(false);
@@ -115,7 +121,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
 
     @Override
     public void initViews(View view) {
-        mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(),R.color.colorAccent));
+        mRefreshLayout.setColorSchemeColors(ContextCompat.getColor(getContext(),R.color.mdtp_dark_gray));
         mLayoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         fab = (FloatingActionButton) getActivity().findViewById(R.id.fab);
@@ -123,7 +129,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
 
     private void loadMore(){
         setLoadingIndicator(true);
-        mPresenter.loadNeiHan(true, RetrofitService.TYPE_NEIHAN_DUANZI);
+        mPresenter.loadNeiHan(true, RetrofitService.TYPE_NEIHAN_TUIJIAN);
     }
 
     @Override
@@ -144,7 +150,7 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
     @Override
     public void showResult(final List<NeiHanDuanZi.DuanziX.Duanzi> list) {
         if(mAdapter == null){
-            mAdapter = new NeiHanDataQuickAdapter(list);
+            mAdapter = new NeiHanTuiJianQuickAdapter(list);
             mAdapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
             mRecyclerView.setAdapter(mAdapter);
             mListSize = list.size();
@@ -166,41 +172,37 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 // 获取某个Item的信息可以通过mPresenter新增方法来返回
-                NeiHanDialogFragment.newInstance(list.get(position).getGroup().getUser().getAvatar_url()
-                        ,list.get(position).getGroup().getUser().getName()
-                        ,list.get(position).getGroup().getText()).show(getFragmentManager(),"showContent");
-            }
-        });
-        mAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                if(list.size() < position){
-                    ToastUtils.showShort(getContext(),"下标异常");
-                    return true;
-                }
-                if(!TextUtils.isEmpty(list.get(position).getGroup().getText())){
-                    copyMessage(list.get(position).getGroup().getText());
-                    ToastUtils.showShort(getContext(),getResources().getString(R.string.copy_success));
-                }
-                //如果返回false那么click仍然会被调用。而且是先调用Long click，然后调用click。
-                //如果返回true那么click就会被吃掉，click就不会再被调用了
-                return true;
             }
         });
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                ToastUtils.showShort(getContext(),"头像"+position);
-                List<String> urlList = new ArrayList<>();
-                urlList.add(list.get(position).getGroup().getUser().getAvatar_url());
-                PhotoViewActivity.newIntent(getActivity(),view,urlList,0);
+                switch (view.getId()){
+                    case R.id.iv_neihan_img:
+                        if(list.get(position).getGroup().getIs_gif()==1){
+                            Glide.with(getActivity())
+                                    .load(list.get(position).getGroup().getLarge_image().getUrl_list().get(0).getUrl())
+                                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                    .into((ImageView)view);
+                        } else {
+                            List<String> urlList = new ArrayList<>();
+                            urlList.add(list.get(position).getGroup().getLarge_image().getUrl_list().get(0).getUrl());
+                            PhotoViewActivity.newIntent(getActivity(),view,urlList,0);
+                        }
+                        break;
+                    case R.id.iv_head:
+                        List<String> urlList = new ArrayList<>();
+                        urlList.add(list.get(position).getGroup().getUser().getAvatar_url());
+                        PhotoViewActivity.newIntent(getActivity(),view,urlList,0);
+                        break;
+                }
             }
         });
-    }
-
-    private void copyMessage(String msg){
-        ClipboardManager cm = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
-        cm.setText(msg);
+//        mAdapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
+//            @Override
+//            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
+//            }
+//        });
     }
 
     public void scroll2Top(){
@@ -214,4 +216,5 @@ public class NeiHanFragment extends Fragment implements NeiHanDataContract.View{
         super.onDestroy();
         mUnbinder.unbind();
     }
+
 }
