@@ -13,8 +13,12 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 
 import com.sky.lazycat.R;
+import com.sky.lazycat.data.remote.DouBanMoiveRemoteDataSource;
 import com.sky.lazycat.data.remote.NeiHanRemoteDataSource;
 import com.sky.lazycat.data.remote.ZhihuRemoteDataSource;
+import com.sky.lazycat.timeline.doubanmovie.DouBanMovieDataPresenter;
+import com.sky.lazycat.timeline.doubanmovie.DouBanMovieDataRepository;
+import com.sky.lazycat.timeline.doubanmovie.DouBanMovieFragment;
 import com.sky.lazycat.timeline.neihan.NeiHanDataPresenter;
 import com.sky.lazycat.timeline.neihan.NeiHanDataRepository;
 import com.sky.lazycat.timeline.neihan.NeiHanFragment;
@@ -34,8 +38,9 @@ import butterknife.Unbinder;
 public class TimelineFragment extends Fragment {
 
     private ZhihuFragment mZhihuFragment;
-    private NeiHanFragment mNeiHanFragment;
-    private NeiHanTuiJianFragment mNeiHanTuiJianFragment;
+//    private NeiHanFragment mNeiHanFragment;
+//    private NeiHanTuiJianFragment mNeiHanTuiJianFragment;
+    private DouBanMovieFragment mDouBanMovieFragment;
     @BindView(R.id.fab) FloatingActionButton mFab;
     @BindView(R.id.view_pager) ViewPager mViewPager;
     @BindView(R.id.tab_layout) TabLayout mTabLayout;
@@ -55,17 +60,20 @@ public class TimelineFragment extends Fragment {
         if(savedInstanceState != null){
             FragmentManager fm = getChildFragmentManager();
             mZhihuFragment = (ZhihuFragment) fm.getFragment(savedInstanceState,ZhihuFragment.class.getSimpleName());
-            mNeiHanFragment = (NeiHanFragment) fm.getFragment(savedInstanceState,NeiHanFragment.class.getSimpleName());
-            mNeiHanTuiJianFragment = (NeiHanTuiJianFragment) fm.getFragment(savedInstanceState,NeiHanTuiJianFragment.class.getSimpleName());
+            mDouBanMovieFragment = (DouBanMovieFragment) fm.getFragment(savedInstanceState,DouBanMovieFragment.class.getSimpleName());
+//            mNeiHanFragment = (NeiHanFragment) fm.getFragment(savedInstanceState,NeiHanFragment.class.getSimpleName());
+//            mNeiHanTuiJianFragment = (NeiHanTuiJianFragment) fm.getFragment(savedInstanceState,NeiHanTuiJianFragment.class.getSimpleName());
         } else {
             mZhihuFragment = ZhihuFragment.newInstance();
-            mNeiHanFragment = NeiHanFragment.newInstance();
-            mNeiHanTuiJianFragment = NeiHanTuiJianFragment.newInstance();
+            mDouBanMovieFragment = DouBanMovieFragment.newInstance();
+//            mNeiHanFragment = NeiHanFragment.newInstance();
+//            mNeiHanTuiJianFragment = NeiHanTuiJianFragment.newInstance();
         }
 
         new ZhihuPresenter(mZhihuFragment, ZhihuDataRepository.getInstance(ZhihuRemoteDataSource.geInstance()));
-        new NeiHanDataPresenter(mNeiHanFragment, NeiHanDataRepository.getInstance(NeiHanRemoteDataSource.geInstance()));
-        new NeiHanDataPresenter(mNeiHanTuiJianFragment, NeiHanDataRepository.getInstance(NeiHanRemoteDataSource.geInstance()));
+//        new NeiHanDataPresenter(mNeiHanFragment, NeiHanDataRepository.getInstance(NeiHanRemoteDataSource.geInstance()));
+//        new NeiHanDataPresenter(mNeiHanTuiJianFragment, NeiHanDataRepository.getInstance(NeiHanRemoteDataSource.geInstance()));
+        new DouBanMovieDataPresenter(mDouBanMovieFragment, DouBanMovieDataRepository.getInstance(DouBanMoiveRemoteDataSource.getInstance()));
 
     }
 
@@ -103,7 +111,7 @@ public class TimelineFragment extends Fragment {
                 if (mTabLayout.getSelectedTabPosition() == 0) {
                     mZhihuFragment.showDatePickerDialog();
                 } else {
-                    mNeiHanFragment.scroll2Top();
+//                    mNeiHanFragment.scroll2Top();
                 }
             }
         });
@@ -117,22 +125,23 @@ public class TimelineFragment extends Fragment {
         if(mZhihuFragment.isAdded()){
             fm.putFragment(outState,ZhihuFragment.class.getSimpleName(),mZhihuFragment);
         }
-        if(mNeiHanFragment.isAdded()){
-            fm.putFragment(outState,NeiHanFragment.class.getSimpleName(),mNeiHanFragment);
-        }
-        if(mNeiHanTuiJianFragment.isAdded()){
-            fm.putFragment(outState,NeiHanTuiJianFragment.class.getSimpleName(),mNeiHanTuiJianFragment);
+//        if(mNeiHanFragment.isAdded()){
+//            fm.putFragment(outState,NeiHanFragment.class.getSimpleName(),mNeiHanFragment);
+//        }
+//        if(mNeiHanTuiJianFragment.isAdded()){
+//            fm.putFragment(outState,NeiHanTuiJianFragment.class.getSimpleName(),mNeiHanTuiJianFragment);
+//        }
+        if(mDouBanMovieFragment.isAdded()){
+            fm.putFragment(outState,DouBanMovieFragment.class.getSimpleName(),mDouBanMovieFragment);
         }
     }
 
     private void initViews(View view) {
         TimelinePagerAdapter timelinePagerAdapter = new TimelinePagerAdapter(getChildFragmentManager(),
-                getContext(),mZhihuFragment,mNeiHanFragment,mNeiHanTuiJianFragment);
+                getContext(),mZhihuFragment,mDouBanMovieFragment);
 
         mViewPager.setAdapter(timelinePagerAdapter);
-
-        mViewPager.setOffscreenPageLimit(3);
-
+        mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);
     }
 

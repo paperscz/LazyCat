@@ -1,4 +1,4 @@
-package com.sky.lazycat.timeline;
+package com.sky.lazycat.util;
 
 import android.content.Context;
 import android.widget.ImageView;

@@ -91,10 +91,14 @@ public class PhotoViewActivity extends AppCompatActivity implements BottomDialog
         Intent intent = new Intent(context, PhotoViewActivity.class);
         intent.putExtra("currentPosition",index);
         intent.putStringArrayListExtra("mUrls", (ArrayList<String>) urls);
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(
-                view,(int)view.getWidth()/2, (int)view.getHeight()/2, //拉伸开始的坐标
-                0, 0);//拉伸开始的区域大小，这里用（0，0）表示从无到全屏
-        ActivityCompat.startActivity(context,intent,optionsCompat.toBundle());
+        if(null != view){
+            ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeScaleUpAnimation(
+                    view,(int)view.getWidth()/2, (int)view.getHeight()/2, //拉伸开始的坐标
+                    0, 0);//拉伸开始的区域大小，这里用（0，0）表示从无到全屏
+            ActivityCompat.startActivity(context,intent,optionsCompat.toBundle());
+        } else {
+            context.startActivity(intent);
+        }
     }
 
     @Override

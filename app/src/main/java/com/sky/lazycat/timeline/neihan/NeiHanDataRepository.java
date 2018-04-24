@@ -6,7 +6,7 @@ import com.sky.lazycat.data.neihanduanzi.NeiHanDuanZi;
 import java.util.List;
 
 /**
- * Created by yuetu-develop on 2017/7/7.
+ * 除了可以加载网络，也可以加载本地数据
  */
 
 public class NeiHanDataRepository implements NeiHanDataSource{
@@ -19,7 +19,6 @@ public class NeiHanDataRepository implements NeiHanDataSource{
     }
 
     public static NeiHanDataRepository getInstance(NeiHanDataSource remoteDataSource){
-
         if(INSTANCE == null){
             INSTANCE = new NeiHanDataRepository(remoteDataSource);
         }

@@ -27,10 +27,13 @@ public class ZhihuQuickAdapter extends BaseQuickAdapter<Zhihu.StoriesBean,BaseVi
         Glide.with(mContext)
                 .load(item.getImages().get(0))
                 .placeholder(R.drawable.placeholder)
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into((ImageView) helper.getView(R.id.thumbnail_image));
+        // 日报标题
         helper.setText(R.id.question_title,item.getTitle());
+        // 日报内容
         helper.setText(R.id.daily_title,item.getTitle());
+        // 分享监听
         helper.addOnClickListener(R.id.card_share_overflow);
     }
 }

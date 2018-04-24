@@ -142,7 +142,7 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
 
             mRecyclerView.addOnScrollListener(getOnBottomListener(layoutManager));
             mMeiZhiAdapter.setOnMeizhiTouchListener(getOnMeizhiTouchListener());
-        }else {
+        } else {
             if(mLoadMore){
                 mMeiZhiAdapter.addData(list);
             } else {
@@ -177,7 +177,7 @@ public class MeizhiFragment extends Fragment implements MeizhiDataContract.View{
                         mPresenter.loadMeizhi(mPage,false);
                         mIsLoading = true;
                         mLoadMore = true;
-                    }else {
+                    } else {
                         mIsFirstTimeTouchBottom = false;
                     }
                 }

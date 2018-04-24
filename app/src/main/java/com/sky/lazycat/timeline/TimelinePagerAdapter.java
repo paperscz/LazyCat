@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.sky.lazycat.R;
+import com.sky.lazycat.timeline.doubanmovie.DouBanMovieFragment;
 import com.sky.lazycat.timeline.neihan.NeiHanFragment;
 import com.sky.lazycat.timeline.neihan.NeiHanTuiJianFragment;
 import com.sky.lazycat.timeline.zhihu.ZhihuFragment;
@@ -16,23 +17,22 @@ import com.sky.lazycat.timeline.zhihu.ZhihuFragment;
 
 public class TimelinePagerAdapter extends FragmentPagerAdapter {
 
-    private final int pageCount = 3;
+    private final int pageCount = 2;
     private String[] titles;
 
     private ZhihuFragment mZhihuFragment;
-    private NeiHanFragment mNeiHanFragment;
-    private NeiHanTuiJianFragment mNeiHanTuiJianFragment;
+    private DouBanMovieFragment mDouBanMovieFragment;
+//    private NeiHanFragment mNeiHanFragment;
+//    private NeiHanTuiJianFragment mNeiHanTuiJianFragment;
 
     public TimelinePagerAdapter(FragmentManager fm,
                                 Context context,
                                 ZhihuFragment zhihuFragment,
-                                NeiHanFragment neiHanFragment,
-                                NeiHanTuiJianFragment neiHanTuiJianFragment){
+                                DouBanMovieFragment douBanMovieFragment){
         super(fm);
-        titles = new String[]{context.getString(R.string.zhihu_daily),context.getString(R.string.neihan_duanzi),context.getString(R.string.neihan_tuijian)};
         this.mZhihuFragment = zhihuFragment;
-        this.mNeiHanFragment = neiHanFragment;
-        this.mNeiHanTuiJianFragment = neiHanTuiJianFragment;
+        this.mDouBanMovieFragment = douBanMovieFragment;
+        titles = new String[]{context.getString(R.string.zhihu_daily),context.getString(R.string.douban_movie)};
     }
 
     @Override
@@ -45,9 +45,9 @@ public class TimelinePagerAdapter extends FragmentPagerAdapter {
         if(position == 0){
             return mZhihuFragment;
         } else if(position == 1){
-            return mNeiHanFragment;
+            return mDouBanMovieFragment;
         }
-        return mNeiHanTuiJianFragment;
+        return null;
     }
 
     @Override

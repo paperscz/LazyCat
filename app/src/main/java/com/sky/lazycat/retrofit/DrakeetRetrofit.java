@@ -14,6 +14,7 @@ public class DrakeetRetrofit {
     final RetrofitService.NeiHanService neihanService;
     final RetrofitService.MeizhiService meizhiService;
     final RetrofitService.GankVideoService gankVideoService;
+    final RetrofitService.DouBanMovieService douBanMovieServiceService;
 
     DrakeetRetrofit(){
         //创建Builder，可添加更多设置
@@ -36,12 +37,15 @@ public class DrakeetRetrofit {
         builder.baseUrl(RetrofitService.MEIZHI_DATA_BASE);
         Retrofit gandVideoRest = builder.build();
 
+        builder.baseUrl(RetrofitService.API_DOUBAN_MOVIE);
+        Retrofit douBanMovieRest = builder.build();
 
         neihanService = neihanRest.create(RetrofitService.NeiHanService.class);
         gankService = gankRest.create(RetrofitService.GankVideoService.class);
         zhihuDaliyService = zhihuRest.create(RetrofitService.ZhihuDaliyService.class);
         meizhiService = meiziRest.create(RetrofitService.MeizhiService.class);
         gankVideoService = gandVideoRest.create(RetrofitService.GankVideoService.class);
+        douBanMovieServiceService = douBanMovieRest.create(RetrofitService.DouBanMovieService.class);
     }
 
     public RetrofitService.ZhihuDaliyService getZhihuDaliyService(){
@@ -64,4 +68,7 @@ public class DrakeetRetrofit {
         return gankVideoService;
     }
 
+    public RetrofitService.DouBanMovieService getDouBanMovieService(){
+        return douBanMovieServiceService;
+    }
 }

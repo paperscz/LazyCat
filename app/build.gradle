@@ -83,5 +83,6 @@ dependencies {
     compile "com.github.hotchemi:permissionsdispatcher:${PermissiondispatcherVersion}"
     apt "com.github.hotchemi:permissionsdispatcher-processor:${PermissiondispatcherVersion}"
     // Junit
+    compile 'com.android.support:support-v4:26.0.0'
     testCompile 'junit:junit:4.12'
 }

@@ -9,7 +9,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,15 +17,13 @@ import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.sky.lazycat.R;
-import com.sky.lazycat.app.BaseApplication;
 import com.sky.lazycat.data.zhihu.Zhihu;
 import com.sky.lazycat.details.DetailsActivity;
 import com.sky.lazycat.interfaces.OnViewScrollListener;
 import com.sky.lazycat.retrofit.RetrofitService;
-import com.sky.lazycat.timeline.GlideImageLoader;
+import com.sky.lazycat.util.GlideImageLoader;
 import com.sky.lazycat.util.DateFormatUtil;
 import com.sky.lazycat.util.ShareUtils;
-import com.sky.lazycat.util.ToastUtils;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -69,7 +66,6 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
     public static ZhihuFragment newInstance() {
         return new ZhihuFragment();
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -264,7 +260,6 @@ public class ZhihuFragment extends Fragment implements ZhihuDataContract.View{
         mBanner.start();
 
     }
-
 
     public void showDatePickerDialog(){
         final Calendar c = Calendar.getInstance();

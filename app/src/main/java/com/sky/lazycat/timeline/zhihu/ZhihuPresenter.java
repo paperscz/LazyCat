@@ -23,7 +23,8 @@ public class ZhihuPresenter implements ZhihuDataContract.Presenter {
     }
 
     @Override
-    public void start() {   }
+    public void start() {
+    }
 
     @Override
     public void loadZhihu(final boolean isLatest, boolean forceUpdate, String date) {

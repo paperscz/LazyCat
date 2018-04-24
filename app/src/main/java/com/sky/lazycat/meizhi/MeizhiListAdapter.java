@@ -51,7 +51,7 @@ public class MeizhiListAdapter extends RecyclerView.Adapter<MeizhiListAdapter.Vi
         Glide.with(mContext)
                 .load(meizhi.getUrl())
                 .centerCrop()
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(viewHolder.iv_meizhi)
                 .getSize(new SizeReadyCallback() {
                     @Override

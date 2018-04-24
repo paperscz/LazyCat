@@ -31,6 +31,11 @@
     <dimen name="paddingtop_height">20dp</dimen>
     <dimen name="divider_height">1dp</dimen>
 
+    <!-- DouBanMovieFragment -->
+    <dimen name="movie_item_height">216dp</dimen>
+    <dimen name="movie_item_img_width">140dp</dimen>
+    <dimen name="movie_item_img_height">200dp</dimen>
+
     <!-- Gank -->
     <!--<dimen name="gank_header_height">224dp</dimen>-->
     <dimen name="gank_headimg_height">200dp</dimen>
