@@ -17,5 +17,4 @@ public final class InfoConstants {
     public static final String KEY_TIME_OF_SAVING_ARTICLES = "time_of_saving_articles";
     public static final String KEY_CLEAR_GLIDE_CACHE = "clear_glide_cache";
 
-
 }
