@@ -1,9 +1,10 @@
-package com.sky.test;
+package com.sky.test.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.sky.test.R;
 import com.sky.test.util.LogUtils;
 
 import io.reactivex.Observable;
@@ -24,7 +25,7 @@ public class RxBaseTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_rx_base);
     }
 
     /**

@@ -1,8 +1,9 @@
 package com.sky.test.util;
 
-import android.support.v7.appcompat.BuildConfig;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.sky.test.BuildConfig;
 
 import java.util.List;
 

@@ -88,6 +88,10 @@ dependencies {
     // RxJava 和 RxAndroid
     compile 'io.reactivex.rxjava2:rxjava:2.2.4'
     compile 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    //retrofit
+    compile 'com.squareup.retrofit2:retrofit:2.5.0'
+    //Gson converter
+    compile 'com.squareup.retrofit2:converter-gson:2.5.0'
     // Junit
     compile 'com.android.support:support-v4:26.0.0'
     testCompile 'junit:junit:4.12'
