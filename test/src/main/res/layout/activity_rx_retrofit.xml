@@ -37,4 +37,16 @@
         android:onClick="retrofitMap"
         android:text="retrofitMap"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="rxZip"
+        android:text="rxZip"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="retrofitZip"
+        android:text="retrofitZip"/>
+
 </LinearLayout>

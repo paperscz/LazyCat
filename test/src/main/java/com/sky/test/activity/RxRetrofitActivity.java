@@ -3,8 +3,6 @@ package com.sky.test.activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.DateFormat;
-import android.text.format.DateUtils;
 import android.view.View;
 
 import com.sky.test.R;
@@ -14,10 +12,8 @@ import com.sky.test.net.MeizhiData;
 import com.sky.test.net.RetrofitService;
 import com.sky.test.util.LogUtils;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
@@ -28,6 +24,7 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -84,6 +81,7 @@ public class RxRetrofitActivity extends AppCompatActivity{
                 emitter.onNext(4);
             }
         }).map(new Function<Integer, String>() {
+            // Function<事件1的结果类型，处理后的结果类型>
             @Override
             public String apply(@NonNull Integer integer) throws Exception {
                 return "Change to String " + integer;
@@ -181,8 +179,108 @@ public class RxRetrofitActivity extends AppCompatActivity{
                         LogUtils.i(TAG,throwable.getMessage());
                     }
                 });
-
-
     }
+
+    /**
+     * zip 合并两个事件
+     * @param view
+     */
+    public void rxZip(View view){
+        Observable.zip(Observable.create(new ObservableOnSubscribe<Integer>() {
+            // 事件 1 做的事
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                LogUtils.i(TAG,Thread.currentThread().getName());
+                LogUtils.i(TAG,"emitter 1");
+                emitter.onNext(1);
+                Thread.sleep(1000);
+
+                LogUtils.i(TAG,Thread.currentThread().getName());
+                LogUtils.i(TAG,"emitter 2");
+                emitter.onNext(2);
+                Thread.sleep(1000);
+
+                LogUtils.i(TAG,Thread.currentThread().getName());
+                LogUtils.i(TAG,"emitter 3");
+                emitter.onNext(3);
+                Thread.sleep(1000);
+
+                LogUtils.i(TAG,Thread.currentThread().getName());
+                LogUtils.i(TAG,"emitter 4");
+                emitter.onNext(4);
+//                Thread.sleep(1000);
+
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io())
+                , Observable.create(new ObservableOnSubscribe<String>() {
+            // 事件 2 做的事
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<String> emitter) throws Exception {
+                LogUtils.i(TAG,Thread.currentThread().getName());
+                LogUtils.i(TAG,"emitter A");
+                emitter.onNext("A");
+                Thread.sleep(1000);
+
+                LogUtils.i(TAG,Thread.currentThread().getName());
+                LogUtils.i(TAG,"emitter B");
+                emitter.onNext("B");
+                Thread.sleep(1000);
+
+                LogUtils.i(TAG,Thread.currentThread().getName());
+                LogUtils.i(TAG,"emitter C");
+                emitter.onNext("C");
+                Thread.sleep(1000);
+
+                emitter.onComplete();
+            }
+        }).subscribeOn(Schedulers.io())
+                , new BiFunction<Integer, String, String>() {
+                    //BiFunction<事件1的结果类型，事件2的结果类型，处理过后想要的结果类型>
+            @Override
+            public String apply(@NonNull Integer integer, @NonNull String s) throws Exception {
+                return integer + s;
+            }
+        }).subscribe(new Observer<String>() {
+            @Override
+            public void onSubscribe(@NonNull Disposable d) {
+            }
+
+            @Override
+            public void onNext(@NonNull String s) {
+                LogUtils.i(TAG,"onNext" + s);
+            }
+
+            @Override
+            public void onError(@NonNull Throwable e) {
+            }
+
+            @Override
+            public void onComplete() {
+            }
+        });
+    }
+
+    public void retrofitZip(View view){
+        final RetrofitService meizi = HttpUtil.getInstance().create(RetrofitService.class);
+        Observable.zip(meizi.getMeizhiData(1, 1)
+                        .subscribeOn(Schedulers.io())
+                , meizi.getGankData("2015/08/07")
+                        .subscribeOn(Schedulers.io())
+                , new BiFunction<MeizhiData, GankData, String>() {
+                    @Override
+                    public String apply(@NonNull MeizhiData meizhiData, @NonNull GankData gankData) throws Exception {
+                        return meizhiData.getResults().get(0).getUrl() + gankData.getResults().getAndroid().get(0).getDesc();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        LogUtils.i(TAG, s);
+                    }
+                });
+    }
+
 
 }
