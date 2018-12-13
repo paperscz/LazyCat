@@ -6,17 +6,25 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="base"
-        android:text="基础"/>
+        android:onClick="flowableTest"
+        android:text="flowable基础"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="retrofit"
-        android:text="retrofit"/>
+        android:onClick="flowableAdd"
+        android:text="flowable容量+"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="flowable"
-        android:text="flowable"/>
+        android:onClick="flowableBackTest"
+        android:text="flowableBackTest"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="flowableCount"
+        android:text="flowableCount"/>
 
 </LinearLayout>

@@ -30,4 +30,8 @@ public class MainActivity extends AppCompatActivity{
         startActivity(new Intent(this,RxRetrofitActivity.class));
     }
 
+    public void flowable(View view){
+        startActivity(new Intent(this,FlowableActivity.class));
+    }
+
 }

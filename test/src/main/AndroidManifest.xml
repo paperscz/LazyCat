@@ -15,6 +15,7 @@
         </activity>
         <activity android:name=".activity.RxBaseTestActivity" />
         <activity android:name=".activity.RxRetrofitActivity" />
+        <activity android:name=".activity.FlowableActivity" />
     </application>
 
 </manifest>

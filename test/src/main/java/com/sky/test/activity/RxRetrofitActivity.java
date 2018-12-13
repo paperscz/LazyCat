@@ -27,6 +27,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -280,6 +281,78 @@ public class RxRetrofitActivity extends AppCompatActivity{
                         LogUtils.i(TAG, s);
                     }
                 });
+    }
+
+    public void rxOOM(View view){
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                for (int i = 0; ;i++){
+                    emitter.onNext(i);
+                }
+            }
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtils.i(TAG, integer+"");
+            }
+        });
+    }
+
+    /**
+     * Filter 过滤器，把结果过滤成需要的再往结果线程发送
+     * @param view
+     */
+    public void rxFilter(View view){
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                for (int i = 0; ;i++){
+                    emitter.onNext(i);
+                }
+            }
+        })
+        .subscribeOn(Schedulers.io())
+                .filter(new Predicate<Integer>() {
+                    @Override
+                    public boolean test(@NonNull Integer integer) throws Exception {
+                        return integer % 10 == 0;
+                    }
+                })
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Consumer<Integer>() {
+            @Override
+            public void accept(Integer integer) throws Exception {
+                LogUtils.i(TAG, integer+"");
+            }
+        });
+    }
+
+    /**
+     * 取样，有条件的接收发送来的数据
+     * @param view
+     */
+    public void rxSample(View view){
+        Observable.create(new ObservableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@NonNull ObservableEmitter<Integer> emitter) throws Exception {
+                for (int i = 0; ;i++){
+                    emitter.onNext(i);
+                }
+            }
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .sample(2000,TimeUnit.MILLISECONDS)
+                .subscribe(new Consumer<Integer>() {
+                    @Override
+                    public void accept(Integer integer) throws Exception {
+                        LogUtils.i(TAG, integer+"");
+                    }
+                });
+
     }
 
 
