@@ -80,7 +80,7 @@ public class FlowableActivity extends AppCompatActivity{
      */
     public void flowableAdd(View view){
         if(null != mSubscription){
-            mSubscription.request(128);
+            mSubscription.request(100);
         }
     }
 
@@ -128,7 +128,13 @@ public class FlowableActivity extends AppCompatActivity{
         Flowable.create(new FlowableOnSubscribe<Integer>() {
             @Override
             public void subscribe(@NonNull FlowableEmitter<Integer> emitter) throws Exception {
-                LogUtils.i(TAG,"下游可接受事件数量："+emitter.requested());
+                //同线程下，暂存区缓存数量默认0
+                //这里的数量 emitter.requested() 每当下游接收/处理一个事件，便减少一个
+                LogUtils.i(TAG,"缓存区可接受事件数量："+ emitter.requested());
+                emitter.onNext(1);
+                LogUtils.i(TAG,"缓存区可接受事件数量："+ emitter.requested());
+                emitter.onNext(2);
+                LogUtils.i(TAG,"缓存区可接受事件数量："+ emitter.requested());
             }
         },BackpressureStrategy.ERROR)
                 .subscribe(new Subscriber<Integer>() {
@@ -140,12 +146,62 @@ public class FlowableActivity extends AppCompatActivity{
 
                     @Override
                     public void onNext(Integer integer) {
-
+                        LogUtils.i(TAG,integer+"");
                     }
 
                     @Override
                     public void onError(Throwable t) {
 
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    public void flowableCountSync(View view){
+        Flowable.create(new FlowableOnSubscribe<Integer>() {
+            @Override
+            public void subscribe(@NonNull FlowableEmitter<Integer> emitter) throws Exception {
+                //不同线程
+                //暂存区缓存数量事件默认 128，下游处理事件能力默认为0
+                //当下游设置数量超过96时，重新设置缓存区数量，就又能继续往缓存区放事件
+                //下游调用 s.request() 时才拥有接收/处理事件的能力，执行onNext
+                LogUtils.i(TAG,"暂存区缓存事件数量"+emitter.requested());
+                boolean flag;
+                for (int i = 0;;i++){
+                    flag = false;
+                    //当缓存区数量为0时，进入这个死循环，不执行发送操作
+                    while (emitter.requested() == 0){
+                        if(!flag){
+                            flag = true;
+                            LogUtils.i(TAG,"缓存区满了，不能再存更多了");
+                        }
+                    }
+                    emitter.onNext(i);
+                    LogUtils.i(TAG,"发送事件"+i);
+                }
+
+            }
+        },BackpressureStrategy.ERROR)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<Integer>() {
+                    @Override
+                    public void onSubscribe(Subscription s) {
+                        mSubscription = s;
+                    }
+
+                    @Override
+                    public void onNext(Integer integer) {
+                        LogUtils.i(TAG,"下游接收"+integer);
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LogUtils.w(TAG,t);
                     }
 
                     @Override

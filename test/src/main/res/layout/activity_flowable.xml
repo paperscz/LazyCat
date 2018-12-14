@@ -27,4 +27,10 @@
         android:onClick="flowableCount"
         android:text="flowableCount"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="flowableCountSync"
+        android:text="flowableCountSync"/>
+
 </LinearLayout>
