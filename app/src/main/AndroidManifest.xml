@@ -4,44 +4,50 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 
     <application
+        android:name=".app.BaseApplication"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:debuggable = "true"
-        android:theme="@style/AppTheme"
-        android:name=".app.BaseApplication">
-
+        android:theme="@style/AppTheme">
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
+        </activity>
+        <activity
+            android:name=".ui.PhotoViewActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/FullScreenTheme" />
+        <activity android:name=".ui.GankActivity" />
+        <activity
+            android:name=".ui.WebActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".details.DetailsActivity" />
+
+        <service android:name=".service.TestService" />
+
+        <activity
+            android:name=".ui.LoginActivityGoogle"
+            android:label="@string/title_activity_login"
+            android:theme="@style/DarkActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.PhotoViewActivity"
-            android:theme="@style/FullScreenTheme"
-            android:launchMode="singleTask"/>
-
-        <activity android:name=".ui.GankActivity"/>
-
-        <activity android:name=".ui.WebActivity"
-            android:launchMode="singleTask"/>
-
-        <activity android:name=".details.DetailsActivity"/>
-
-        <service
-            android:name=".service.TestService">
-        </service>
-
     </application>
 
 </manifest>

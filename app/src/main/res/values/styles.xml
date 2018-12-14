@@ -16,6 +16,16 @@
         <!--<item name="android:statusBarColor">@android:color/transparent</item>-->
     </style>
 
+    <!-- Base application theme. -->
+    <style name="DarkActionBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- 导航栏颜色 -->
+        <item name="colorPrimary">@color/bg_orange</item>
+        <!-- 通知栏颜色 5.0 以后有效-->
+        <item name="colorPrimaryDark">@color/bg_orange</item>
+        <!-- 控件选中后颜色 -->
+        <item name="colorAccent">@color/bg_orange</item>
+    </style>
+
     <style name="FullScreenTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowFullscreen">true</item>

@@ -22,4 +22,8 @@
     <color name="md_amber_100">#ffecb3</color>
     <color name="md_grey_400">#bdbdbd</color>
 
+    <color name="bg_orange">#F8A61C</color>
+    <color name="bg_orange_300">#ffb74d</color>
+    <color name="bg_orange_700">#f57c00</color>
+
 </resources>
