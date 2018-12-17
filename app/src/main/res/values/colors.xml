@@ -23,6 +23,8 @@
     <color name="md_grey_400">#bdbdbd</color>
 
     <color name="bg_orange">#F8A61C</color>
+    <!--颜色由浅到深-->
+    <color name="bg_orange_200">#ffcc80</color>
     <color name="bg_orange_300">#ffb74d</color>
     <color name="bg_orange_700">#f57c00</color>
 

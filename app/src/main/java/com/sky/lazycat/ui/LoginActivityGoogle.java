@@ -3,37 +3,35 @@ package com.sky.lazycat.ui;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
+
+import com.sky.lazycat.R;
+import com.sky.lazycat.util.ToastUtils;
+import com.sky.lazycat.widget.ClearEditText;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.sky.lazycat.R;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -59,20 +57,47 @@ public class LoginActivityGoogle extends AppCompatActivity implements LoaderCall
     private UserLoginTask mAuthTask = null;
 
     // UI references.
-    private AutoCompleteTextView mEmailView;
-    private EditText mPasswordView;
+    private ClearEditText mPhone;
+    private ClearEditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        final Button loginButton = findViewById(R.id.btn_sign_in);
+        loginButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                attemptLogin();
+            }
+        });
+
+        ClearEditText.OnTextChangedListener onTextChangedListener = new ClearEditText.OnTextChangedListener() {
+            @Override
+            public void afterTextChanged() {
+                String phone = mPhone.getText().toString().replaceAll(" ","");
+                String password = mPasswordView.getText().toString().replaceAll(" ","");
+                if(isPhoneValid(phone) && isPasswordValid(password)){
+                    loginButton.setEnabled(true);
+                } else {
+                    loginButton.setEnabled(false);
+                }
+            }
+        };
+
         // Set up the login form.
-        mEmailView = findViewById(R.id.email);
+        mPhone = findViewById(R.id.atv_phone);
+        // 输入 1 个字符弹出提示
+        mPhone.setThreshold(1);
+        mPhone.setmOnTextChangedListener(onTextChangedListener);
         populateAutoComplete();
 
-        mPasswordView = findViewById(R.id.password);
+        mPasswordView = findViewById(R.id.et_password);
+        mPasswordView.setmOnTextChangedListener(onTextChangedListener);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -83,15 +108,6 @@ public class LoginActivityGoogle extends AppCompatActivity implements LoaderCall
                 return false;
             }
         });
-
-        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
-
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
@@ -115,7 +131,7 @@ public class LoginActivityGoogle extends AppCompatActivity implements LoaderCall
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(mPhone, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
@@ -154,11 +170,11 @@ public class LoginActivityGoogle extends AppCompatActivity implements LoaderCall
         }
 
         // Reset errors.
-        mEmailView.setError(null);
+        mPhone.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
-        String phone = mEmailView.getText().toString().replaceAll(" ","");
+        String phone = mPhone.getText().toString().replaceAll(" ","");
         String password = mPasswordView.getText().toString().replaceAll(" ","");
 
         boolean cancel = false;
@@ -166,19 +182,21 @@ public class LoginActivityGoogle extends AppCompatActivity implements LoaderCall
 
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            // 错误提示的位置与删除键 × 冲突
+//            mPasswordView.setError(getString(R.string.error_invalid_password));
+            ToastUtils.showShort(LoginActivityGoogle.this,getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address.
         if (TextUtils.isEmpty(phone)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
+            ToastUtils.showShort(LoginActivityGoogle.this,getString(R.string.error_field_required));
+            focusView = mPhone;
             cancel = true;
         } else if (!isPhoneValid(phone)) {
-            mEmailView.setError(getString(R.string.error_invalid_phone));
-            focusView = mEmailView;
+            ToastUtils.showShort(LoginActivityGoogle.this,getString(R.string.error_invalid_phone));
+            focusView = mPhone;
             cancel = true;
         }
 
@@ -202,7 +220,7 @@ public class LoginActivityGoogle extends AppCompatActivity implements LoaderCall
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 3;
     }
 
     /**
@@ -267,7 +285,7 @@ public class LoginActivityGoogle extends AppCompatActivity implements LoaderCall
                 new ArrayAdapter<>(LoginActivityGoogle.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
-        mEmailView.setAdapter(adapter);
+        mPhone.setAdapter(adapter);
     }
 
     /**
@@ -289,7 +307,7 @@ public class LoginActivityGoogle extends AppCompatActivity implements LoaderCall
 
             try {
                 // 模拟网络登陆操作
-                Thread.sleep(2000);
+                Thread.sleep(1000);
             } catch (InterruptedException e) {
                 return false;
             }
@@ -316,7 +334,7 @@ public class LoginActivityGoogle extends AppCompatActivity implements LoaderCall
                 startActivity(intent);
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                ToastUtils.showShort(LoginActivityGoogle.this,getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
         }

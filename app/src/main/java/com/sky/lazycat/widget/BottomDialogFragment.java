@@ -3,11 +3,8 @@ package com.sky.lazycat.widget;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -17,11 +14,7 @@ import android.widget.TextView;
 
 import com.sky.lazycat.R;
 import com.sky.lazycat.app.BaseApplication;
-import com.sky.lazycat.base.BaseDialogFragment;
-import com.sky.lazycat.util.ToastUtils;
 import com.sky.lazycat.util.UIUtils;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,7 +22,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
- * Created by yuetu-develop on 2017/9/20.
+ * 可使用 Bottom Sheets 替换
  */
 
 public class BottomDialogFragment extends DialogFragment {
@@ -54,6 +47,7 @@ public class BottomDialogFragment extends DialogFragment {
         return INSTANCE_BDF;
     }
 
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
@@ -111,8 +105,6 @@ public class BottomDialogFragment extends DialogFragment {
                 optionText.setBackgroundResource(R.drawable.item_selector);
             }
         }
-
-
     }
 
     @OnClick(R.id.tv_dialog_cancle)
