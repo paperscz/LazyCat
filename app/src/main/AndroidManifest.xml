@@ -39,15 +39,18 @@
         <service android:name=".service.TestService" />
 
         <activity
-            android:name=".ui.LoginActivityGoogle"
+            android:name=".ui.LoginActivity"
+            android:windowSoftInputMode="adjustResize"
             android:label="@string/title_activity_login"
-            android:theme="@style/DarkActionBarTheme">
+            android:theme="@style/LightActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".base.BaseAppCompatActivity" />
+
     </application>
 
 </manifest>

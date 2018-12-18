@@ -107,7 +107,7 @@ public class DetailsFragment extends Fragment implements DetailsContract.View{
         DetailsActivity activity = (DetailsActivity) getActivity();
         activity.setSupportActionBar(toolbar);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
+        activity.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_black_24dp);
 
         mWebView.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mWebView.getSettings().setLoadsImagesAutomatically(true);

@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -31,7 +30,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -78,7 +76,7 @@ public class GankActivity extends AppCompatActivity {
 
         this.setSupportActionBar(toolbar);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back_24dp);
+        this.getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_black_24dp);
     }
 
     @Override

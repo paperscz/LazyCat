@@ -33,11 +33,11 @@
                     app:layout_collapseParallaxMultiplier="0.7"
                     android:transitionName="meizhi"/>
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"/>
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_collapseMode="pin"/>
 
             <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
             <!--app:titleTextColor="@drawable/nav_item_color"-->

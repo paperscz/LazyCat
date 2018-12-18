@@ -1,7 +1,7 @@
 
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -17,7 +17,7 @@
     </style>
 
     <!-- Base application theme. -->
-    <style name="DarkActionBarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="LightActionBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- 导航栏颜色 -->
         <item name="colorPrimary">@color/bg_orange</item>
         <!-- 通知栏颜色 5.0 以后有效-->
