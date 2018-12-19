@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        EditText et_soft = findViewById(R.id.et_soft);
     }
 
     public void base(View view){

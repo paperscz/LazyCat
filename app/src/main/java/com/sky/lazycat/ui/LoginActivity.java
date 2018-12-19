@@ -13,9 +13,9 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,6 +27,8 @@ import android.widget.TextView;
 
 import com.sky.lazycat.R;
 import com.sky.lazycat.base.BaseAppCompatActivity;
+import com.sky.lazycat.constants.Constants;
+import com.sky.lazycat.util.SPUtils;
 import com.sky.lazycat.util.ToastUtils;
 import com.sky.lazycat.widget.ClearEditText;
 
@@ -65,6 +67,8 @@ public class LoginActivity extends BaseAppCompatActivity implements LoaderCallba
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+//        checkLogin();
 
         final Button loginButton = findViewById(R.id.btn_sign_in);
         loginButton.setOnClickListener(new OnClickListener() {
@@ -108,6 +112,18 @@ public class LoginActivity extends BaseAppCompatActivity implements LoaderCallba
         });
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    /**
+     * 登录状态保存
+     */
+    private void checkLogin() {
+        boolean isLogin = (boolean) SPUtils.get(LoginActivity.this, Constants.BOOLEAN_LOGIN,false);
+        if(isLogin){
+            Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override
@@ -261,6 +277,11 @@ public class LoginActivity extends BaseAppCompatActivity implements LoaderCallba
                 .CONTENT_URI, null, null, null, null);
     }
 
+    /**
+     * CursorLoader加载完成回调
+     * @param cursorLoader
+     * @param cursor
+     */
     @Override
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
@@ -274,16 +295,18 @@ public class LoginActivity extends BaseAppCompatActivity implements LoaderCallba
             cursor.moveToNext();
         }
 
-        addEmailsToAutoComplete(emails);
+        addDatasToAutoComplete(emails);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
-
     }
 
-    private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
-        //创建 AutoCompleteTextView 列表
+    /**
+     * 用来给 AutoCompleteTextView 设置数据源
+     * @param emailAddressCollection 数据列表
+     */
+    private void addDatasToAutoComplete(List<String> emailAddressCollection) {
         ArrayAdapter<String> adapter =
                 new ArrayAdapter<>(LoginActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
@@ -294,7 +317,7 @@ public class LoginActivity extends BaseAppCompatActivity implements LoaderCallba
     /**
      * 模拟异步登陆操作
      */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+    private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mEmail;
         private final String mPassword;
@@ -335,6 +358,7 @@ public class LoginActivity extends BaseAppCompatActivity implements LoaderCallba
             if (success) {
                 Intent intent = new Intent(LoginActivity.this,MainActivity.class);
                 startActivity(intent);
+                SPUtils.put(LoginActivity.this, Constants.BOOLEAN_LOGIN,true);
                 finish();
             } else {
                 ToastUtils.showShort(LoginActivity.this,getString(R.string.error_incorrect_password));

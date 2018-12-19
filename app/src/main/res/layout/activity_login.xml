@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -38,6 +39,9 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
+                app:counterEnabled="true"
+                app:counterMaxLength="11"
+                app:counterOverflowTextAppearance="@style/HintError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -83,4 +87,5 @@
 
         </LinearLayout>
     </ScrollView>
+
 </LinearLayout>

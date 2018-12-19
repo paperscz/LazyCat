@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-     android:color="@color/bg_orange_700">
+     android:color="@color/bg_orange_700">  <!--被点击以后的颜色-->
     <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <!--默认填充色-->
             <solid android:color="@color/bg_orange_300" />
+            <!--圆角弧度-->
             <corners android:radius="3dp" />
         </shape>
     </item>
