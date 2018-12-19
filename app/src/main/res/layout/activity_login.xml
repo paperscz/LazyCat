@@ -39,9 +39,6 @@
             android:orientation="vertical">
 
             <android.support.design.widget.TextInputLayout
-                app:counterEnabled="true"
-                app:counterMaxLength="11"
-                app:counterOverflowTextAppearance="@style/HintError"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
