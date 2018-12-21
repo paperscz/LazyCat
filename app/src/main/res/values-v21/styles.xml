@@ -1,12 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="MaterialPreferenceTheme" parent="PreferenceThemeOverlay.v14.Material">
-        <item name="android:fadeScrollbars">true</item>
-        <item name="android:scrollbars">vertical</item>
-        <item name="android:scrollbarFadeDuration">1</item>
-        <item name="android:background">@color/colorBaseBackground</item>
-        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
-        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
-    </style>
 </resources>

@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
-apply plugin: 'android-apt'
+apply plugin: 'com.jakewharton.butterknife'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion rootProject.ext.CompileSdkVersion
+    buildToolsVersion rootProject.ext.BuildToolsVersion
     defaultConfig {
         applicationId "com.sky.lazycat"
-        minSdkVersion 16
-        targetSdkVersion 26
+        minSdkVersion rootProject.ext.MinSdkVersion
+        targetSdkVersion rootProject.ext.TargetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -22,77 +22,46 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
 }
-ext {
-    supportLibVersion = '26.0.0'
-    constraintVersion = '1.0.2'
-    gsonVersion = '2.8.0'
-    datetimePickerVersion = '3.1.3'
-    glideVersion = '3.7.0'
-    archRoomVersion = '1.0.0-alpha3'
-    retrofitVersion = '2.2.0'
-    PhotoViewVersion = '2.1.3'
-    BrvanVersion = '2.9.22'
-    ButterknifeVersion = '8.8.1'
-    numberprogressbarVersion = '1.4@aar'
-    bannerVersion = '1.4.9'
-    cardBannerVersion = 'v2.0.0'
-    PermissiondispatcherVersion = '3.0.1'
-}
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
     // 基础支持包
-    compile "com.android.support:appcompat-v7:${supportLibVersion}"
-    compile "com.android.support:design:${supportLibVersion}"
-    compile "com.android.support.constraint:constraint-layout:${constraintVersion}"
-    compile "com.android.support:preference-v14:${supportLibVersion}"
-    compile "com.android.support:customtabs:${supportLibVersion}"
+    compile "com.android.support:support-v4:$rootProject.ext.SupportLibVersion"
+    compile "com.android.support:appcompat-v7:$rootProject.ext.SupportLibVersion"
+    compile "com.android.support:design:$rootProject.ext.SupportLibVersion"
+    compile "com.android.support:preference-v14:$rootProject.ext.SupportLibVersion"
     // CardView
-    compile "com.android.support:cardview-v7:${supportLibVersion}"
-    // Google Room
-    compile "android.arch.persistence.room:runtime:${archRoomVersion}"
-    annotationProcessor "android.arch.persistence.room:compiler:${archRoomVersion}"
+    compile "com.android.support:cardview-v7:$rootProject.ext.SupportLibVersion"
     // Retrofit series
-    compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
-    compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
+    compile "com.squareup.retrofit2:retrofit:$rootProject.ext.RetrofitVersion"
+    compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.RetrofitVersion"
     // Glide
-    compile "com.github.bumptech.glide:glide:${glideVersion}"
+    compile "com.github.bumptech.glide:glide:$rootProject.ext.GlideVersion"
     // Material date time picker
-    compile("com.wdullaer:materialdatetimepicker:${datetimePickerVersion}") {
+    compile('com.wdullaer:materialdatetimepicker:3.1.3') {
         exclude group: 'com.android.support'
     }
     // BRVAH
-    compile "com.github.CymChad:BaseRecyclerViewAdapterHelper:${BrvanVersion}"
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
     // PhotoView
-    compile "com.github.chrisbanes:PhotoView:${PhotoViewVersion}"
+    compile 'com.github.chrisbanes:PhotoView:2.1.3'
     // Butterknife
-    compile "com.jakewharton:butterknife:${ButterknifeVersion}"
-    apt "com.jakewharton:butterknife-compiler:${ButterknifeVersion}"
-    // 代码家的numberprogressbar
-    compile "com.daimajia.numberprogressbar:library:${numberprogressbarVersion}"
+    compile "com.jakewharton:butterknife:$rootProject.ext.ButterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.ButterknifeVersion"
     // banner普通Banner
-    compile "com.youth.banner:banner:${bannerVersion}"
+    compile "com.youth.banner:banner:${BannerVersion}"
     // cardBanner
-    compile "com.github.pinguo-zhouwei:MZBannerView:${cardBannerVersion}"
-    // Permissiondispatcher 6.0以上权限申请
-    compile "com.github.hotchemi:permissionsdispatcher:${PermissiondispatcherVersion}"
-    apt "com.github.hotchemi:permissionsdispatcher-processor:${PermissiondispatcherVersion}"
+    compile "com.github.pinguo-zhouwei:MZBannerView:${CardBannerVersion}"
     // RxJava 和 RxAndroid
-    compile 'io.reactivex.rxjava2:rxjava:2.2.4'
-    compile 'io.reactivex.rxjava2:rxandroid:2.1.0'
-    //retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.5.0'
-    //Gson converter
-    compile 'com.squareup.retrofit2:converter-gson:2.5.0'
+    compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.RxJavaVersion"
+    compile "io.reactivex.rxjava2:rxandroid:$rootProject.ext.RxAndroidVersion"
+    //rxjava适配器
+    compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.Rxjava2AdapterVersion"
+    //okhttp
+    compile "com.squareup.okhttp3:okhttp:$rootProject.ext.OkHttpVersion"
+    compile "com.squareup.okhttp3:logging-interceptor:$rootProject.ext.OkHttpLoggingVersion"
     // Junit
-    compile 'com.android.support:support-v4:26.0.0'
     testCompile 'junit:junit:4.12'
 }

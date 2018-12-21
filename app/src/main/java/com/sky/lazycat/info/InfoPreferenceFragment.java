@@ -3,7 +3,6 @@ package com.sky.lazycat.info;
 import android.os.Bundle;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.sky.lazycat.R;

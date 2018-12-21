@@ -1,10 +1,8 @@
 package com.sky.lazycat.ui;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -19,29 +17,20 @@ import android.view.View;
 
 import com.sky.lazycat.R;
 import com.sky.lazycat.util.SDFileHelper;
-import com.sky.lazycat.util.ShareUtils;
 import com.sky.lazycat.util.ToastUtils;
 import com.sky.lazycat.widget.BottomDialogFragment;
 import com.sky.lazycat.widget.PhotoViewPager;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import permissions.dispatcher.NeedsPermission;
-import permissions.dispatcher.OnNeverAskAgain;
-import permissions.dispatcher.OnPermissionDenied;
-import permissions.dispatcher.OnShowRationale;
-import permissions.dispatcher.PermissionRequest;
-import permissions.dispatcher.RuntimePermissions;
 
 /**
  * Created by yuetu-develop on 2017/8/16.
  */
-@RuntimePermissions
 public class PhotoViewActivity extends AppCompatActivity implements BottomDialogFragment.OptionClickLisenter{
 
     @BindView(R.id.pvp_viewpager) PhotoViewPager mPhotoViewPager;
@@ -118,14 +107,11 @@ public class PhotoViewActivity extends AppCompatActivity implements BottomDialog
 //        ToastUtils.showShort(this,option);
         if(!TextUtils.isEmpty(option) && option.equals(TEXT_SAVE)){
             isShare = false;
-            PhotoViewActivityPermissionsDispatcher.showSavePermissionWithPermissionCheck(this);
         }else if(!TextUtils.isEmpty(option) && option.equals(TEXT_SHARE)){
             isShare = true;
-            PhotoViewActivityPermissionsDispatcher.showSavePermissionWithPermissionCheck(this);
         }
     }
-    // 需要权限的方法
-    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
     void showSavePermission(){
         SDFileHelper helper = new SDFileHelper(this);
         helper.savePicture("Cat_"+System.currentTimeMillis(),mUrls.get(currentPosition),isShare);
@@ -152,12 +138,10 @@ public class PhotoViewActivity extends AppCompatActivity implements BottomDialog
 //    }
 
     // 用户拒绝权限
-    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void showRecordDenied(){
         ToastUtils.showShort(this,"用户拒绝，无法保存图片");
     }
     // 用户勾选不再提示后再次申请
-    @OnNeverAskAgain(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     void onRecordNeverAskAgain() {
         new AlertDialog.Builder(this)
                 .setPositiveButton("好的", new DialogInterface.OnClickListener() {
@@ -181,7 +165,6 @@ public class PhotoViewActivity extends AppCompatActivity implements BottomDialog
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PhotoViewActivityPermissionsDispatcher.onRequestPermissionsResult(this,requestCode,grantResults);
     }
 
 

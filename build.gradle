@@ -1,14 +1,10 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-
 buildscript {
     repositories {
-//        maven { url 'https://maven.google.com' }
-//        maven { url "https://jitpack.io" }
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.3'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
     }
 }
 
@@ -17,10 +13,27 @@ allprojects {
         jcenter()
         maven { url 'https://maven.google.com' }
         maven { url "https://jitpack.io" }
-        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    BuildToolsVersion = "26.0.0"
+    CompileSdkVersion = 26
+    MinSdkVersion = 16
+    TargetSdkVersion = 26
+    SupportLibVersion = '26.0.0'
+    GlideVersion = '3.7.0'
+    RetrofitVersion = '2.2.0'
+    ButterknifeVersion = '8.8.1'
+    BannerVersion = '1.4.9'
+    CardBannerVersion = 'v2.0.0'
+    RxJavaVersion = '2.2.4'
+    RxAndroidVersion = '2.1.0'
+    Rxjava2AdapterVersion = '2.5.0'
+    OkHttpVersion = '3.4.1'
+    OkHttpLoggingVersion = '3.4.1'
 }

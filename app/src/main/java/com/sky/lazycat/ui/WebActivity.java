@@ -5,14 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextSwitcher;
 
-import com.daimajia.numberprogressbar.NumberProgressBar;
 import com.sky.lazycat.R;
 
 import butterknife.BindView;
@@ -28,7 +25,6 @@ public class WebActivity extends AppCompatActivity{
     private static final String EXTRA_URL = "extra_url";
     private static final String EXTRA_TITLE = "extra_title";
     private String mUrl, mTitle;
-    @BindView(R.id.progressbar) NumberProgressBar mProgressbar;
     @BindView(R.id.webView) WebView mWebView;
     private Unbinder unbinder;
 
@@ -70,15 +66,15 @@ public class WebActivity extends AppCompatActivity{
 
         @Override public void onProgressChanged(WebView view, int newProgress) {
             super.onProgressChanged(view, newProgress);
-            if(null == mProgressbar){
-                return;
-            }
-            mProgressbar.setProgress(newProgress);
-            if (newProgress == 100) {
-                mProgressbar.setVisibility(View.GONE);
-            } else {
-                mProgressbar.setVisibility(View.VISIBLE);
-            }
+//            if(null == mProgressbar){
+//                return;
+//            }
+//            mProgressbar.setProgress(newProgress);
+//            if (newProgress == 100) {
+//                mProgressbar.setVisibility(View.GONE);
+//            } else {
+//                mProgressbar.setVisibility(View.VISIBLE);
+//            }
         }
         @Override public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
